@@ -161,7 +161,8 @@ public class LoginMainActivity extends AppCompatActivity implements LanguageList
         modifyicon.setOnClickListener(view -> modifypassword());
         formicon.setOnClickListener(view -> nextPage());
         announcelinear.setOnClickListener(view -> { //最新訊息
-            shownews();
+            if(!account.matches("demo"))
+                shownews();
         });
         travellinear.setOnClickListener(view -> {   //旅遊資訊
             String url = "https://washpower.ga/";

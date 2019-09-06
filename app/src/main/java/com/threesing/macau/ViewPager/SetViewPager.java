@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.ListView;
 import com.threesing.macau.R;
 import com.threesing.macau.Support.Value;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
