@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- 邊框颜色值 -->
+    <item>
+        <shape>
+            <solid android:color="#000000" />
+        </shape>
+    </item>
+    <!-- 背景颜色值 -->
+    <item
+        android:left="2px"
+        android:right="2px"
+        android:bottom="2px">
+        <shape>
+            <solid android:color="@color/colorListviewChose" />
+        </shape>
+    </item>
+</layer-list>
