@@ -79,7 +79,7 @@ public class AnnounceActivity extends AppCompatActivity implements LanguageListe
         setLanguage.isSet();
 
         Runnable getimage = () -> {
-            String imageUri = "https://dl.kz168168.com/img/android-ad02.png";
+            String imageUri = "https://dl.kz168168.com/img/omen-ad01.png";
             preview_bitmap = internetImage.fetchImage(imageUri);
             handler.post(() -> {
                 gifImageView1.setImageBitmap(preview_bitmap);

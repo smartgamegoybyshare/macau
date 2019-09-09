@@ -87,7 +87,7 @@ public class MemberDataActivity extends AppCompatActivity {
             gifImageView1 = findViewById(R.id.imageView1);
 
             Runnable getimage = () -> {
-                String imageUri = "https://dl.kz168168.com/img/android-ad06.png";
+                String imageUri = "https://dl.kz168168.com/img/omen-ad06.png";
                 preview_bitmap = fetchImage(imageUri);
                 handler.post(() -> {
                     gifImageView1.setImageBitmap(preview_bitmap);
@@ -100,7 +100,7 @@ public class MemberDataActivity extends AppCompatActivity {
             gifImageView1.setImageDrawable(gifFromPath);*/
             gifImageView1.setOnClickListener(view -> {
                 //vibrator.vibrate(100);
-                Uri uri = Uri.parse("http://181282.com/");
+                Uri uri = Uri.parse("http://3singsport.win/");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             });

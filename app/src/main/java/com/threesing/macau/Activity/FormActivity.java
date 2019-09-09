@@ -153,7 +153,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
             TextView username = findViewById(R.id.textView1);
             gifImageView1 = findViewById(R.id.imageView1);
             Runnable getimage = () -> {
-                String imageUri = "https://dl.kz168168.com/img/android-ad03.png";
+                String imageUri = "https://dl.kz168168.com/img/omen-ad03.png";
                 preview_bitmap = fetchImage(imageUri);
                 handler.post(() -> {
                     gifImageView1.setImageBitmap(preview_bitmap);

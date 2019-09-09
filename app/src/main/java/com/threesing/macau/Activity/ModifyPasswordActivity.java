@@ -80,7 +80,7 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
         TextView nowTime = findViewById(R.id.nowTime);  //資料庫數據更新時間
         gifImageView1 = findViewById(R.id.imageView1); //廣告欄
         Runnable getimage = () -> {
-            String imageUri = "https://dl.kz168168.com/img/android-ad05.png";
+            String imageUri = "https://dl.kz168168.com/img/omen-ad05.png";
             preview_bitmap = fetchImage(imageUri);
             handler.post(() -> {
                 gifImageView1.setImageBitmap(preview_bitmap);

@@ -55,7 +55,7 @@ public class Howto2Activity extends AppCompatActivity implements LanguageListene
         GifImageView gifImageView2 = findViewById(R.id.imageView2); //說明圖
         try {
             Runnable getimage = () -> {
-                String imageUri = "https://dl.kz168168.com/img/android-ad02.png";
+                String imageUri = "https://dl.kz168168.com/img/omen-ad02.png";
                 preview_bitmap = internetImage.fetchImage(imageUri);
                 handler.post(() -> {
                     gifImageView1.setImageBitmap(preview_bitmap);
@@ -67,7 +67,7 @@ public class Howto2Activity extends AppCompatActivity implements LanguageListene
             gifImageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
             gifImageView1.setImageDrawable(gifFromPath);*/
             gifImageView1.setOnClickListener(view -> {
-                Uri uri = Uri.parse("http://181282.com/");
+                Uri uri = Uri.parse("http://3singsport.win/");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             });

@@ -30,6 +30,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.threesing.macau.Language.LanguageListener;
@@ -117,7 +119,7 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
         nowTime = findViewById(R.id.nowTime);
         gifImageView1 = findViewById(R.id.imageView1); //廣告欄
         Runnable getimage = () -> {
-            String imageUri = "https://dl.kz168168.com/img/android-ad02.png";
+            String imageUri = "https://dl.kz168168.com/img/omen-ad01.png";
             preview_bitmap = internetImage.fetchImage(imageUri);
             handler.post(() -> {
                 gifImageView1.setImageBitmap(preview_bitmap);
@@ -126,7 +128,7 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
         };
         new Thread(getimage).start();
         gifImageView1.setOnClickListener(view -> {
-            Uri uri = Uri.parse("http://181282.com/");
+            Uri uri = Uri.parse("http://3singsport.win/");
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
         });
@@ -142,12 +144,12 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
         setLanguage.isSet();
 
         webview = findViewById(R.id.web_view);
-        String userAgent = webview.getSettings().getUserAgentString();
+        /*String userAgent = webview.getSettings().getUserAgentString();
         if (!TextUtils.isEmpty(userAgent)) {    //去除浮窗式廣告
             webview.getSettings().setUserAgentString(userAgent
                     .replace("Android", "")
                     .replace("android", "") + " cldc");
-        }
+        }*/
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setSupportZoom(true); // 支持缩放
         // 设置出现缩放工具
@@ -251,12 +253,38 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED); //Notify client once download is completed!
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
         DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+        long downloadId = 0;
         if (dm != null) {
-            dm.enqueue(request);
+            downloadId = dm.enqueue(request);
         }
         Toast.makeText(getApplicationContext(), "即將開始下載",
                 //To notify the Client that the file is being downloaded
                 Toast.LENGTH_LONG).show();
+        Log.e(TAG, "downloadId = " + downloadId);
+        /*NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
+        builder.setContentTitle("Picture Download")
+                .setContentText("Download in progress")
+                .setSmallIcon(R.drawable.app_icon_mini)
+                .setPriority(NotificationCompat.PRIORITY_LOW);
+
+// Issue the initial notification with zero progress
+        int PROGRESS_MAX = 100;
+        int PROGRESS_CURRENT = 0;
+        builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
+        notificationManager.notify(notificationId, builder.build());
+
+// Do the job here that tracks the progress.
+// Usually, this should be in a
+// worker thread
+// To show progress, update PROGRESS_CURRENT and update the notification with:
+// builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
+// notificationManager.notify(notificationId, builder.build());
+
+// When done, update the notification one more time to remove the progress bar
+        builder.setContentText("Download complete")
+                .setProgress(0,0,false);
+        notificationManager.notify(notificationId, builder.build());*/
     }
 
     private void requeststorage(String url) {

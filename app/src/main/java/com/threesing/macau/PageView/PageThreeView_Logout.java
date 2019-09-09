@@ -43,7 +43,7 @@ public class PageThreeView_Logout extends PageView {
         imageView.setImageBitmap(makeBitmap.getRoundedCornerBitmap(BitmapFactory.decodeResource(getResources(),
                 R.drawable.slider03), 45f));*/
         imageView.setOnClickListener(v -> {
-            Uri uri = Uri.parse("http://3singsport.win");
+            Uri uri = Uri.parse("http://3singsport.win/");
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             context.startActivity(intent);
         });
