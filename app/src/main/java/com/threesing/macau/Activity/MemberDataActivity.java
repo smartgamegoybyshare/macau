@@ -100,7 +100,7 @@ public class MemberDataActivity extends AppCompatActivity {
             gifImageView1.setImageDrawable(gifFromPath);*/
             gifImageView1.setOnClickListener(view -> {
                 //vibrator.vibrate(100);
-                Uri uri = Uri.parse("http://3singsport.win");
+                Uri uri = Uri.parse("http://181282.com/");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             });

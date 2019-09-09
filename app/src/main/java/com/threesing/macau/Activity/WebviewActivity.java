@@ -126,7 +126,7 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
         };
         new Thread(getimage).start();
         gifImageView1.setOnClickListener(view -> {
-            Uri uri = Uri.parse("http://3singsport.win");
+            Uri uri = Uri.parse("http://181282.com/");
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
         });

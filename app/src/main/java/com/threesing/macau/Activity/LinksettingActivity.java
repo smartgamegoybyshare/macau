@@ -122,7 +122,7 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
             gifImageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
             gifImageView1.setImageDrawable(gifFromPath);*/
         gifImageView1.setOnClickListener(view -> {
-            Uri uri = Uri.parse("http://3singsport.win");
+            Uri uri = Uri.parse("http://181282.com/");
             Intent intent2 = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent2);
         });
