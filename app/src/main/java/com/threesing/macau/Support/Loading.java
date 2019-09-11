@@ -66,4 +66,8 @@ public class Loading {
         if(newDialog != null && newDialog.isShowing())
             newDialog.dismiss();
     }
+
+    public boolean isshow(){
+        return newDialog.isShowing();
+    }
 }

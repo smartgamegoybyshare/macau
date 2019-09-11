@@ -152,9 +152,8 @@ public class MainActivity extends AppCompatActivity implements ConnectListener, 
         announcement.setOnClickListener(view -> showhowto());
         loginlinear.setOnClickListener(view -> loginDialog.show(loading, loginSQL, connected, getConnect));
         loginimage.setOnClickListener(view -> loginDialog.show(loading, loginSQL, connected, getConnect));
-        announcelinear.setOnClickListener(view -> { //最新訊息
-
-        });
+        //最新訊息
+        announcelinear.setOnClickListener(view -> loginDialog.show(loading, loginSQL, connected, getConnect));
         travellinear.setOnClickListener(view -> {   //旅遊資訊
             String url = "https://washpower.ga/";
             goWebview(textView6, url);
@@ -264,7 +263,7 @@ public class MainActivity extends AppCompatActivity implements ConnectListener, 
         @Override
         public void run() {
             try {
-                URL url = new URL("https://dl.kz168168.com/apk/nuba_default_marquee.json");
+                URL url = new URL("https://dl.kz168168.com/apk/macau_marquee.json");
                 HttpURLConnection urlCon = (HttpURLConnection) url.openConnection();
                 urlCon.setConnectTimeout(2000);
                 InputStream uin = urlCon.getInputStream();

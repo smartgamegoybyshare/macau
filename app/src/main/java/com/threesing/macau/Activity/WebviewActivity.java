@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -28,21 +29,26 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.threesing.macau.Language.LanguageListener;
 import com.threesing.macau.Language.SetLanguage;
 import com.threesing.macau.R;
+import com.threesing.macau.Support.DownloadCompleteReceiver;
 import com.threesing.macau.Support.InternetImage;
 import com.threesing.macau.Support.Loading;
 import com.threesing.macau.Support.Value;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
+
 import pl.droidsonroids.gif.GifImageView;
 
 public class WebviewActivity extends AppCompatActivity implements LanguageListener {
@@ -144,13 +150,14 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
         setLanguage.isSet();
 
         webview = findViewById(R.id.web_view);
-        /*String userAgent = webview.getSettings().getUserAgentString();
+        String userAgent = webview.getSettings().getUserAgentString();
         if (!TextUtils.isEmpty(userAgent)) {    //去除浮窗式廣告
             webview.getSettings().setUserAgentString(userAgent
                     .replace("Android", "")
                     .replace("android", "") + " cldc");
-        }*/
+        }
         webview.getSettings().setJavaScriptEnabled(true);
+        webview.getSettings().setDomStorageEnabled(true);
         webview.getSettings().setSupportZoom(true); // 支持缩放
         // 设置出现缩放工具
         webview.getSettings().setBuiltInZoomControls(true);
@@ -177,12 +184,27 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
         webview.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) { //  重寫此方法表明點選網頁裡面的連結還是在當前的webview裡跳轉,不跳到瀏覽器那邊
                 Log.e(TAG, "點選新連結");
-                if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
-                    loading.show("Loading...");
-                } else if (Value.language_flag == 1) {
-                    loading.show("載入中...");
-                } else if (Value.language_flag == 2) {
-                    loading.show("加載中...");
+                Log.e(TAG, "isshow() = " + loading.isshow());
+                if(!loading.isshow()) {
+                    if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
+                        loading.show("Loading...");
+                    } else if (Value.language_flag == 1) {
+                        loading.show("載入中...");
+                    } else if (Value.language_flag == 2) {
+                        loading.show("加載中...");
+                    }
+                }
+                try {
+                    if(url.startsWith("http://") || url.startsWith("https://")) {
+
+                    }
+                    else {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(intent);
+                        return true;
+                    }
+                } catch (Exception e) { //防止crash (如果手机上没有安装处理某个scheme开头的url的APP, 会导致crash)
+                    return false;
                 }
                 view.loadUrl(url);
                 return true;
@@ -202,7 +224,7 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
                 Log.e(TAG, "加載完畢");
             }
         });
-        webview.setWebChromeClient(new WebChromeClient(){
+        webview.setWebChromeClient(new WebChromeClient() {
 
             private View mCustomView;
             private CustomViewCallback mCustomViewCallback;
@@ -217,7 +239,7 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
             }
 
             public void onHideCustomView() {
-                ((FrameLayout)getWindow().getDecorView()).removeView(this.mCustomView);
+                ((FrameLayout) getWindow().getDecorView()).removeView(this.mCustomView);
                 this.mCustomView = null;
                 getWindow().getDecorView().setSystemUiVisibility(this.mOriginalSystemUiVisibility);
                 setRequestedOrientation(this.mOriginalOrientation);
@@ -226,8 +248,7 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
             }
 
             public void onShowCustomView(View paramView, CustomViewCallback paramCustomViewCallback) {
-                if (this.mCustomView != null)
-                {
+                if (this.mCustomView != null) {
                     onHideCustomView();
                     return;
                 }
@@ -235,7 +256,7 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
                 this.mOriginalSystemUiVisibility = getWindow().getDecorView().getSystemUiVisibility();
                 this.mOriginalOrientation = getRequestedOrientation();
                 this.mCustomViewCallback = paramCustomViewCallback;
-                ((FrameLayout)getWindow().getDecorView()).addView(this.mCustomView, new FrameLayout.LayoutParams(-1, -1));
+                ((FrameLayout) getWindow().getDecorView()).addView(this.mCustomView, new FrameLayout.LayoutParams(-1, -1));
                 getWindow().getDecorView().setSystemUiVisibility(3846);
             }
         });
@@ -243,7 +264,7 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
         webview.loadUrl(geturl);
     }
 
-    private void downloadManager(String url){
+    private void downloadManager(String url) {
         Log.e(TAG, "url = " + url);
         String fileName = url.substring(url.lastIndexOf("/") + 1);
         Log.e(TAG, "fileName = " + fileName);
@@ -257,34 +278,26 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
         if (dm != null) {
             downloadId = dm.enqueue(request);
         }
-        Toast.makeText(getApplicationContext(), "即將開始下載",
-                //To notify the Client that the file is being downloaded
-                Toast.LENGTH_LONG).show();
+        if(Value.language_flag == 0){
+            Toast.makeText(getApplicationContext(), "Start download",
+                    //To notify the Client that the file is being downloaded
+                    Toast.LENGTH_SHORT).show();
+        }else if(Value.language_flag == 1){
+            Toast.makeText(getApplicationContext(), "開始下載",
+                    //To notify the Client that the file is being downloaded
+                    Toast.LENGTH_SHORT).show();
+        }else if(Value.language_flag == 2){
+            Toast.makeText(getApplicationContext(), "开始下载",
+                    //To notify the Client that the file is being downloaded
+                    Toast.LENGTH_SHORT).show();
+        }
+
         Log.e(TAG, "downloadId = " + downloadId);
-        /*NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
-        builder.setContentTitle("Picture Download")
-                .setContentText("Download in progress")
-                .setSmallIcon(R.drawable.app_icon_mini)
-                .setPriority(NotificationCompat.PRIORITY_LOW);
 
-// Issue the initial notification with zero progress
-        int PROGRESS_MAX = 100;
-        int PROGRESS_CURRENT = 0;
-        builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
-        notificationManager.notify(notificationId, builder.build());
-
-// Do the job here that tracks the progress.
-// Usually, this should be in a
-// worker thread
-// To show progress, update PROGRESS_CURRENT and update the notification with:
-// builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
-// notificationManager.notify(notificationId, builder.build());
-
-// When done, update the notification one more time to remove the progress bar
-        builder.setContentText("Download complete")
-                .setProgress(0,0,false);
-        notificationManager.notify(notificationId, builder.build());*/
+        DownloadCompleteReceiver receiver = new DownloadCompleteReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+        this.registerReceiver(receiver, intentFilter);
     }
 
     private void requeststorage(String url) {
