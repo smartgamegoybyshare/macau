@@ -25,7 +25,7 @@ public class UserRecord {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context.getApplicationContext());
 
-        String url = "https://api.kz168168.com/api/get_record";
+        String url = "https://api.kz168168.com/api/get_record"; //http://100co-kz.zyue88.com/api/get_record
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {

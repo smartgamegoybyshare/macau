@@ -25,7 +25,7 @@ public class CancelLink {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context.getApplicationContext());
 
-        String url = "https://api.kz168168.com/api/cancel_link";
+        String url = "https://api.kz168168.com/api/cancel_link";    //http://100co-kz.zyue88.com/api/cancel_link
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {

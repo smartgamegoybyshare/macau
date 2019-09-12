@@ -25,7 +25,7 @@ public class ConnectUserDataBase {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context.getApplicationContext());
 
-        String url = "https://api.kz168168.com/api/get_user_data";
+        String url = "https://api.kz168168.com/api/get_user_data";  //http://100co-kz.zyue88.com/api/get_user_data
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {

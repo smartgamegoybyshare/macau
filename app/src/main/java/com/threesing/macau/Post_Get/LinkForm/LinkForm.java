@@ -26,7 +26,7 @@ public class LinkForm {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context.getApplicationContext());
 
-        String url = "https://api.kz168168.com/api/link_form";
+        String url = "https://api.kz168168.com/api/link_form";  //http://100co-kz.zyue88.com/api/link_form
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {

@@ -7,8 +7,8 @@ android {
         applicationId "com.threesing.macau"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 10
-        versionName "1.0.10"
+        versionCode 11
+        versionName "1.0.11"
         buildConfigField("boolean", "LOG", "true")
         testInstrumentationRunner "androidx.text.runner.AndroidJUnitRunner"
     }
@@ -35,6 +35,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
     implementation 'me.relex:circleindicator:1.2.2'
-    implementation 'com.mcxiaoke.volley:library:1.0.19'
+    implementation 'com.mcxiaoke.volley:library:1.0.17'
     implementation 'org.java-websocket:Java-WebSocket:1.4.0'
 }

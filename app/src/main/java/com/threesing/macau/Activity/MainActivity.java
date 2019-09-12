@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements ConnectListener, 
             textView5, textView6, textView7, textView8;
     private ImageView imageViewtitle;
     private Bitmap bitmap_title;
-    private Handler viewpageHandler = new Handler();
+    private Handler viewpageHandler = new Handler(), checkHandler = new Handler();
     private SetLanguage setLanguage = new SetLanguage();
     private Connected connected = new Connected(this);
     private GetConnect getConnect = new GetConnect();
@@ -136,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements ConnectListener, 
         copyright = findViewById(R.id.copyright);
         nowTime = findViewById(R.id.nowTime);
 
+        new Thread(versionCheck).start();
         setLanguage.setListener(this);
         setLanguage.isSet();
 
@@ -234,6 +236,77 @@ public class MainActivity extends AppCompatActivity implements ConnectListener, 
         return newPageView;
     }
 
+    private Runnable versionCheck = () -> {
+        try {
+            URL url = new URL("https://dl.kz168168.com/apk/macau_version.json");
+            HttpURLConnection urlCon = (HttpURLConnection) url.openConnection();
+            urlCon.setConnectTimeout(2000);
+            InputStream uin = urlCon.getInputStream();
+            BufferedReader in = new BufferedReader(new InputStreamReader(uin));
+            boolean more = true;
+            StringBuilder line = new StringBuilder();
+            for (; more; ) {
+                String getline = in.readLine();
+                Log.e(TAG, "getline = " + getline);
+                if (getline != null) {
+                    line.append(getline);
+                } else {
+                    more = false;
+                }
+            }
+            Log.e(TAG, "line = " + line);
+            JSONObject jsonObject = new JSONObject(line.toString());
+            Log.e(TAG, "jsonObject = " + jsonObject);
+            String thisversion = Value.ver;
+            String version = jsonObject.getString("version");
+            if (!version.matches(thisversion)) {
+                checkHandler.post(() -> {
+                    if (Value.language_flag == 0) {
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setTitle("三昇澳門" + thisversion)
+                                .setIcon(R.drawable.app_icon_mini)
+                                .setMessage("Check out a new version" + version + "\nupdate now?")
+                                .setPositiveButton("Yes", (dialog, which) -> gotoMarket())
+                                .setNegativeButton("Cancel", (dialog, which) -> {
+                                    // TODO Auto-generated method stub
+                                }).show();
+                    }else if(Value.language_flag == 1){
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setTitle("三昇澳門" + thisversion)
+                                .setIcon(R.drawable.app_icon_mini)
+                                .setMessage("偵測到有新版本" + version + "\n現在要更新嗎?")
+                                .setPositiveButton("確定", (dialog, which) -> gotoMarket())
+                                .setNegativeButton("取消", (dialog, which) -> {
+                                    // TODO Auto-generated method stub
+                                }).show();
+                    }else if(Value.language_flag == 2){
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setTitle("三昇澳门" + thisversion)
+                                .setIcon(R.drawable.app_icon_mini)
+                                .setMessage("侦测到有新版本" + version + "\n现在要更新吗?")
+                                .setPositiveButton("确定", (dialog, which) -> gotoMarket())
+                                .setNegativeButton("取消", (dialog, which) -> {
+                                    // TODO Auto-generated method stub
+                                }).show();
+                    }
+                });
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    };
+
+    private void gotoMarket(){
+        Uri marketUri = Uri.parse("market://details?id=com.threesing.macau");
+        Intent myIntent = new Intent(Intent.ACTION_VIEW, marketUri);
+        myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(myIntent);
+    }
+
     public void autoViewpager() {
         viewpageHandler.postDelayed(() -> {
             int i = viewPager.getCurrentItem();
@@ -321,7 +394,7 @@ public class MainActivity extends AppCompatActivity implements ConnectListener, 
         finish();
     }
 
-    private void goWebview(TextView textView, String url){
+    private void goWebview(TextView textView, String url) {
         company = "";
         account = "";
         Intent intent = new Intent(this, WebviewActivity.class);
@@ -495,7 +568,7 @@ public class MainActivity extends AppCompatActivity implements ConnectListener, 
                 loading.dismiss();
                 Value.check_user = responseJson;
                 if (checkBox.isChecked()) {
-                    if(!account.matches("demo")) {
+                    if (!account.matches("demo")) {
                         if (loginSQL.getCount() != 0) {
                             loginSQL.deleteAll();
                             loginSQL.insert(company, account, password);

@@ -25,7 +25,7 @@ public class Post {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context.getApplicationContext());
 
-        String url = "https://api.kz168168.com/api/get_post";
+        String url = "https://api.kz168168.com/api/get_post";   //http://100co-kz.zyue88.com/api/get_post
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {
