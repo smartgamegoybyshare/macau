@@ -18,9 +18,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+
 import com.threesing.macau.Language.LanguageChose;
 import com.threesing.macau.Language.LanguageListener;
 import com.threesing.macau.Language.SetLanguage;
@@ -41,9 +43,12 @@ import com.threesing.macau.Support.InternetImage;
 import com.threesing.macau.Support.Loading;
 import com.threesing.macau.Support.LoginDialog;
 import com.threesing.macau.Support.MarqueeTextView;
+import com.threesing.macau.Support.ParaseUrl;
 import com.threesing.macau.Support.Value;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -237,70 +242,46 @@ public class MainActivity extends AppCompatActivity implements ConnectListener, 
     }
 
     private Runnable versionCheck = () -> {
-        try {
-            URL url = new URL("https://dl.kz168168.com/apk/macau_version.json");
-            HttpURLConnection urlCon = (HttpURLConnection) url.openConnection();
-            urlCon.setConnectTimeout(2000);
-            InputStream uin = urlCon.getInputStream();
-            BufferedReader in = new BufferedReader(new InputStreamReader(uin));
-            boolean more = true;
-            StringBuilder line = new StringBuilder();
-            for (; more; ) {
-                String getline = in.readLine();
-                Log.e(TAG, "getline = " + getline);
-                if (getline != null) {
-                    line.append(getline);
-                } else {
-                    more = false;
+        ParaseUrl paraseUrl = new ParaseUrl();
+        String version = paraseUrl.getDoc();
+        String thisversion = Value.ver;
+        Log.e(TAG, "version = " + version);
+        Log.e(TAG, "thisversion = " + thisversion);
+        if (!version.matches(thisversion)) {
+            checkHandler.post(() -> {
+                if (Value.language_flag == 0) {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("三昇澳門" + thisversion)
+                            .setIcon(R.drawable.app_icon_mini)
+                            .setMessage("Check out a new version" + version + "\nupdate now?")
+                            .setPositiveButton("Yes", (dialog, which) -> gotoMarket())
+                            .setNegativeButton("Cancel", (dialog, which) -> {
+                                // TODO Auto-generated method stub
+                            }).show();
+                } else if (Value.language_flag == 1) {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("三昇澳門" + thisversion)
+                            .setIcon(R.drawable.app_icon_mini)
+                            .setMessage("偵測到有新版本" + version + "\n現在要更新嗎?")
+                            .setPositiveButton("確定", (dialog, which) -> gotoMarket())
+                            .setNegativeButton("取消", (dialog, which) -> {
+                                // TODO Auto-generated method stub
+                            }).show();
+                } else if (Value.language_flag == 2) {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("三昇澳门" + thisversion)
+                            .setIcon(R.drawable.app_icon_mini)
+                            .setMessage("侦测到有新版本" + version + "\n现在要更新吗?")
+                            .setPositiveButton("确定", (dialog, which) -> gotoMarket())
+                            .setNegativeButton("取消", (dialog, which) -> {
+                                // TODO Auto-generated method stub
+                            }).show();
                 }
-            }
-            Log.e(TAG, "line = " + line);
-            JSONObject jsonObject = new JSONObject(line.toString());
-            Log.e(TAG, "jsonObject = " + jsonObject);
-            String thisversion = Value.ver;
-            String version = jsonObject.getString("version");
-            if (!version.matches(thisversion)) {
-                checkHandler.post(() -> {
-                    if (Value.language_flag == 0) {
-                        new AlertDialog.Builder(MainActivity.this)
-                                .setTitle("三昇澳門" + thisversion)
-                                .setIcon(R.drawable.app_icon_mini)
-                                .setMessage("Check out a new version" + version + "\nupdate now?")
-                                .setPositiveButton("Yes", (dialog, which) -> gotoMarket())
-                                .setNegativeButton("Cancel", (dialog, which) -> {
-                                    // TODO Auto-generated method stub
-                                }).show();
-                    }else if(Value.language_flag == 1){
-                        new AlertDialog.Builder(MainActivity.this)
-                                .setTitle("三昇澳門" + thisversion)
-                                .setIcon(R.drawable.app_icon_mini)
-                                .setMessage("偵測到有新版本" + version + "\n現在要更新嗎?")
-                                .setPositiveButton("確定", (dialog, which) -> gotoMarket())
-                                .setNegativeButton("取消", (dialog, which) -> {
-                                    // TODO Auto-generated method stub
-                                }).show();
-                    }else if(Value.language_flag == 2){
-                        new AlertDialog.Builder(MainActivity.this)
-                                .setTitle("三昇澳门" + thisversion)
-                                .setIcon(R.drawable.app_icon_mini)
-                                .setMessage("侦测到有新版本" + version + "\n现在要更新吗?")
-                                .setPositiveButton("确定", (dialog, which) -> gotoMarket())
-                                .setNegativeButton("取消", (dialog, which) -> {
-                                    // TODO Auto-generated method stub
-                                }).show();
-                    }
-                });
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            });
         }
     };
 
-    private void gotoMarket(){
+    private void gotoMarket() {
         Uri marketUri = Uri.parse("market://details?id=com.threesing.macau");
         Intent myIntent = new Intent(Intent.ACTION_VIEW, marketUri);
         myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -37,4 +37,5 @@ dependencies {
     implementation 'me.relex:circleindicator:1.2.2'
     implementation 'com.mcxiaoke.volley:library:1.0.17'
     implementation 'org.java-websocket:Java-WebSocket:1.4.0'
+    implementation 'org.jsoup:jsoup:1.11.3'
 }
