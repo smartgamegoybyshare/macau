@@ -297,7 +297,7 @@ public class LoginMainActivity extends AppCompatActivity implements LanguageList
 
         SpannableStringBuilder builder = new SpannableStringBuilder(str + account);
         ForegroundColorSpan buleSpan = new ForegroundColorSpan(ContextCompat.getColor(this, R.color.color_newsannounce));
-        ForegroundColorSpan blackSpan = new ForegroundColorSpan(Color.parseColor("#000000"));
+        ForegroundColorSpan blackSpan = new ForegroundColorSpan(Color.RED);
 
         builder.setSpan(buleSpan, 0, str.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         builder.setSpan(blackSpan, str.length(), str.length() + account.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);

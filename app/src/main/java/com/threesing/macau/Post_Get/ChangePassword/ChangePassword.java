@@ -7,6 +7,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.threesing.macau.Support.Value;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
@@ -25,7 +27,13 @@ public class ChangePassword {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context.getApplicationContext());
 
-        String url = "https://api.kz168168.com/api/change_password";    //http://100co-kz.zyue88.com/api/change_password
+        String url = "";
+
+        if(Value.api_flag == 0){
+            url = "http://100co-kz.zyue88.com/api/change_password";
+        }else if(Value.api_flag == 1){
+            url = "https://api.kz168168.com/api/change_password";
+        }
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {

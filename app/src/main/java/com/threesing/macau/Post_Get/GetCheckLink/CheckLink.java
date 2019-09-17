@@ -7,6 +7,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.threesing.macau.Support.Value;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
@@ -25,7 +27,13 @@ public class CheckLink {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context.getApplicationContext());
 
-        String url = "https://api.kz168168.com/api/get_link";   //http://100co-kz.zyue88.com/api/get_link
+        String url = "";
+
+        if(Value.api_flag == 0){
+            url = "http://100co-kz.zyue88.com/api/get_link";
+        }else if(Value.api_flag == 1){
+            url = "https://api.kz168168.com/api/get_link";
+        }
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {
