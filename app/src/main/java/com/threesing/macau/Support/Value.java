@@ -8,6 +8,8 @@ import java.util.List;
 public class Value {
     public static int language_flag;
     public static int api_flag;
+    public static int api_count;
+    public static int err_password;
     public static boolean login_in = false;
     public static JSONObject check_user;
     public static JSONObject get_user_data;

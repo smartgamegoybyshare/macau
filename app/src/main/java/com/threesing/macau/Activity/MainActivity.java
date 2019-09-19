@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements ConnectListener, 
     private Handler titleHandler = new Handler(), announceHandler = new Handler();
     private LoginDialog loginDialog = new LoginDialog(this);
     private Loading loading = new Loading(this);
+    private boolean error = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -563,37 +564,64 @@ public class MainActivity extends AppCompatActivity implements ConnectListener, 
                 Value.login_in = true;
                 nextPage();
             } else if (result.matches("error1")) {
-                loading.dismiss();
-                if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
-                    Toast toast = Toast.makeText(this, "Password Incorrect", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-                } else if (Value.language_flag == 1) {
-                    Toast toast = Toast.makeText(this, "密碼不正確", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-                } else if (Value.language_flag == 2) {
-                    Toast toast = Toast.makeText(this, "密码不正确", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
+                if(!error) {
+                    error = true;
+                    int flag = Value.api_flag;
+                    Value.err_password = flag;
+                    Value.api_flag = flag + 1;
+                    Log.e(TAG, "Value.err_password = " + Value.err_password);
+                    Log.e(TAG, "Value.api_flag = " + Value.api_flag);
+                    connected.setConnect(company, account, password, getConnect, checkBox);
+                }else if(Value.api_flag == Value.err_password){
+                    loading.dismiss();
+                    error = false;
+                    Value.api_flag = 0;
+                    if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
+                        Toast toast = Toast.makeText(this, "Password Incorrect", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                    } else if (Value.language_flag == 1) {
+                        Toast toast = Toast.makeText(this, "密碼不正確", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                    } else if (Value.language_flag == 2) {
+                        Toast toast = Toast.makeText(this, "密码不正确", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                    }
+                }else {
+                    Value.api_flag = Value.api_flag + 1;
+                    connected.setConnect(company, account, password, getConnect, checkBox);
                 }
             } else if (result.matches("error3")) {
-                loading.dismiss();
-                if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
-                    Toast toast = Toast.makeText(this, "Sub Account Does Not Exist", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-                } else if (Value.language_flag == 1) {
-                    Toast toast = Toast.makeText(this, "子帳號戶口不存在", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-                } else if (Value.language_flag == 2) {
-                    Toast toast = Toast.makeText(this, "子帐号户口不存在", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
+                if(Value.api_flag == Value.api_count - 1) {
+                    loading.dismiss();
+                    Value.api_flag = 0;
+                    if(!error) {
+                        if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
+                            Toast toast = Toast.makeText(this, "Sub Account Does Not Exist", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                        } else if (Value.language_flag == 1) {
+                            Toast toast = Toast.makeText(this, "子帳號戶口不存在", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                        } else if (Value.language_flag == 2) {
+                            Toast toast = Toast.makeText(this, "子帐号户口不存在", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                        }
+                    }else {
+                        connected.setConnect(company, account, password, getConnect, checkBox);
+                    }
+                }
+                else {
+                    Value.api_flag = Value.api_flag + 1;
+                    connected.setConnect(company, account, password, getConnect, checkBox);
                 }
             } else if (result.matches("error4")) {
                 loading.dismiss();
+                Value.api_flag = 0;
                 if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
                     Toast toast = Toast.makeText(this, "Reconciliation Invalid", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);

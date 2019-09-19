@@ -8,7 +8,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.threesing.macau.Support.Value;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
@@ -18,6 +17,15 @@ public class CheckAll {
 
     private String TAG = "CheckAll";
     private Context context;
+    private String[] apiurl = {
+            "http://100co-kz.zyue88.com/api/check_all",
+            "https://api.kz168168.com/api/check_all",
+            "http://mc-kz.zyue88.com/api/check_all",
+            "http://fb-kz.zyue88.com/api/check_all",
+            "http://peter-kz.zyue88.com/api/check_all",
+            "http://demo.kz168168.com/api/check_all",
+            "http://nuba.kz168168.com/api/check_all"
+    };
 
     public CheckAll(Context context) {
         this.context = context;
@@ -27,13 +35,7 @@ public class CheckAll {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context.getApplicationContext());
 
-        String url = "";
-
-        if(Value.api_flag == 0){
-            url = "http://100co-kz.zyue88.com/api/check_all";
-        }else if(Value.api_flag == 1){
-            url = "https://api.kz168168.com/api/check_all";
-        }
+        String url = apiurl[Value.api_flag];
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {
