@@ -14,8 +14,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,6 +66,14 @@ public class MemberDataActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void showview() {
         try {
+            LinearLayout row1 = findViewById(R.id.row1);
+            LinearLayout row2 = findViewById(R.id.row2);
+            LinearLayout row3 = findViewById(R.id.row3);
+            LinearLayout row4 = findViewById(R.id.row4);
+            LinearLayout row5 = findViewById(R.id.row5);
+            LinearLayout row6 = findViewById(R.id.row6);
+            LinearLayout row7 = findViewById(R.id.row7);
+            LinearLayout row8 = findViewById(R.id.row8);
             TextView title = findViewById(R.id.textView);   //會員資料
             TextView back = findViewById(R.id.textView1);   //返回
             TextView textView1 = findViewById(R.id.textView3);  //客戶帳號內容
@@ -85,6 +96,16 @@ public class MemberDataActivity extends AppCompatActivity {
             TextView copyright = findViewById(R.id.copyright);
             TextView nowTime = findViewById(R.id.nowTime);
             gifImageView1 = findViewById(R.id.imageView1);
+
+            row2.setVisibility(View.GONE);
+            row4.setVisibility(View.GONE);
+            row5.setVisibility(View.GONE);
+            row6.setVisibility(View.GONE);
+            row7.setVisibility(View.GONE);
+            row8.setVisibility(View.GONE);
+
+            //row1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, R.attr.actionBarSize));
+            //row3.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, R.attr.actionBarSize));
 
             Runnable getimage = () -> {
                 String imageUri = "https://dl.kz168168.com/img/omen-ad06.png";

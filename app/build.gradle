@@ -7,8 +7,8 @@ android {
         applicationId "com.threesing.macau"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 15
-        versionName "1.0.15"
+        versionCode 16
+        versionName "1.0.16"
         buildConfigField("boolean", "LOG", "true")
         testInstrumentationRunner "androidx.text.runner.AndroidJUnitRunner"
     }
