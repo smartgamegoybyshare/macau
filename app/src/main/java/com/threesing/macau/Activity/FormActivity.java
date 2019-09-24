@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -50,16 +49,13 @@ import com.threesing.macau.Post_Get.UserRecord.UserRecord;
 import com.threesing.macau.Post_Get.UserRecord.UserRecordListener;
 import com.threesing.macau.R;
 import com.threesing.macau.SQL.LanguageSQL;
+import com.threesing.macau.Support.InternetImage;
 import com.threesing.macau.Support.Loading;
 import com.threesing.macau.Support.Value;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -91,6 +87,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
     private GifImageView gifImageView1;
     private TextView toolbartitle, nowtime, date, chartcode, remark, gain, loss, balance, checked, back;
     private Button accountLink, checkform, refresh;
+    private InternetImage internetImage = new InternetImage();
     private Handler handler = new Handler(), buttonHandler = new Handler(), swipeHandler = new Handler();
     private PopupWindow popWindow;
     private boolean popWindowView = false, regetalldata = false, language_bool = false, swipe = false;
@@ -154,7 +151,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
             gifImageView1 = findViewById(R.id.imageView1);
             Runnable getimage = () -> {
                 String imageUri = "https://dl.kz168168.com/img/omen-ad03.png";
-                preview_bitmap = fetchImage(imageUri);
+                preview_bitmap = internetImage.fetchImage(imageUri);
                 handler.post(() -> {
                     gifImageView1.setImageBitmap(preview_bitmap);
                     gifImageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -282,23 +279,6 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    private Bitmap fetchImage(String urlstr) {  //連接網頁獲取的圖片
-        try {
-            URL url;
-            url = new URL(urlstr);
-            HttpURLConnection c = (HttpURLConnection) url.openConnection();
-            c.setDoInput(true);
-            c.connect();
-            InputStream is = c.getInputStream();
-            Bitmap img;
-            img = BitmapFactory.decodeStream(is);
-            return img;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     private String getDateTime() {

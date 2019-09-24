@@ -3,7 +3,6 @@ package com.threesing.macau.Activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,14 +20,11 @@ import com.threesing.macau.Post_Get.ChangePassword.ChangePassword;
 import com.threesing.macau.Post_Get.ChangePassword.ChangePasswordListener;
 import com.threesing.macau.Post_Get.ChangePassword.PostChangePassword;
 import com.threesing.macau.R;
+import com.threesing.macau.Support.InternetImage;
 import com.threesing.macau.Support.Loading;
 import com.threesing.macau.Support.Value;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import pl.droidsonroids.gif.GifImageView;
 
 public class ModifyPasswordActivity extends AppCompatActivity implements ChangePasswordListener {
@@ -41,6 +37,7 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
     private Loading loading = new Loading(this);
     private ChangePassword changePassword = new ChangePassword(this);
     private PostChangePassword postChangePassword = new PostChangePassword();
+    private InternetImage internetImage = new InternetImage();
     private EditText editText1, editText2, editText3;
 
     @Override
@@ -81,7 +78,7 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
         gifImageView1 = findViewById(R.id.imageView1); //廣告欄
         Runnable getimage = () -> {
             String imageUri = "https://dl.kz168168.com/img/omen-ad05.png";
-            preview_bitmap = fetchImage(imageUri);
+            preview_bitmap = internetImage.fetchImage(imageUri);
             handler.post(() -> {
                 gifImageView1.setImageBitmap(preview_bitmap);
                 gifImageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -223,23 +220,6 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
                 changePassword.setConnect(company, account, old_password, new_password, postChangePassword);
             }
         });
-    }
-
-    private Bitmap fetchImage(String urlstr ) {  //連接網頁獲取的圖片
-        try {
-            URL url;
-            url = new URL(urlstr);
-            HttpURLConnection c = ( HttpURLConnection ) url.openConnection();
-            c.setDoInput( true );
-            c.connect();
-            InputStream is = c.getInputStream();
-            Bitmap img;
-            img = BitmapFactory.decodeStream(is);
-            return img;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     private void backform() {

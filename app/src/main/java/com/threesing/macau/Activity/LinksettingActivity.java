@@ -3,7 +3,6 @@ package com.threesing.macau.Activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,15 +32,12 @@ import com.threesing.macau.Post_Get.LinkForm.GetLinkForm;
 import com.threesing.macau.Post_Get.LinkForm.LinkForm;
 import com.threesing.macau.Post_Get.LinkForm.LinkFormListener;
 import com.threesing.macau.R;
+import com.threesing.macau.Support.InternetImage;
 import com.threesing.macau.Support.Loading;
 import com.threesing.macau.Support.Value;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import pl.droidsonroids.gif.GifImageView;
@@ -62,6 +58,7 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
     private GetCancelLink getCancelLink = new GetCancelLink();
     private LinkForm linkForm = new LinkForm(this);
     private GetLinkForm getLinkForm = new GetLinkForm();
+    private InternetImage internetImage = new InternetImage();
     private LinksettingList linksettingList;
     private JSONArray jsonArray;
     private EditText editText1, editText2, editText3;
@@ -111,7 +108,7 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
 
         Runnable getimage = () -> {
             String imageUri = "https://dl.kz168168.com/img/omen-ad07.png";
-            preview_bitmap = fetchImage(imageUri);
+            preview_bitmap = internetImage.fetchImage(imageUri);
             handler.post(() -> {
                 gifImageView1.setImageBitmap(preview_bitmap);
                 gifImageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -244,23 +241,6 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
         }
 
         link.setConnect(company, account, getLink);
-    }
-
-    private Bitmap fetchImage(String urlstr) {  //連接網頁獲取的圖片
-        try {
-            URL url;
-            url = new URL(urlstr);
-            HttpURLConnection c = (HttpURLConnection) url.openConnection();
-            c.setDoInput(true);
-            c.connect();
-            InputStream is = c.getInputStream();
-            Bitmap img;
-            img = BitmapFactory.decodeStream(is);
-            return img;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     private void showview() {

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,14 +22,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.threesing.macau.R;
 import com.threesing.macau.Support.Constant;
+import com.threesing.macau.Support.InternetImage;
 import com.threesing.macau.Support.Value;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import pl.droidsonroids.gif.GifImageView;
 
 public class MemberDataActivity extends AppCompatActivity {
@@ -41,6 +36,7 @@ public class MemberDataActivity extends AppCompatActivity {
     private Bitmap preview_bitmap;
     private GifImageView gifImageView1;
     private Handler handler = new Handler();
+    private InternetImage internetImage = new InternetImage();
     public final static String WEIXIN_CHATTING_MIMETYPE = "vnd.android.cursor.item/vnd.com.tencent.mm.chatting.profile";    //微信聊天
 
     @Override
@@ -109,7 +105,7 @@ public class MemberDataActivity extends AppCompatActivity {
 
             Runnable getimage = () -> {
                 String imageUri = "https://dl.kz168168.com/img/omen-ad06.png";
-                preview_bitmap = fetchImage(imageUri);
+                preview_bitmap = internetImage.fetchImage(imageUri);
                 handler.post(() -> {
                     gifImageView1.setImageBitmap(preview_bitmap);
                     gifImageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -209,23 +205,6 @@ public class MemberDataActivity extends AppCompatActivity {
         String appName = "Skype";
         String packageName = "com.skype.raider";
         openApp(this, appName, packageName, skypename);
-    }
-
-    private Bitmap fetchImage(String urlstr ) {  //連接網頁獲取的圖片
-        try {
-            URL url;
-            url = new URL(urlstr);
-            HttpURLConnection c = ( HttpURLConnection ) url.openConnection();
-            c.setDoInput( true );
-            c.connect();
-            InputStream is = c.getInputStream();
-            Bitmap img;
-            img = BitmapFactory.decodeStream(is);
-            return img;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     private void openApp(Context context, String appName, String packageName, String skypename) {
