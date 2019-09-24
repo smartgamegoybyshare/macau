@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements ConnectListener, 
         //最新訊息
         announcelinear.setOnClickListener(view -> loginDialog.show(loading, loginSQL, connected, getConnect));
         travellinear.setOnClickListener(view -> {   //旅遊資訊
-            String url = "https://washpower.ga/";
+            String url = "https://washpower.ga";
             goWebview(textView6, url);
         });
         watchlinear.setOnClickListener(view -> {    //線上影音
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements ConnectListener, 
             goWebview(textView7, url);
         });
         newslinear.setOnClickListener(view -> { //即時新聞
-            String url = "https://ineedwater.ga/";
+            String url = "https://ineedwater.ga";
             goWebview(textView8, url);
         });
     }
