@@ -476,10 +476,10 @@ public class LoginMainActivity extends AppCompatActivity implements LanguageList
             textView2.setText("Add Account");
             textView3.setText("Change Password");
             textView4.setText("Account Checking");
-            textView5.setText("Newest messages");
-            textView6.setText("Travel information");
+            textView5.setText("Newest Messages");
+            textView6.setText("Travel Information");
             textView7.setText("Online Videos");
-            textView8.setText("Instant news");
+            textView8.setText("Instant News");
             textView1.setTextSize(8);
             textView2.setTextSize(8);
             textView3.setTextSize(8);
