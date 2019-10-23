@@ -27,6 +27,7 @@ import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,6 +68,7 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
     private Handler handler = new Handler(), refreshHandler = new Handler();
     private Loading loading = new Loading(this);
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,13 +76,13 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
         Log.d(TAG, "onCreate");
         //隱藏標題欄
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
-        if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
+        /*if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
             loading.show("Loading...");
         } else if (Value.language_flag == 1) {
             loading.show("載入中...");
         } else if (Value.language_flag == 2) {
             loading.show("加載中...");
-        }
+        }*/
         get_Intent();
     }
 
@@ -124,6 +126,7 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
         copyright = findViewById(R.id.copyright);
         nowTime = findViewById(R.id.nowTime);
         gifImageView1 = findViewById(R.id.imageView1); //廣告欄
+        progressBar = findViewById(R.id.progressBar);   //loading條
         Runnable getimage = () -> {
             String imageUri = "https://dl.kz168168.com/img/omen-ad01.png";
             preview_bitmap = internetImage.fetchImage(imageUri);
@@ -184,8 +187,8 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
         webview.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) { //  重寫此方法表明點選網頁裡面的連結還是在當前的webview裡跳轉,不跳到瀏覽器那邊
                 Log.e(TAG, "點選新連結");
-                Log.e(TAG, "isshow() = " + loading.isshow());
-                if(!loading.isshow()) {
+                //Log.e(TAG, "isshow() = " + loading.isshow());
+                /*if(!loading.isshow()) {
                     if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
                         loading.show("Loading...");
                     } else if (Value.language_flag == 1) {
@@ -193,7 +196,7 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
                     } else if (Value.language_flag == 2) {
                         loading.show("加載中...");
                     }
-                }
+                }*/
                 try {
                     if(url.startsWith("http://") || url.startsWith("https://")) {
 
@@ -258,6 +261,21 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
                 this.mCustomViewCallback = paramCustomViewCallback;
                 ((FrameLayout) getWindow().getDecorView()).addView(this.mCustomView, new FrameLayout.LayoutParams(-1, -1));
                 getWindow().getDecorView().setSystemUiVisibility(3846);
+            }
+
+            public void onProgressChanged(WebView view, int newProgress) {
+                // TODO Auto-generated method stub
+                if (newProgress == 100) {
+                    // 网页加载完成
+                    progressBar.setVisibility(View.GONE);//加载完网页进度条消失
+                    Log.e(TAG, "隱藏進度條");
+                } else {
+                    // 加载中
+                    progressBar.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
+                    progressBar.setProgress(newProgress);//设置进度值
+                    Log.e(TAG, "顯示進度條");
+                }
+
             }
         });
 
