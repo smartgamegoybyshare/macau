@@ -48,7 +48,7 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
     private String TAG = "LinksettingActivity";
     private String company, account, act;
     private Bitmap preview_bitmap;
-    private GifImageView gifImageView1;
+    //private GifImageView gifImageView1;
     private Handler handler = new Handler();
     private Link link = new Link(this);
     private Loading loading = new Loading(this);
@@ -104,9 +104,9 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
         editText3 = findViewById(R.id.editText3);  //密碼
         Button button = findViewById(R.id.button1); //確認鈕
         listView = findViewById(R.id.listView1);
-        gifImageView1 = findViewById(R.id.imageView1);
+        //ifImageView1 = findViewById(R.id.imageView1);
 
-        Runnable getimage = () -> {
+        /*Runnable getimage = () -> {
             String imageUri = "https://dl.kz168168.com/img/omen-ad07.png";
             preview_bitmap = internetImage.fetchImage(imageUri);
             handler.post(() -> {
@@ -118,11 +118,11 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
             /*GifDrawable gifFromPath = new GifDrawable(this.getResources(), R.drawable.adphoto);
             gifImageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
             gifImageView1.setImageDrawable(gifFromPath);*/
-        gifImageView1.setOnClickListener(view -> {
+        /*gifImageView1.setOnClickListener(view -> {
             Uri uri = Uri.parse("http://181282.com/");
             Intent intent2 = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent2);
-        });
+        });*/
 
         if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
             title.setText("Add Account");

@@ -43,6 +43,34 @@
         app:layout_constraintVertical_bias="0.0"
         app:layout_constraintWidth_percent="0.30" />
 
+    <!--<Button-->
+        <!--android:id="@+id/button3"-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:layout_marginStart="15dp"-->
+        <!--android:layout_marginBottom="20dp"-->
+        <!--android:alpha="0.6"-->
+        <!--android:background="@drawable/btn_down"-->
+        <!--android:elevation="2dp"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/linear_gif"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.0"-->
+        <!--app:layout_constraintStart_toStartOf="parent" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/button4"-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:layout_marginStart="15dp"-->
+        <!--android:layout_marginBottom="70dp"-->
+        <!--android:alpha="0.6"-->
+        <!--android:background="@drawable/btn_up"-->
+        <!--android:elevation="2dp"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/linear_gif"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.0"-->
+        <!--app:layout_constraintStart_toStartOf="parent" />-->
+
     <Button
         android:id="@+id/button3"
         android:layout_width="30dp"
@@ -52,7 +80,7 @@
         android:alpha="0.6"
         android:background="@drawable/btn_down"
         android:elevation="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/linear_gif"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
@@ -66,7 +94,7 @@
         android:alpha="0.6"
         android:background="@drawable/btn_up"
         android:elevation="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/linear_gif"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
@@ -90,25 +118,25 @@
         app:layout_constraintVertical_bias="0.0"
         app:layout_constraintWidth_percent="0.30" />
 
-    <LinearLayout
-        android:id="@+id/linear_gif"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHeight_percent="0.1">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/linear_gif"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="vertical"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/textView"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintHeight_percent="0.1">-->
 
-        <pl.droidsonroids.gif.GifImageView
-            android:id="@+id/imageView1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true" />
+        <!--<pl.droidsonroids.gif.GifImageView-->
+            <!--android:id="@+id/imageView1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:adjustViewBounds="true" />-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
     <TextView
         android:id="@+id/nowTime"

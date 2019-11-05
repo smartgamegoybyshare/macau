@@ -34,7 +34,7 @@ public class MemberDataActivity extends AppCompatActivity {
     private String TAG = "MemberDataActivity";
     private String company, account, act;
     private Bitmap preview_bitmap;
-    private GifImageView gifImageView1;
+    //private GifImageView gifImageView1;
     private Handler handler = new Handler();
     private InternetImage internetImage = new InternetImage();
     public final static String WEIXIN_CHATTING_MIMETYPE = "vnd.android.cursor.item/vnd.com.tencent.mm.chatting.profile";    //微信聊天
@@ -91,7 +91,7 @@ public class MemberDataActivity extends AppCompatActivity {
             TextView textView9 = findViewById(R.id.textView19); //remark
             TextView copyright = findViewById(R.id.copyright);
             TextView nowTime = findViewById(R.id.nowTime);
-            gifImageView1 = findViewById(R.id.imageView1);
+            //gifImageView1 = findViewById(R.id.imageView1);
 
             row2.setVisibility(View.GONE);
             row4.setVisibility(View.GONE);
@@ -103,7 +103,7 @@ public class MemberDataActivity extends AppCompatActivity {
             //row1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, R.attr.actionBarSize));
             //row3.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, R.attr.actionBarSize));
 
-            Runnable getimage = () -> {
+            /*Runnable getimage = () -> {
                 String imageUri = "https://dl.kz168168.com/img/omen-ad06.png";
                 preview_bitmap = internetImage.fetchImage(imageUri);
                 handler.post(() -> {
@@ -111,16 +111,16 @@ public class MemberDataActivity extends AppCompatActivity {
                     gifImageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 });
             };
-            new Thread(getimage).start();
+            new Thread(getimage).start();*/
             /*GifDrawable gifFromPath = new GifDrawable(this.getResources(), R.drawable.adphoto);
             gifImageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
             gifImageView1.setImageDrawable(gifFromPath);*/
-            gifImageView1.setOnClickListener(view -> {
+            /*gifImageView1.setOnClickListener(view -> {
                 //vibrator.vibrate(100);
                 Uri uri = Uri.parse("http://3singsport.win/");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
-            });
+            });*/
             if(Value.language_flag == 0){  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
                 title.setText("Account");
                 back.setText("back");

@@ -37,6 +37,7 @@
                 android:singleLine="false"
                 android:text="Date"
                 android:textSize="8sp"
+                android:textStyle="bold"
                 tools:ignore="HardcodedText,SmallSp" />
         </LinearLayout>
 
@@ -58,6 +59,7 @@
                 android:singleLine="false"
                 android:text="Chart Code"
                 android:textSize="8sp"
+                android:textStyle="bold"
                 tools:ignore="HardcodedText,SmallSp" />
         </LinearLayout>
 
@@ -76,10 +78,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
+                android:paddingStart="2dp"
                 android:singleLine="false"
                 android:text="Remarks"
                 android:textSize="8sp"
-                tools:ignore="HardcodedText,SmallSp" />
+                android:textStyle="bold"
+                tools:ignore="HardcodedText,RtlSymmetry,SmallSp" />
         </LinearLayout>
 
         <LinearLayout
@@ -101,6 +105,7 @@
                 android:singleLine="false"
                 android:text="Gain"
                 android:textSize="8sp"
+                android:textStyle="bold"
                 tools:ignore="HardcodedText,RtlSymmetry,SmallSp" />
         </LinearLayout>
 
@@ -123,6 +128,7 @@
                 android:singleLine="false"
                 android:text="Loss"
                 android:textSize="8sp"
+                android:textStyle="bold"
                 tools:ignore="HardcodedText,RtlSymmetry,SmallSp" />
         </LinearLayout>
 
@@ -145,6 +151,7 @@
                 android:singleLine="false"
                 android:text="Balance"
                 android:textSize="8sp"
+                android:textStyle="bold"
                 tools:ignore="HardcodedText,RtlSymmetry,SmallSp" />
         </LinearLayout>
 

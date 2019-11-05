@@ -40,7 +40,7 @@ public class AccountLinkActivity extends AppCompatActivity implements CheckLinkL
     private String company, account;
     private ListView listView;
     private Bitmap preview_bitmap;
-    private GifImageView gifImageView1;
+    //private GifImageView gifImageView1;
     private Handler handler = new Handler();
     private Loading loading = new Loading(this);
     private CheckLink checkLink = new CheckLink(this);
@@ -85,7 +85,7 @@ public class AccountLinkActivity extends AppCompatActivity implements CheckLinkL
         TextView copyright = findViewById(R.id.copyright);
         TextView nowTime = findViewById(R.id.nowTime);
         listView = findViewById(R.id.listView1);
-        gifImageView1 = findViewById(R.id.imageView1);
+        /*gifImageView1 = findViewById(R.id.imageView1);
         Runnable getimage = () -> {
             String imageUri = "https://dl.kz168168.com/img/omen-ad04.png";
             preview_bitmap = internetImage.fetchImage(imageUri);
@@ -98,12 +98,12 @@ public class AccountLinkActivity extends AppCompatActivity implements CheckLinkL
             /*GifDrawable gifFromPath = new GifDrawable(this.getResources(), R.drawable.adphoto);
             gifImageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
             gifImageView1.setImageDrawable(gifFromPath);*/
-        gifImageView1.setOnClickListener(view -> {
+        /*gifImageView1.setOnClickListener(view -> {
             //vibrator.vibrate(100);
             Uri uri = Uri.parse("http://3singsport.win/");
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
-        });
+        });*/
 
         copyright.setText(Value.copyright_text + Value.ver);
         if(Value.language_flag == 0){  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs

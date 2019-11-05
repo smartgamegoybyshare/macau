@@ -84,7 +84,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
             lineaBackground5, lineaBackground6, lineaBackground7;
     private int select_item = -1;
     private Bitmap preview_bitmap;
-    private GifImageView gifImageView1;
+    //private GifImageView gifImageView1;
     private TextView toolbartitle, nowtime, date, chartcode, remark, gain, loss, balance, checked, back;
     private Button accountLink, checkform, refresh;
     private InternetImage internetImage = new InternetImage();
@@ -112,6 +112,16 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
         loss = findViewById(R.id.textView7);
         balance = findViewById(R.id.textView8);
         checked = findViewById(R.id.textView9);
+
+        Log.e(TAG, "開始加粗");
+        date.getPaint().setFakeBoldText(true);
+        chartcode.getPaint().setFakeBoldText(true);
+        remark.getPaint().setFakeBoldText(true);
+        gain.getPaint().setFakeBoldText(true);
+        loss.getPaint().setFakeBoldText(true);
+        balance.getPaint().setFakeBoldText(true);
+        checked.getPaint().setFakeBoldText(true);
+        Log.e(TAG, "字體加粗");
 
         refresh = findViewById(R.id.button5);
         if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
@@ -148,7 +158,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
             Button listButtondown = findViewById(R.id.button3);
             Button listButtonup = findViewById(R.id.button4);
             TextView username = findViewById(R.id.textView1);
-            gifImageView1 = findViewById(R.id.imageView1);
+            /*gifImageView1 = findViewById(R.id.imageView1);
             Runnable getimage = () -> {
                 String imageUri = "https://dl.kz168168.com/img/omen-ad03.png";
                 preview_bitmap = internetImage.fetchImage(imageUri);
@@ -161,11 +171,11 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                 /*GifDrawable gifFromPath = new GifDrawable(this.getResources(), R.drawable.adphoto2);
                 gifImageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 gifImageView1.setImageDrawable(gifFromPath);*/
-            gifImageView1.setOnClickListener(view -> {
+            /*gifImageView1.setOnClickListener(view -> {
                 Uri uri = Uri.parse("http://181282.com/");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
-            });
+            });*/
             String userdata = Value.get_user_data.get("records").toString();
             JSONArray userdatas = new JSONArray(userdata);
             String getdata = userdatas.get(0).toString();
@@ -296,7 +306,8 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                     .setIcon(R.drawable.app_icon_mini)
                     .setMessage("Do you want to Logout?")
                     .setPositiveButton("Yes", (dialog, which) -> {
-                        Intent intent = new Intent(this, MainActivity.class);   //MainActivity
+                        //Intent intent = new Intent(this, MainActivity.class);   //MainActivity
+                        Intent intent = new Intent(this, MainActivity_fix.class);
                         Value.get_record = null;
                         Value.record = null;
                         startActivity(intent);
@@ -311,7 +322,8 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                     .setIcon(R.drawable.app_icon_mini)
                     .setMessage("確定要登出?")
                     .setPositiveButton("確定", (dialog, which) -> {
-                        Intent intent = new Intent(this, MainActivity.class);   //MainActivity
+                        //Intent intent = new Intent(this, MainActivity.class);   //MainActivity
+                        Intent intent = new Intent(this, MainActivity_fix.class);
                         Value.get_record = null;
                         Value.record = null;
                         startActivity(intent);
@@ -326,7 +338,8 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                     .setIcon(R.drawable.app_icon_mini)
                     .setMessage("确定要登出?")
                     .setPositiveButton("确定", (dialog, which) -> {
-                        Intent intent = new Intent(this, MainActivity.class);   //MainActivity
+                        //Intent intent = new Intent(this, MainActivity.class);   //MainActivity
+                        Intent intent = new Intent(this, MainActivity_fix.class);
                         Value.get_record = null;
                         Value.record = null;
                         startActivity(intent);
@@ -339,7 +352,8 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
     }
 
     private void back(){
-        Intent intent = new Intent(this, LoginMainActivity.class);
+        Intent intent = new Intent(this, MainActivity_fix.class);
+        //Intent intent = new Intent(this, LoginMainActivity.class);
         intent.putExtra("company", company);
         intent.putExtra("account", account);
         startActivity(intent);

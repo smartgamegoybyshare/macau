@@ -15,7 +15,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.threesing.macau.Post_Get.ChangePassword.ChangePassword;
 import com.threesing.macau.Post_Get.ChangePassword.ChangePasswordListener;
 import com.threesing.macau.Post_Get.ChangePassword.PostChangePassword;
@@ -23,8 +25,10 @@ import com.threesing.macau.R;
 import com.threesing.macau.Support.InternetImage;
 import com.threesing.macau.Support.Loading;
 import com.threesing.macau.Support.Value;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import pl.droidsonroids.gif.GifImageView;
 
 public class ModifyPasswordActivity extends AppCompatActivity implements ChangePasswordListener {
@@ -32,7 +36,7 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
     private String TAG = "ModifyPasswordActivity";
     private String company, account, act;
     private Bitmap preview_bitmap;
-    private GifImageView gifImageView1;
+    //private GifImageView gifImageView1;
     private Handler handler = new Handler();
     private Loading loading = new Loading(this);
     private ChangePassword changePassword = new ChangePassword(this);
@@ -54,7 +58,7 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
         Intent intent = getIntent();
         company = intent.getStringExtra("company");
         account = intent.getStringExtra("account");
-        act  = intent.getStringExtra("act");
+        act = intent.getStringExtra("act");
         Log.e(TAG, "company = " + company);
         Log.e(TAG, "account = " + account);
 
@@ -75,7 +79,7 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
         Button button = findViewById(R.id.button);  //修改按鈕
         TextView copyright = findViewById(R.id.copyright);  //下方版權
         TextView nowTime = findViewById(R.id.nowTime);  //資料庫數據更新時間
-        gifImageView1 = findViewById(R.id.imageView1); //廣告欄
+        /*gifImageView1 = findViewById(R.id.imageView1); //廣告欄
         Runnable getimage = () -> {
             String imageUri = "https://dl.kz168168.com/img/omen-ad05.png";
             preview_bitmap = internetImage.fetchImage(imageUri);
@@ -88,13 +92,13 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
             /*GifDrawable gifFromPath = new GifDrawable(this.getResources(), R.drawable.adphoto);
             gifImageView1.setScaleType(ImageView.ScaleType.CENTER_CROP);
             gifImageView1.setImageDrawable(gifFromPath);*/
-        gifImageView1.setOnClickListener(view -> {
+        /*gifImageView1.setOnClickListener(view -> {
             //vibrator.vibrate(100);
             Uri uri = Uri.parse("http://181282.com/");
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
-        });
-        if(Value.language_flag == 0){  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
+        });*/
+        if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
             textView.setText("Change Password");
             textView1.setText("back");
             textView2.setText("Old Password");
@@ -106,7 +110,7 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
             button.setText("Comfirm");
             copyright.setText(Value.copyright_text + Value.ver);
             nowTime.setText(Value.updatestring + Value.updateTime);
-        }else if(Value.language_flag == 1){
+        } else if (Value.language_flag == 1) {
             textView.setText("修改密碼");
             textView1.setText("返回");
             textView2.setText("舊密碼");
@@ -118,7 +122,7 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
             button.setText("確認");
             copyright.setText(Value.copyright_text + Value.ver);
             nowTime.setText(Value.updatestring + Value.updateTime);
-        }else if(Value.language_flag == 2){
+        } else if (Value.language_flag == 2) {
             textView.setText("修改密码");
             textView1.setText("返回");
             textView2.setText("旧密码");
@@ -224,9 +228,9 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
 
     private void backform() {
         Intent intent;
-        if(act.matches("login")){
+        if (act.matches("login")) {
             intent = new Intent(this, LoginMainActivity.class);
-        }else {
+        } else {
             intent = new Intent(this, FormActivity.class);
         }
         intent.putExtra("company", company);
@@ -298,47 +302,47 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
                 editText1.setText("");
                 editText2.setText("");
                 editText3.setText("");
-                if(Value.language_flag == 0){  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
+                if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
                     Toast toast = Toast.makeText(this, "Changing Password Successfully", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
-                }else if(Value.language_flag == 1){
+                } else if (Value.language_flag == 1) {
                     Toast toast = Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
-                }else if(Value.language_flag == 2){
+                } else if (Value.language_flag == 2) {
                     Toast toast = Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 }
             } else if (result.matches("error1")) {
                 loading.dismiss();
-                if(Value.language_flag == 0){  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
+                if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
                     Toast toast = Toast.makeText(this, "Changing Password Failed", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
-                }else if(Value.language_flag == 1){
+                } else if (Value.language_flag == 1) {
                     Toast toast = Toast.makeText(this, "密碼修改失敗", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
-                }else if(Value.language_flag == 2){
+                } else if (Value.language_flag == 2) {
                     Toast toast = Toast.makeText(this, "密码修改失败", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 }
             } else if (result.matches("error3")) {
                 loading.dismiss();
-                if(Value.language_flag == 0){  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
+                if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
                     Toast toast = Toast.makeText(this, "Sub Account Does Not Exist", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
-                }else if(Value.language_flag == 1){
+                } else if (Value.language_flag == 1) {
                     Toast toast = Toast.makeText(this, "子帳號不存在", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
-                }else if(Value.language_flag == 2){
+                } else if (Value.language_flag == 2) {
                     Toast toast = Toast.makeText(this, "子帐号不存在", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 }
             }
