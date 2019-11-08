@@ -51,6 +51,8 @@ import com.threesing.macau.R;
 import com.threesing.macau.SQL.LanguageSQL;
 import com.threesing.macau.Support.InternetImage;
 import com.threesing.macau.Support.Loading;
+import com.threesing.macau.Support.SelectDialog;
+import com.threesing.macau.Support.SelectTotalDialog;
 import com.threesing.macau.Support.Value;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -91,6 +93,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
     private Handler handler = new Handler(), buttonHandler = new Handler(), swipeHandler = new Handler();
     private PopupWindow popWindow;
     private boolean popWindowView = false, regetalldata = false, language_bool = false, swipe = false;
+    private int click = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +116,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
         balance = findViewById(R.id.textView8);
         checked = findViewById(R.id.textView9);
 
+        back.setVisibility(View.GONE);
         Log.e(TAG, "開始加粗");
         date.getPaint().setFakeBoldText(true);
         chartcode.getPaint().setFakeBoldText(true);
@@ -418,6 +422,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                 handler.post(() -> {
                     listView.setAdapter(Value.mUserDataList);
                     listView.setOnItemClickListener(mListClickListener);
+                    listView.setOnItemLongClickListener(mLongListClickListener);
                     nowtime.setText(Value.updatestring + Value.updateTime);
                 });
             } catch (JSONException e) {
@@ -426,10 +431,38 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
         }
     };
 
+    private AdapterView.OnItemLongClickListener mLongListClickListener = (parent, view, position, id) -> {
+        Log.e(TAG, "select = " + Value.user_record.get(position));
+        String select = Value.user_record.get(position);
+        if(position != Value.user_record.size() - 1) {
+            SelectDialog selectDialog = new SelectDialog(this);
+            selectDialog.show(select);
+        }else {
+            SelectTotalDialog selectTotalDialog = new SelectTotalDialog(this);
+            selectTotalDialog.show(select);
+        }
+        return true;
+    };
+
     private AdapterView.OnItemClickListener mListClickListener = new AdapterView.OnItemClickListener() {
         //設置點選view的背景顏色(Yellow)
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+            if(click != position){
+                click = position;
+            }else {
+                click = 0;
+                String select = Value.user_record.get(position);
+                if(position != Value.user_record.size() - 1) {
+                    SelectDialog selectDialog = new SelectDialog(FormActivity.this);
+                    selectDialog.show(select);
+                }else {
+                    SelectTotalDialog selectTotalDialog = new SelectTotalDialog(FormActivity.this);
+                    selectTotalDialog.show(select);
+                }
+            }
+
             try {
                 LinearLayout linearLayout1 = view.findViewById(R.id.linearLayout1);
                 LinearLayout linearLayout2 = view.findViewById(R.id.linearLayout2);
