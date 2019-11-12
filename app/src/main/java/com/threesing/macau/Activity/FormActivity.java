@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -54,6 +57,8 @@ import com.threesing.macau.Support.Loading;
 import com.threesing.macau.Support.SelectDialog;
 import com.threesing.macau.Support.SelectTotalDialog;
 import com.threesing.macau.Support.Value;
+import com.threesing.macau.TextType.CustomTypeFaceSpan;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -94,6 +99,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
     private PopupWindow popWindow;
     private boolean popWindowView = false, regetalldata = false, language_bool = false, swipe = false;
     private int click = 0;
+    private Typeface face, boldface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +121,9 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
         loss = findViewById(R.id.textView7);
         balance = findViewById(R.id.textView8);
         checked = findViewById(R.id.textView9);
+
+        face = Typeface.createFromAsset(getAssets(), "fonts/GenJyuuGothic-Normal.ttf");
+        boldface = Typeface.createFromAsset(getAssets(), "fonts/GenJyuuGothic-Bold.ttf");
 
         back.setVisibility(View.GONE);
         Log.e(TAG, "開始加粗");
@@ -162,6 +171,9 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
             Button listButtondown = findViewById(R.id.button3);
             Button listButtonup = findViewById(R.id.button4);
             TextView username = findViewById(R.id.textView1);
+
+            copyright.setTypeface(face);
+            username.setTypeface(face);
             /*gifImageView1 = findViewById(R.id.imageView1);
             Runnable getimage = () -> {
                 String imageUri = "https://dl.kz168168.com/img/omen-ad03.png";
@@ -690,15 +702,28 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
         }
         // 获取布局文件
         popupMenu.getMenuInflater().inflate(R.menu.menu, popupMenu.getMenu());
+
         if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
-            popupMenu.getMenu().findItem(R.id.modify).setTitle("Change Password");
-            popupMenu.getMenu().findItem(R.id.logout).setTitle("Logout");
+            SpannableString password = new SpannableString("Change Password");
+            password.setSpan(new CustomTypeFaceSpan("", face, Color.BLACK), 0, password.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            popupMenu.getMenu().findItem(R.id.modify).setTitle(password);
+            SpannableString logout = new SpannableString("Logout");
+            logout.setSpan(new CustomTypeFaceSpan("", face, Color.BLACK), 0, logout.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            popupMenu.getMenu().findItem(R.id.logout).setTitle(logout);
         } else if (Value.language_flag == 1) {
-            popupMenu.getMenu().findItem(R.id.modify).setTitle("修改密碼");
-            popupMenu.getMenu().findItem(R.id.logout).setTitle("登出");
+            SpannableString password = new SpannableString("修改密碼");
+            password.setSpan(new CustomTypeFaceSpan("", face, Color.BLACK), 0, password.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            popupMenu.getMenu().findItem(R.id.modify).setTitle(password);
+            SpannableString logout = new SpannableString("登出");
+            logout.setSpan(new CustomTypeFaceSpan("", face, Color.BLACK), 0, logout.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            popupMenu.getMenu().findItem(R.id.logout).setTitle(logout);
         } else if (Value.language_flag == 2) {
-            popupMenu.getMenu().findItem(R.id.modify).setTitle("修改密码");
-            popupMenu.getMenu().findItem(R.id.logout).setTitle("登出");
+            SpannableString password = new SpannableString("修改密码");
+            password.setSpan(new CustomTypeFaceSpan("", face, Color.BLACK), 0, password.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            popupMenu.getMenu().findItem(R.id.modify).setTitle(password);
+            SpannableString logout = new SpannableString("登出");
+            logout.setSpan(new CustomTypeFaceSpan("", face, Color.BLACK), 0, logout.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            popupMenu.getMenu().findItem(R.id.logout).setTitle(logout);
         }
         popupMenu.show();
         // 通过上面这几行代码，就可以把控件显示出来了
@@ -743,6 +768,13 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
         textView4.setVisibility(View.GONE);
         textView5.setVisibility(View.GONE);
         textView6.setVisibility(View.GONE);
+
+        textView1.setTypeface(face);
+        textView2.setTypeface(face);
+        textView3.setTypeface(face);
+        textView4.setTypeface(face);
+        textView5.setTypeface(face);
+        textView6.setTypeface(face);
 
         if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
             textView1.setText("Account");
@@ -1094,6 +1126,19 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
     @Override
     public void setLanguage() {
         try {
+            toolbartitle.setTypeface(boldface);
+            back.setTypeface(face);
+            date.setTypeface(boldface);
+            chartcode.setTypeface(boldface);
+            remark.setTypeface(boldface);
+            gain.setTypeface(boldface);
+            loss.setTypeface(boldface);
+            balance.setTypeface(boldface);
+            checked.setTypeface(boldface);
+            checkform.setTypeface(face);
+            accountLink.setTypeface(face);
+            refresh.setTypeface(face);
+            nowtime.setTypeface(face);
             if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
                 toolbartitle.setText("Account Checking");
                 back.setText("back");

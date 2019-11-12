@@ -3,6 +3,7 @@ package com.threesing.macau.ListView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ public class LinksettingList extends BaseAdapter{
     private List<View> saveView;
     private List<ViewHolder> saveHolder;
     private String nowcompany, nowaccount;
+    private Typeface face, boldface;
 
     public LinksettingList(Context context, List<String> userLink, GetInnerItem getInnerItem,
                            String company, String account) {
@@ -46,6 +48,8 @@ public class LinksettingList extends BaseAdapter{
             saveView.add(view);
             saveHolder.add(viewHolder);
         }
+        face = Typeface.createFromAsset(context.getAssets(), "fonts/GenJyuuGothic-Normal.ttf");
+        boldface = Typeface.createFromAsset(context.getAssets(), "fonts/GenJyuuGothic-Bold.ttf");
     }
 
     @Override
@@ -82,6 +86,10 @@ public class LinksettingList extends BaseAdapter{
             TextView textView1 = view.findViewById(R.id.textView1);
             Button button = view.findViewById(R.id.button1);
             TextView textView3 = view.findViewById(R.id.textView3);
+
+            textView1.setTypeface(face);
+            button.setTypeface(face);
+            textView3.setTypeface(face);
 
             if(position == userLink.size() - 1){
                 linearLayout1.setBackgroundResource(R.drawable.linksettingstyle_left);

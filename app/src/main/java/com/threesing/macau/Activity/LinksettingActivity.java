@@ -3,6 +3,7 @@ package com.threesing.macau.Activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -63,6 +64,7 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
     private JSONArray jsonArray;
     private EditText editText1, editText2, editText3;
     private ListView listView;
+    private Typeface face, boldface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +106,24 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
         editText3 = findViewById(R.id.editText3);  //密碼
         Button button = findViewById(R.id.button1); //確認鈕
         listView = findViewById(R.id.listView1);
+
+        face = Typeface.createFromAsset(getAssets(), "fonts/GenJyuuGothic-Normal.ttf");
+        boldface = Typeface.createFromAsset(getAssets(), "fonts/GenJyuuGothic-Bold.ttf");
+
+        title.setTypeface(boldface);
+        back.setTypeface(face);
+        textView1.setTypeface(face);
+        textView2.setTypeface(face);
+        textView3.setTypeface(face);
+        textView4.setTypeface(face);
+        textView5.setTypeface(face);
+        textView6.setTypeface(face);
+        button.setTypeface(face);
+        copyright.setTypeface(face);
+        nowTime.setTypeface(face);
+        editText1.setTypeface(face);
+        editText2.setTypeface(face);
+        editText3.setTypeface(face);
         //ifImageView1 = findViewById(R.id.imageView1);
 
         /*Runnable getimage = () -> {
@@ -126,7 +146,7 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
 
         if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
             title.setText("Add Account");
-            back.setText("back");
+            back.setText("Back");
             textView1.setText("Sub Account");
             textView2.setText("User");
             textView3.setText("Password");

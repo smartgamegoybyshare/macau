@@ -3,6 +3,7 @@ package com.threesing.macau.ListView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ public class UserDataList extends BaseAdapter {
 
     private List<String> user_record;
     private List<View> saveView;
+    private Typeface face, boldface;
 
     @SuppressLint("InflateParams")
     public UserDataList(Context context, List<String> user_record) {
@@ -33,6 +35,8 @@ public class UserDataList extends BaseAdapter {
             View view = inflater.inflate(R.layout.userdata, null);
             saveView.add(view);
         }
+        face = Typeface.createFromAsset(context.getAssets(), "fonts/GenJyuuGothic-Normal.ttf");
+        boldface = Typeface.createFromAsset(context.getAssets(), "fonts/GenJyuuGothic-Bold.ttf");
     }
 
     @Override
@@ -71,6 +75,14 @@ public class UserDataList extends BaseAdapter {
         LinearLayout linearLayout5 = view.findViewById(R.id.linearLayout5);
         LinearLayout linearLayout6 = view.findViewById(R.id.linearLayout6);
         LinearLayout linearLayout7 = view.findViewById(R.id.linearLayout7);
+
+        date.setTypeface(boldface);
+        chart_code.setTypeface(boldface);
+        remarks.setTypeface(boldface);
+        gain.setTypeface(boldface);
+        lose.setTypeface(boldface);
+        balance.setTypeface(boldface);
+        checkBox.setTypeface(boldface);
 
         if (position != user_record.size() - 1) {
             JSONObject jsonObject;

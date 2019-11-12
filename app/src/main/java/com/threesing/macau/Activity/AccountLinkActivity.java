@@ -3,6 +3,7 @@ package com.threesing.macau.Activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -48,6 +49,7 @@ public class AccountLinkActivity extends AppCompatActivity implements CheckLinkL
     private GetButtonItem getButtonItem = new GetButtonItem();
     private InternetImage internetImage = new InternetImage();
     private JSONArray jsonArray;
+    private Typeface face, boldface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,16 @@ public class AccountLinkActivity extends AppCompatActivity implements CheckLinkL
         TextView copyright = findViewById(R.id.copyright);
         TextView nowTime = findViewById(R.id.nowTime);
         listView = findViewById(R.id.listView1);
+
+        face = Typeface.createFromAsset(getAssets(), "fonts/GenJyuuGothic-Normal.ttf");
+        boldface = Typeface.createFromAsset(getAssets(), "fonts/GenJyuuGothic-Bold.ttf");
+
+        title.setTypeface(boldface);
+        back.setTypeface(face);
+        text_company.setTypeface(face);
+        text_account.setTypeface(face);
+        copyright.setTypeface(face);
+        nowTime.setTypeface(face);
         /*gifImageView1 = findViewById(R.id.imageView1);
         Runnable getimage = () -> {
             String imageUri = "https://dl.kz168168.com/img/omen-ad04.png";
@@ -108,7 +120,7 @@ public class AccountLinkActivity extends AppCompatActivity implements CheckLinkL
         copyright.setText(Value.copyright_text + Value.ver);
         if(Value.language_flag == 0){  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
             title.setText("Account");
-            back.setText("back");
+            back.setText("Back");
             text_company.setText("Sub Account");
             text_account.setText("User");
             nowTime.setText(Value.updatestring + Value.updateTime);

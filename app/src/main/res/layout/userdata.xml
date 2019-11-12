@@ -36,6 +36,7 @@
                 android:gravity="center"
                 android:singleLine="false"
                 android:text="Date"
+                android:textColor="#000000"
                 android:textSize="8sp"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText,SmallSp" />
@@ -58,6 +59,7 @@
                 android:gravity="center"
                 android:singleLine="false"
                 android:text="Chart Code"
+                android:textColor="#000000"
                 android:textSize="8sp"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText,SmallSp" />
@@ -82,6 +84,7 @@
                 android:singleLine="false"
                 android:text="Remarks"
                 android:textSize="8sp"
+                android:textColor="#000000"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText,RtlSymmetry,SmallSp" />
         </LinearLayout>
@@ -105,6 +108,7 @@
                 android:singleLine="false"
                 android:text="Gain"
                 android:textSize="8sp"
+                android:textColor="#000000"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText,RtlSymmetry,SmallSp" />
         </LinearLayout>
@@ -128,6 +132,7 @@
                 android:singleLine="false"
                 android:text="Loss"
                 android:textSize="8sp"
+                android:textColor="#000000"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText,RtlSymmetry,SmallSp" />
         </LinearLayout>
@@ -151,6 +156,7 @@
                 android:singleLine="false"
                 android:text="Balance"
                 android:textSize="8sp"
+                android:textColor="#000000"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText,RtlSymmetry,SmallSp" />
         </LinearLayout>
@@ -169,6 +175,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textColor="#000000"
                 android:gravity="center"
                 android:checked="false"
                 android:clickable="false"

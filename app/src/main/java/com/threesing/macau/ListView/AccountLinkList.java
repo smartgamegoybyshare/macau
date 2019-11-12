@@ -2,6 +2,7 @@ package com.threesing.macau.ListView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ public class AccountLinkList extends BaseAdapter{
     private List<ButtonHolder> saveHolder;
     private GetButtonItem getButtonItem;
     private String nowcompany, nowaccount;
+    private Typeface face, boldface;
 
     public AccountLinkList(Context context, List<String> user_Link, GetButtonItem getButtonItem,
                            String company, String account) {
@@ -43,6 +45,8 @@ public class AccountLinkList extends BaseAdapter{
             saveView.add(view);
             saveHolder.add(buttonHolder);
         }
+        face = Typeface.createFromAsset(context.getAssets(), "fonts/GenJyuuGothic-Normal.ttf");
+        boldface = Typeface.createFromAsset(context.getAssets(), "fonts/GenJyuuGothic-Bold.ttf");
     }
 
     @Override
@@ -77,6 +81,8 @@ public class AccountLinkList extends BaseAdapter{
             String company = jsonObject.get("link_from_code").toString();
             String account = jsonObject.get("link_from_user").toString();
 
+            textView1.setTypeface(face);
+            button.setTypeface(face);
             textView1.setText(company);
             button.setText(account);
 

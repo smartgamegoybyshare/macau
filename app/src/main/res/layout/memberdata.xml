@@ -7,30 +7,46 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Activity.MemberDataActivity">
 
-    <TextView
+    <!--全頁背景色-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#E7EFF8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </LinearLayout>
+
+    <!--toolbar title-->
+    <com.threesing.macau.TextType.CustomTextView
         android:id="@+id/textView"
         android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="44sp"
         android:layout_gravity="center"
         android:background="?attr/colorPrimary"
         android:gravity="center"
         android:textColor="@color/colorWhite"
-        android:textSize="21sp"
-        android:textStyle="bold"
+        android:textSize="19sp"
+        app:customFont="GenJyuuGothic-Bold.ttf"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
+    <!--返回-->
+    <com.threesing.macau.TextType.CustomTextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="44sp"
         android:layout_gravity="center"
         android:layout_marginStart="15dp"
         android:gravity="center"
         android:textColor="@color/colorWhite"
+        app:customFont="GenJyuuGothic-Normal.ttf"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -38,12 +54,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+    <!--黑欄標題-->
     <LinearLayout
         android:id="@+id/linear_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/text_style"
         android:orientation="vertical"
@@ -53,10 +70,11 @@
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.0">
 
-        <TextView
+        <com.threesing.macau.TextType.CustomTextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:customFont="GenJyuuGothic-Normal.ttf"
             android:layout_gravity="center"
             android:gravity="center"
             android:singleLine="false"
@@ -83,6 +101,7 @@
             android:orientation="vertical"
             tools:ignore="UselessParent">
 
+            <!--姓名欄-->
             <LinearLayout
                 android:id="@+id/row1"
                 android:layout_width="match_parent"
@@ -94,16 +113,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
+                    android:layout_weight="1.5"
                     android:background="@drawable/memberdata_downleft"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     tools:ignore="NestedWeights">
 
-                    <TextView
+                    <!--姓名欄-->
+                    <com.threesing.macau.TextType.CustomTextView
                         android:id="@+id/textView4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:customFont="GenJyuuGothic-Normal.ttf"
                         android:singleLine="true"
                         android:layout_gravity="center"
                         android:gravity="center"
@@ -123,10 +144,12 @@
                     android:paddingEnd="10dp"
                     tools:ignore="RtlSymmetry">
 
-                    <TextView
+                    <!--姓名-->
+                    <com.threesing.macau.TextType.CustomTextView
                         android:id="@+id/textView5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:customFont="GenJyuuGothic-Normal.ttf"
                         android:singleLine="false"
                         android:layout_gravity="end"
                         android:gravity="end"
@@ -136,6 +159,7 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <!--擔保人欄-->
             <LinearLayout
                 android:id="@+id/row2"
                 android:layout_width="match_parent"
@@ -148,16 +172,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
+                    android:layout_weight="1.5"
                     android:background="@drawable/memberdata_downleft"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     tools:ignore="NestedWeights,RtlSymmetry">
 
-                    <TextView
+                    <!--擔保人姓名欄-->
+                    <com.threesing.macau.TextType.CustomTextView
                         android:id="@+id/textView6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:customFont="GenJyuuGothic-Normal.ttf"
                         android:singleLine="true"
                         android:layout_gravity="center"
                         android:gravity="center"
@@ -177,10 +203,12 @@
                     android:paddingEnd="10dp"
                     tools:ignore="RtlSymmetry">
 
-                    <TextView
+                    <!--擔保人-->
+                    <com.threesing.macau.TextType.CustomTextView
                         android:id="@+id/textView7"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:customFont="GenJyuuGothic-Normal.ttf"
                         android:singleLine="false"
                         android:layout_gravity="end"
                         android:gravity="end"
@@ -190,6 +218,7 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <!--貨幣欄-->
             <LinearLayout
                 android:id="@+id/row3"
                 android:layout_width="match_parent"
@@ -201,16 +230,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
+                    android:layout_weight="1.5"
                     android:background="@drawable/memberdata_downleft"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     tools:ignore="NestedWeights,RtlSymmetry">
 
-                    <TextView
+                    <!--貨幣欄-->
+                    <com.threesing.macau.TextType.CustomTextView
                         android:id="@+id/textView8"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:customFont="GenJyuuGothic-Normal.ttf"
                         android:singleLine="true"
                         android:layout_gravity="center"
                         android:gravity="center"
@@ -230,10 +261,12 @@
                     android:paddingEnd="10dp"
                     tools:ignore="RtlSymmetry">
 
-                    <TextView
+                    <!--貨幣-->
+                    <com.threesing.macau.TextType.CustomTextView
                         android:id="@+id/textView9"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:customFont="GenJyuuGothic-Normal.ttf"
                         android:singleLine="false"
                         android:layout_gravity="end"
                         android:gravity="end"
@@ -243,6 +276,7 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <!--交收方式欄-->
             <LinearLayout
                 android:id="@+id/row4"
                 android:layout_width="match_parent"
@@ -255,16 +289,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
+                    android:layout_weight="1.5"
                     android:background="@drawable/memberdata_downleft"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     tools:ignore="NestedWeights,RtlSymmetry">
 
-                    <TextView
+                    <!--交收方式欄-->
+                    <com.threesing.macau.TextType.CustomTextView
                         android:id="@+id/textView10"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:customFont="GenJyuuGothic-Normal.ttf"
                         android:singleLine="true"
                         android:layout_gravity="center"
                         android:gravity="center"
@@ -284,10 +320,12 @@
                     android:paddingEnd="10dp"
                     tools:ignore="RtlSymmetry">
 
-                    <TextView
+                    <!--交收方式-->
+                    <com.threesing.macau.TextType.CustomTextView
                         android:id="@+id/textView11"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:customFont="GenJyuuGothic-Normal.ttf"
                         android:singleLine="false"
                         android:layout_gravity="end"
                         android:gravity="end"
@@ -297,6 +335,7 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <!--占成數(%)欄-->
             <LinearLayout
                 android:id="@+id/row5"
                 android:layout_width="match_parent"
@@ -309,16 +348,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
+                    android:layout_weight="1.5"
                     android:background="@drawable/memberdata_downleft"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     tools:ignore="NestedWeights,RtlSymmetry">
 
-                    <TextView
+                    <!--占成數(%)欄-->
+                    <com.threesing.macau.TextType.CustomTextView
                         android:id="@+id/textView12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:customFont="GenJyuuGothic-Normal.ttf"
                         android:singleLine="true"
                         android:layout_gravity="center"
                         android:gravity="center"
@@ -338,10 +379,12 @@
                     android:paddingEnd="10dp"
                     tools:ignore="RtlSymmetry">
 
-                    <TextView
+                    <!--占成數(%)-->
+                    <com.threesing.macau.TextType.CustomTextView
                         android:id="@+id/textView13"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:customFont="GenJyuuGothic-Normal.ttf"
                         android:singleLine="false"
                         android:layout_gravity="end"
                         android:gravity="end"
@@ -351,6 +394,7 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <!--skypeAccount欄-->
             <LinearLayout
                 android:id="@+id/row6"
                 android:layout_width="match_parent"
@@ -363,16 +407,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
+                    android:layout_weight="1.5"
                     android:background="@drawable/memberdata_downleft"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     tools:ignore="NestedWeights,RtlSymmetry">
 
-                    <TextView
+                    <!--skypeAccount欄-->
+                    <com.threesing.macau.TextType.CustomTextView
                         android:id="@+id/textView14"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:customFont="GenJyuuGothic-Normal.ttf"
                         android:singleLine="true"
                         android:layout_gravity="center"
                         android:gravity="center"
@@ -392,10 +438,12 @@
                     android:paddingEnd="10dp"
                     tools:ignore="RtlSymmetry">
 
-                    <TextView
+                    <!--skypeAccount-->
+                    <com.threesing.macau.TextType.CustomTextView
                         android:id="@+id/textView15"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:customFont="GenJyuuGothic-Normal.ttf"
                         android:singleLine="false"
                         android:layout_gravity="end"
                         android:gravity="end"
@@ -405,6 +453,7 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <!--weChatAccount欄-->
             <LinearLayout
                 android:id="@+id/row7"
                 android:layout_width="match_parent"
@@ -417,16 +466,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
+                    android:layout_weight="1.5"
                     android:background="@drawable/memberdata_downleft"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     tools:ignore="NestedWeights,RtlSymmetry">
 
-                    <TextView
+                    <!--weChatAccount欄-->
+                    <com.threesing.macau.TextType.CustomTextView
                         android:id="@+id/textView16"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:customFont="GenJyuuGothic-Normal.ttf"
                         android:singleLine="true"
                         android:layout_gravity="center"
                         android:gravity="center"
@@ -446,10 +497,12 @@
                     android:paddingEnd="10dp"
                     tools:ignore="RtlSymmetry">
 
-                    <TextView
+                    <!--weChatAccount-->
+                    <com.threesing.macau.TextType.CustomTextView
                         android:id="@+id/textView17"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:customFont="GenJyuuGothic-Normal.ttf"
                         android:singleLine="false"
                         android:layout_gravity="end"
                         android:gravity="end"
@@ -459,6 +512,7 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <!--備註欄-->
             <LinearLayout
                 android:id="@+id/row8"
                 android:layout_width="match_parent"
@@ -471,16 +525,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
+                    android:layout_weight="1.5"
                     android:background="@drawable/memberdata_downleft_last"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     tools:ignore="NestedWeights,RtlSymmetry">
 
-                    <TextView
+                    <!--備註欄-->
+                    <com.threesing.macau.TextType.CustomTextView
                         android:id="@+id/textView18"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:customFont="GenJyuuGothic-Normal.ttf"
                         android:singleLine="true"
                         android:layout_gravity="center"
                         android:gravity="center"
@@ -500,10 +556,12 @@
                     android:paddingEnd="10dp"
                     tools:ignore="RtlSymmetry">
 
-                    <TextView
+                    <!--備註-->
+                    <com.threesing.macau.TextType.CustomTextView
                         android:id="@+id/textView19"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:customFont="GenJyuuGothic-Normal.ttf"
                         android:singleLine="false"
                         android:layout_gravity="end"
                         android:gravity="end"
@@ -534,15 +592,17 @@
 
     <!--</LinearLayout>-->
 
-    <TextView
+    <com.threesing.macau.TextType.CustomTextView
         android:id="@+id/nowTime"
         android:layout_width="0dp"
-        android:layout_height="12dp"
+        android:layout_height="15sp"
         android:layout_gravity="center"
         android:gravity="center"
         android:singleLine="true"
         android:text=""
-        android:textSize="8sp"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        app:customFont="GenJyuuGothic-Normal.ttf"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -550,13 +610,15 @@
         app:layout_constraintVertical_bias="1.0"
         tools:ignore="SmallSp" />
 
-    <TextView
+    <com.threesing.macau.TextType.CustomTextView
         android:id="@+id/copyright"
         android:layout_width="0dp"
-        android:layout_height="12dp"
+        android:layout_height="15sp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textSize="8sp"
+        android:textSize="10sp"
+        android:textColor="#000000"
+        app:customFont="GenJyuuGothic-Normal.ttf"
         app:layout_constraintBottom_toTopOf="@+id/nowTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

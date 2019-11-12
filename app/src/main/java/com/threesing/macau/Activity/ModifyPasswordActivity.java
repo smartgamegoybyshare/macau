@@ -3,6 +3,7 @@ package com.threesing.macau.Activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -43,6 +44,7 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
     private PostChangePassword postChangePassword = new PostChangePassword();
     private InternetImage internetImage = new InternetImage();
     private EditText editText1, editText2, editText3;
+    private Typeface face, boldface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,21 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
         Button button = findViewById(R.id.button);  //修改按鈕
         TextView copyright = findViewById(R.id.copyright);  //下方版權
         TextView nowTime = findViewById(R.id.nowTime);  //資料庫數據更新時間
+
+        face = Typeface.createFromAsset(getAssets(), "fonts/GenJyuuGothic-Normal.ttf");
+        boldface = Typeface.createFromAsset(getAssets(), "fonts/GenJyuuGothic-Bold.ttf");
+
+        textView.setTypeface(boldface);
+        textView1.setTypeface(face);
+        textView2.setTypeface(face);
+        textView3.setTypeface(face);
+        textView4.setTypeface(face);
+        editText1.setTypeface(face);
+        editText2.setTypeface(face);
+        editText3.setTypeface(face);
+        button.setTypeface(face);
+        copyright.setTypeface(face);
+        nowTime.setTypeface(face);
         /*gifImageView1 = findViewById(R.id.imageView1); //廣告欄
         Runnable getimage = () -> {
             String imageUri = "https://dl.kz168168.com/img/omen-ad05.png";
@@ -100,7 +117,7 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
         });*/
         if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
             textView.setText("Change Password");
-            textView1.setText("back");
+            textView1.setText("Back");
             textView2.setText("Old Password");
             textView3.setText("New Password");
             textView4.setText("Confirm New Password");
