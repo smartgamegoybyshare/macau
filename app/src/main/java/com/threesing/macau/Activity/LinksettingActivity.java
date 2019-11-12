@@ -3,7 +3,6 @@ package com.threesing.macau.Activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -64,7 +63,6 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
     private JSONArray jsonArray;
     private EditText editText1, editText2, editText3;
     private ListView listView;
-    private Typeface face, boldface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,23 +105,6 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
         Button button = findViewById(R.id.button1); //確認鈕
         listView = findViewById(R.id.listView1);
 
-        face = Typeface.createFromAsset(getAssets(), "fonts/GenJyuuGothic-Normal.ttf");
-        boldface = Typeface.createFromAsset(getAssets(), "fonts/GenJyuuGothic-Bold.ttf");
-
-        title.setTypeface(boldface);
-        back.setTypeface(face);
-        textView1.setTypeface(face);
-        textView2.setTypeface(face);
-        textView3.setTypeface(face);
-        textView4.setTypeface(face);
-        textView5.setTypeface(face);
-        textView6.setTypeface(face);
-        button.setTypeface(face);
-        copyright.setTypeface(face);
-        nowTime.setTypeface(face);
-        editText1.setTypeface(face);
-        editText2.setTypeface(face);
-        editText3.setTypeface(face);
         //ifImageView1 = findViewById(R.id.imageView1);
 
         /*Runnable getimage = () -> {
@@ -147,9 +128,9 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
         if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
             title.setText("Add Account");
             back.setText("Back");
-            textView1.setText("Sub Account");
-            textView2.setText("User");
-            textView3.setText("Password");
+            textView1.setText("Sub Account：");
+            textView2.setText("User：");
+            textView3.setText("Password：");
             textView4.setText("Sub Account");
             textView5.setText("User");
             textView6.setText("Action");
@@ -159,10 +140,10 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
         } else if (Value.language_flag == 1) {
             title.setText("綁定戶口");
             back.setText("返回");
-            textView1.setText("分公司/子帳號");
-            textView2.setText("戶口");
-            textView3.setText("密碼");
-            textView4.setText("子帳號");
+            textView1.setText("分公司/子帳號：");
+            textView2.setText("戶口：");
+            textView3.setText("密碼：");
+            textView4.setText("分公司/子帳號");
             textView5.setText("戶口");
             textView6.setText("操作");
             button.setText("確認");
@@ -171,10 +152,10 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
         } else if (Value.language_flag == 2) {
             title.setText("绑定户口");
             back.setText("返回");
-            textView1.setText("分公司/子帐号");
-            textView2.setText("户口");
-            textView3.setText("密码");
-            textView4.setText("子帐号");
+            textView1.setText("分公司/子帐号：");
+            textView2.setText("户口：");
+            textView3.setText("密码：");
+            textView4.setText("分公司/子帐号");
             textView5.setText("户口");
             textView6.setText("操作");
             button.setText("确认");
@@ -402,7 +383,7 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
         if(v.getId() == R.id.textView3) {
             if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
                 new AlertDialog.Builder(this)
-                        .setTitle("努霸財富管家")
+                        .setTitle("三昇澳門")
                         .setIcon(R.drawable.app_icon_mini)
                         .setMessage("Are you sure to cancel?")
                         .setPositiveButton("Yes", (dialog, which) -> cancelLink(v))
@@ -411,7 +392,7 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
                         }).show();
             } else if (Value.language_flag == 1) {
                 new AlertDialog.Builder(this)
-                        .setTitle("努霸財富管家")
+                        .setTitle("三昇澳門")
                         .setIcon(R.drawable.app_icon_mini)
                         .setMessage("確定要取消嗎?")
                         .setPositiveButton("確定", (dialog, which) -> cancelLink(v))
@@ -420,7 +401,7 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
                         }).show();
             } else if (Value.language_flag == 2) {
                 new AlertDialog.Builder(this)
-                        .setTitle("努霸财富管家")
+                        .setTitle("三昇澳门")
                         .setIcon(R.drawable.app_icon_mini)
                         .setMessage("确定要取消吗?")
                         .setPositiveButton("确定", (dialog, which) -> cancelLink(v))
@@ -428,7 +409,7 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
                             // TODO Auto-generated method stub
                         }).show();
             }
-        }else if(v.getId() == R.id.button1){
+        }else if(v.getId() == R.id.textView2){
             company = nowcompany;
             account = nowaccount;
             backform();

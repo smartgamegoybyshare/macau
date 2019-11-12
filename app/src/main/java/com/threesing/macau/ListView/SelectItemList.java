@@ -62,7 +62,7 @@ public class SelectItemList extends BaseAdapter {
             textView1.setText(select_title.get(position));
             if(select_context.get(position).matches("0")){
                 if (Value.language_flag == 0) {
-                    textView2.setText("Not check");
+                    textView2.setText("Unchecked");
                 }else if (Value.language_flag == 1) {
                     textView2.setText("未對帳");
                 }else if (Value.language_flag == 2) {
@@ -70,7 +70,7 @@ public class SelectItemList extends BaseAdapter {
                 }
             }else {
                 if (Value.language_flag == 0) {
-                    textView2.setText("Check");
+                    textView2.setText("Checked");
                 }else if (Value.language_flag == 1) {
                     textView2.setText("已對帳");
                 }else if (Value.language_flag == 2) {

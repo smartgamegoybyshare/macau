@@ -19,6 +19,6 @@ public class Value {
     public static List<String> user_record;
     public static String updateTime;
     public static String ver;
-    public static String updatestring = "All data are based on our system | Update time : ";
+    public static String updatestring = "All Data Are Based On Our System | Update Time : ";
     public static String copyright_text = "Copyright © 2019. All rights reserved." + " ver ";
 }

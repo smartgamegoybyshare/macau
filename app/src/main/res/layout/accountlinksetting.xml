@@ -7,30 +7,46 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Activity.LinksettingActivity">
 
-    <TextView
+    <!--全頁背景色-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E7EFF8"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </LinearLayout>
+
+    <!--toolbar title-->
+    <com.threesing.macau.TextType.CustomTextView
         android:id="@+id/textView"
         android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:layout_height="44sp"
         android:layout_gravity="center"
+        android:background="?attr/colorPrimary"
         android:gravity="center"
-        android:textSize="21sp"
-        android:textStyle="bold"
         android:textColor="@color/colorWhite"
+        android:textSize="17sp"
+        app:customFont="GenJyuuGothic-Bold.ttf"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
+    <!--返回-->
+    <com.threesing.macau.TextType.CustomTextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="44sp"
         android:layout_gravity="center"
         android:layout_marginStart="15dp"
         android:gravity="center"
         android:textColor="@color/colorWhite"
+        app:customFont="GenJyuuGothic-Normal.ttf"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -38,19 +54,24 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+    <!--列表欄位-->
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#FFFFFF"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/copyright"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.4"
+        app:layout_constraintHeight_percent="0.3"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent="1">
 
+        <!--表格列表-->
         <ListView
             android:id="@+id/listView1"
             android:layout_width="match_parent"
@@ -60,34 +81,36 @@
     </LinearLayout>
 
     <!--<LinearLayout-->
-        <!--android:id="@+id/linear_gif"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:gravity="center"-->
-        <!--android:orientation="vertical"-->
-        <!--app:layout_constraintBottom_toTopOf="@+id/copyright"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintHeight_percent="0.1">-->
+    <!--android:id="@+id/linear_gif"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:gravity="center"-->
+    <!--android:orientation="vertical"-->
+    <!--app:layout_constraintBottom_toTopOf="@+id/copyright"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintHeight_percent="0.1">-->
 
-        <!--<pl.droidsonroids.gif.GifImageView-->
-            <!--android:id="@+id/imageView1"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:adjustViewBounds="true" />-->
+    <!--<pl.droidsonroids.gif.GifImageView-->
+    <!--android:id="@+id/imageView1"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:adjustViewBounds="true" />-->
 
     <!--</LinearLayout>-->
 
-    <TextView
+    <com.threesing.macau.TextType.CustomTextView
         android:id="@+id/nowTime"
         android:layout_width="0dp"
-        android:layout_height="12dp"
-        android:text=""
+        android:layout_height="14sp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textSize="8sp"
         android:singleLine="true"
+        android:text=""
+        android:textColor="#000000"
+        android:textSize="9sp"
+        app:customFont="GenJyuuGothic-Normal.ttf"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -95,13 +118,15 @@
         app:layout_constraintVertical_bias="1.0"
         tools:ignore="SmallSp" />
 
-    <TextView
+    <com.threesing.macau.TextType.CustomTextView
         android:id="@+id/copyright"
         android:layout_width="0dp"
-        android:layout_height="12dp"
+        android:layout_height="14sp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textSize="8sp"
+        android:textColor="#000000"
+        android:textSize="9sp"
+        app:customFont="GenJyuuGothic-Normal.ttf"
         app:layout_constraintBottom_toTopOf="@+id/nowTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -109,153 +134,205 @@
         app:layout_constraintVertical_bias="1.0"
         tools:ignore="SmallSp" />
 
+    <!--表格欄位-->
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:gravity="center_vertical"
-        android:layout_gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
+        <com.threesing.macau.TextType.CustomTextView
             android:id="@+id/textView5"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="36sp"
             android:layout_gravity="center"
             android:layout_weight="1.1"
             android:background="@drawable/linksetting_start_title"
             android:gravity="center"
             android:textColor="#000000"
-            android:textSize="14sp" />
+            android:textSize="15sp"
+            app:customFont="GenJyuuGothic-Bold.ttf" />
 
-        <TextView
+        <com.threesing.macau.TextType.CustomTextView
             android:id="@+id/textView6"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="36sp"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@drawable/linksetting_frame_title"
             android:gravity="center"
             android:textColor="#000000"
-            android:textSize="14sp" />
+            android:textSize="15sp"
+            app:customFont="GenJyuuGothic-Bold.ttf" />
 
-        <TextView
+        <com.threesing.macau.TextType.CustomTextView
             android:id="@+id/textView7"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="36sp"
             android:layout_gravity="center"
-            android:layout_weight="1.2"
+            android:layout_weight="1.3"
             android:background="@drawable/linksetting_end_title"
             android:gravity="center"
             android:textColor="#000000"
-            android:textSize="14sp" />
+            android:textSize="15sp"
+            app:customFont="GenJyuuGothic-Bold.ttf" />
     </LinearLayout>
 
-    <Button
+    <com.threesing.macau.TextType.CustomButtonText
         android:id="@+id/button1"
         android:layout_width="0dp"
-        android:layout_height="30dp"
+        android:layout_height="36sp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
-        android:textColor="@color/colorWhite"
-        android:textAllCaps="false"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/combine_style"
-        android:textSize="18sp"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
+        app:customFont="GenJyuuGothic-Normal.ttf"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout7" />
 
     <LinearLayout
-        android:id="@+id/linearLayout4"
+        android:id="@+id/linearLayout7"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/button1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintBottom_toTopOf="@+id/button1">
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <TextView
-            android:id="@+id/textView2"
+        <LinearLayout
+            android:id="@+id/linearLayout4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
-            android:gravity="center_vertical"
+            android:orientation="vertical"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:textColor="#000000"
-            android:textSize="18sp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <EditText
-            android:id="@+id/editText1"
+            <com.threesing.macau.TextType.CustomTextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:customFont="GenJyuuGothic-Normal.ttf" />
+
+            <com.threesing.macau.TextType.CustomEditTextView
+                android:id="@+id/editText1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/formslider"
+                android:ems="20"
+                android:inputType="text"
+                android:paddingStart="5dp"
+                android:paddingEnd="10dp"
+                tools:ignore="Autofill,LabelFor"
+                app:customFont="GenJyuuGothic-Normal.ttf"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
-            android:background="@drawable/formslider"
-            android:ems="20"
-            android:inputType="text"
+            android:orientation="vertical"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            tools:ignore="Autofill,LabelFor" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
-        <TextView
-            android:id="@+id/textView3"
+            <com.threesing.macau.TextType.CustomTextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:customFont="GenJyuuGothic-Normal.ttf" />
+
+            <com.threesing.macau.TextType.CustomEditTextView
+                android:id="@+id/editText2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/formslider"
+                android:ems="20"
+                android:inputType="text"
+                android:paddingStart="5dp"
+                android:paddingEnd="10dp"
+                tools:ignore="Autofill,LabelFor"
+                app:customFont="GenJyuuGothic-Normal.ttf"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout6"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
-            android:gravity="center_vertical"
+            android:orientation="vertical"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:textColor="#000000"
-            android:textSize="18sp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/formslider"
-            android:ems="20"
-            android:inputType="text"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            tools:ignore="Autofill,LabelFor" />
+            <com.threesing.macau.TextType.CustomTextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:customFont="GenJyuuGothic-Normal.ttf" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textColor="#000000"
-            android:textSize="18sp" />
+            <com.threesing.macau.TextType.CustomEditTextView
+                android:id="@+id/editText3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/formslider"
+                android:ems="20"
+                android:inputType="text"
+                android:paddingStart="5dp"
+                android:paddingEnd="10dp"
+                tools:ignore="Autofill,LabelFor"
+                app:customFont="GenJyuuGothic-Normal.ttf"/>
 
-        <EditText
-            android:id="@+id/editText3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/formslider"
-            android:ems="20"
-            android:inputType="text"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            tools:ignore="Autofill,LabelFor" />
+        </LinearLayout>
 
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

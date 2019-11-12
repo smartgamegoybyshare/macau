@@ -9,11 +9,11 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40sp"
         android:paddingStart="6dp"
         android:paddingEnd="6dp"
         android:orientation="horizontal"
-        android:background="#DDDDDD"
+        android:background="#E7EFF8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,50 +25,62 @@
         <LinearLayout
             android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="40sp"
             android:layout_weight="1.5"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             tools:ignore="RtlSymmetry">
 
-            <TextView
+            <com.threesing.macau.TextType.CustomTextView
                 android:id="@+id/textView1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingStart="10dp"
+                android:paddingStart="5dp"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:textSize="14sp"
                 android:textColor="#000000"
                 android:singleLine="false"
-                tools:ignore="NestedWeights" />
+                tools:ignore="NestedWeights"
+                app:customFont="GenJyuuGothic-Normal.ttf"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40sp"
             android:layout_weight="1"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingStart="10dp"
+            android:paddingStart="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             tools:ignore="RtlSymmetry">
 
-            <Button
-                android:id="@+id/button1"
+            <com.threesing.macau.TextType.CustomTextView
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textSize="12sp"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite"
-                android:text="Button" />
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                android:singleLine="false"
+                tools:ignore="NestedWeights"
+                app:customFont="GenJyuuGothic-Normal.ttf"/>
+            <!--<Button-->
+                <!--android:id="@+id/button1"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:gravity="center"-->
+                <!--android:textSize="12sp"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:textColor="@color/colorWhite"-->
+                <!--android:text="Button" />-->
 
         </LinearLayout>
 

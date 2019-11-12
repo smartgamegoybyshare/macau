@@ -49,7 +49,6 @@ public class AccountLinkActivity extends AppCompatActivity implements CheckLinkL
     private GetButtonItem getButtonItem = new GetButtonItem();
     private InternetImage internetImage = new InternetImage();
     private JSONArray jsonArray;
-    private Typeface face, boldface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,15 +87,6 @@ public class AccountLinkActivity extends AppCompatActivity implements CheckLinkL
         TextView nowTime = findViewById(R.id.nowTime);
         listView = findViewById(R.id.listView1);
 
-        face = Typeface.createFromAsset(getAssets(), "fonts/GenJyuuGothic-Normal.ttf");
-        boldface = Typeface.createFromAsset(getAssets(), "fonts/GenJyuuGothic-Bold.ttf");
-
-        title.setTypeface(boldface);
-        back.setTypeface(face);
-        text_company.setTypeface(face);
-        text_account.setTypeface(face);
-        copyright.setTypeface(face);
-        nowTime.setTypeface(face);
         /*gifImageView1 = findViewById(R.id.imageView1);
         Runnable getimage = () -> {
             String imageUri = "https://dl.kz168168.com/img/omen-ad04.png";
@@ -127,13 +117,13 @@ public class AccountLinkActivity extends AppCompatActivity implements CheckLinkL
         }else if(Value.language_flag == 1){
             title.setText("轉換戶口");
             back.setText("返回");
-            text_company.setText("子帳號");
+            text_company.setText("分公司/子帳號");
             text_account.setText("戶口");
             nowTime.setText(Value.updatestring + Value.updateTime);
         }else if(Value.language_flag == 2){
             title.setText("转换户口");
             back.setText("返回");
-            text_company.setText("子帐号");
+            text_company.setText("分公司/子帐号");
             text_account.setText("户口");
             nowTime.setText(Value.updatestring + Value.updateTime);
         }

@@ -7,30 +7,45 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Activity.AccountLinkActivity">
 
-    <TextView
+    <!--全頁背景色-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E7EFF8"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </LinearLayout>
+
+    <!--toolbar title-->
+    <com.threesing.macau.TextType.CustomTextView
         android:id="@+id/textView"
         android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="44sp"
         android:background="?attr/colorPrimary"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textSize="21sp"
-        android:textStyle="bold"
+        android:textSize="17sp"
         android:textColor="@color/colorWhite"
+        app:customFont="GenJyuuGothic-Bold.ttf"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
+    <com.threesing.macau.TextType.CustomTextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="44sp"
         android:layout_gravity="center"
         android:layout_marginStart="15dp"
         android:gravity="center"
         android:textColor="@color/colorWhite"
+        app:customFont="GenJyuuGothic-Normal.ttf"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -41,7 +56,6 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#DDDDDD"
         android:orientation="vertical"
         android:paddingTop="10dp"
         app:layout_constraintBottom_toTopOf="@+id/copyright"
@@ -57,32 +71,34 @@
             android:paddingEnd="6dp"
             android:orientation="horizontal">
 
-            <TextView
+            <com.threesing.macau.TextType.CustomTextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40sp"
                 android:layout_weight="1.5"
                 android:paddingStart="10dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:textColor="#000000"
                 android:background="@drawable/linksetting_start_title"
                 android:text="公司"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="RtlSymmetry"
+                app:customFont="GenJyuuGothic-Bold.ttf"/>
 
-            <TextView
+            <com.threesing.macau.TextType.CustomTextView
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40sp"
                 android:layout_weight="1"
                 android:paddingStart="10dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:textColor="#000000"
                 android:background="@drawable/linksetting_end_title"
-                android:text="戶口" />
+                android:text="戶口"
+                app:customFont="GenJyuuGothic-Bold.ttf"/>
 
         </LinearLayout>
 
@@ -95,8 +111,7 @@
                 android:id="@+id/listView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:divider="@null"
-                android:background="#FFFFFF" />
+                android:divider="@null" />
         </LinearLayout>
 
     </LinearLayout>
@@ -121,15 +136,16 @@
 
     <!--</LinearLayout>-->
 
-    <TextView
+    <com.threesing.macau.TextType.CustomTextView
         android:id="@+id/nowTime"
         android:layout_width="0dp"
-        android:layout_height="12dp"
+        android:layout_height="14sp"
         android:text=""
         android:layout_gravity="center"
         android:gravity="center"
-        android:textSize="8sp"
+        android:textSize="9sp"
         android:singleLine="true"
+        app:customFont="GenJyuuGothic-Normal.ttf"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -137,13 +153,14 @@
         app:layout_constraintVertical_bias="1.0"
         tools:ignore="SmallSp" />
 
-    <TextView
+    <com.threesing.macau.TextType.CustomTextView
         android:id="@+id/copyright"
         android:layout_width="0dp"
-        android:layout_height="12dp"
+        android:layout_height="14sp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textSize="8sp"
+        android:textSize="9sp"
+        app:customFont="GenJyuuGothic-Normal.ttf"
         app:layout_constraintBottom_toTopOf="@+id/nowTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

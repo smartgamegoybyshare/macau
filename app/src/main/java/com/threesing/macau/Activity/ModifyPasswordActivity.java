@@ -3,7 +3,6 @@ package com.threesing.macau.Activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,9 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.threesing.macau.Post_Get.ChangePassword.ChangePassword;
 import com.threesing.macau.Post_Get.ChangePassword.ChangePasswordListener;
 import com.threesing.macau.Post_Get.ChangePassword.PostChangePassword;
@@ -26,10 +23,8 @@ import com.threesing.macau.R;
 import com.threesing.macau.Support.InternetImage;
 import com.threesing.macau.Support.Loading;
 import com.threesing.macau.Support.Value;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import pl.droidsonroids.gif.GifImageView;
 
 public class ModifyPasswordActivity extends AppCompatActivity implements ChangePasswordListener {
@@ -44,7 +39,6 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
     private PostChangePassword postChangePassword = new PostChangePassword();
     private InternetImage internetImage = new InternetImage();
     private EditText editText1, editText2, editText3;
-    private Typeface face, boldface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,20 +76,6 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
         TextView copyright = findViewById(R.id.copyright);  //下方版權
         TextView nowTime = findViewById(R.id.nowTime);  //資料庫數據更新時間
 
-        face = Typeface.createFromAsset(getAssets(), "fonts/GenJyuuGothic-Normal.ttf");
-        boldface = Typeface.createFromAsset(getAssets(), "fonts/GenJyuuGothic-Bold.ttf");
-
-        textView.setTypeface(boldface);
-        textView1.setTypeface(face);
-        textView2.setTypeface(face);
-        textView3.setTypeface(face);
-        textView4.setTypeface(face);
-        editText1.setTypeface(face);
-        editText2.setTypeface(face);
-        editText3.setTypeface(face);
-        button.setTypeface(face);
-        copyright.setTypeface(face);
-        nowTime.setTypeface(face);
         /*gifImageView1 = findViewById(R.id.imageView1); //廣告欄
         Runnable getimage = () -> {
             String imageUri = "https://dl.kz168168.com/img/omen-ad05.png";
@@ -118,9 +98,9 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
         if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
             textView.setText("Change Password");
             textView1.setText("Back");
-            textView2.setText("Old Password");
-            textView3.setText("New Password");
-            textView4.setText("Confirm New Password");
+            textView2.setText("Old Password：");
+            textView3.setText("New Password：");
+            textView4.setText("Confirm New Password：");
             editText1.setHint("Old Password");
             editText2.setHint("At least 6 characters long");
             editText3.setHint("Confirm new Password");
@@ -130,9 +110,9 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
         } else if (Value.language_flag == 1) {
             textView.setText("修改密碼");
             textView1.setText("返回");
-            textView2.setText("舊密碼");
-            textView3.setText("新密碼");
-            textView4.setText("確認新密碼");
+            textView2.setText("舊密碼：");
+            textView3.setText("新密碼：");
+            textView4.setText("確認新密碼：");
             editText1.setHint("舊密碼");
             editText2.setHint("至少含6字元長度");
             editText3.setHint("確認新密碼");
@@ -142,9 +122,9 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
         } else if (Value.language_flag == 2) {
             textView.setText("修改密码");
             textView1.setText("返回");
-            textView2.setText("旧密码");
-            textView3.setText("新密码");
-            textView4.setText("确认新密码");
+            textView2.setText("旧密码：");
+            textView3.setText("新密码：");
+            textView4.setText("确认新密码：");
             editText1.setHint("旧密码");
             editText2.setHint("最少6位");
             editText3.setHint("确认新密码");

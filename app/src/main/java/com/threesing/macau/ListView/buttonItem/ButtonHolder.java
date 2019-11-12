@@ -1,7 +1,7 @@
 package com.threesing.macau.ListView.buttonItem;
 
-import android.widget.Button;
+import android.widget.TextView;
 
 public class ButtonHolder {
-    public Button button;
+    public TextView buttonText;
 }
