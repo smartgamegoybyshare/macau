@@ -7,16 +7,29 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Activity.FormActivity">
 
-    <Button
+    <!--全頁背景色-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E7EFF8"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </LinearLayout>
+
+    <com.threesing.macau.TextType.CustomButtonText
         android:id="@+id/button1"
         android:layout_width="0dp"
-        android:layout_height="35dp"
+        android:layout_height="30sp"
         android:layout_gravity="center"
-        android:layout_marginStart="6dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="6dp"
         android:background="@drawable/combine_style"
         android:gravity="center"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,24 +37,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintWidth_percent="0.30" />
+        app:layout_constraintWidth_percent="0.315"
+        app:customFont="GenJyuuGothic-Normal.ttf"/>
 
-    <Button
+    <com.threesing.macau.TextType.CustomButtonText
         android:id="@+id/button2"
         android:layout_width="0dp"
-        android:layout_height="35dp"
+        android:layout_height="30sp"
         android:layout_gravity="center"
         android:layout_marginTop="6dp"
         android:background="@drawable/checkall_style"
         android:gravity="center"
         android:textAllCaps="false"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button5"
         app:layout_constraintStart_toEndOf="@+id/button1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintWidth_percent="0.30" />
+        app:layout_constraintWidth_percent="0.315"
+        app:customFont="GenJyuuGothic-Normal.ttf"/>
 
     <!--<Button-->
         <!--android:id="@+id/button3"-->
@@ -73,8 +88,8 @@
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginStart="15dp"
         android:layout_marginBottom="20dp"
         android:alpha="0.6"
@@ -87,10 +102,10 @@
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginStart="15dp"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="60dp"
         android:alpha="0.6"
         android:background="@drawable/btn_up"
         android:elevation="2dp"
@@ -99,24 +114,25 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <com.threesing.macau.TextType.CustomButtonText
         android:id="@+id/button5"
         android:layout_width="0dp"
-        android:layout_height="35dp"
+        android:layout_height="30sp"
         android:layout_gravity="center"
         android:layout_marginTop="6dp"
-        android:layout_marginEnd="6dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/refresh_style"
         android:gravity="center"
         android:textAllCaps="false"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintWidth_percent="0.30" />
+        app:layout_constraintWidth_percent="0.315"
+        app:customFont="GenJyuuGothic-Normal.ttf"/>
 
     <!--<LinearLayout-->
         <!--android:id="@+id/linear_gif"-->
@@ -138,7 +154,7 @@
 
     <!--</LinearLayout>-->
 
-    <TextView
+    <com.threesing.macau.TextType.CustomTextView
         android:id="@+id/nowTime"
         android:layout_width="0dp"
         android:layout_height="12dp"
@@ -147,41 +163,47 @@
         android:gravity="center"
         android:textSize="8sp"
         android:singleLine="true"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:ignore="SmallSp" />
+        tools:ignore="SmallSp"
+        app:customFont="GenJyuuGothic-Normal.ttf"/>
 
-    <TextView
+    <com.threesing.macau.TextType.CustomTextView
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="12dp"
         android:layout_gravity="center"
         android:gravity="center"
         android:textSize="8sp"
+        android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/nowTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:ignore="SmallSp" />
+        tools:ignore="SmallSp"
+        app:customFont="GenJyuuGothic-Normal.ttf"/>
 
-    <TextView
+    <com.threesing.macau.TextType.CustomTextView
         android:id="@+id/textView1"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="24sp"
         android:layout_gravity="center"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="6dp"
-        android:layout_marginEnd="6dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/text_style"
         android:gravity="center"
         android:textColor="@color/colorWhite"
+        app:customFont="GenJyuuGothic-Normal.ttf"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/button1"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button1"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -203,9 +225,9 @@
     <LinearLayout
         android:id="@+id/linearLayout_title"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
+        android:layout_height="24sp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -217,12 +239,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1.15"
+            android:layout_weight="1.18"
             android:background="@drawable/datalist_start_title"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TextView
+            <com.threesing.macau.TextType.CustomTextView
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -230,7 +252,9 @@
                 android:gravity="center"
                 android:singleLine="true"
                 android:text="Date"
+                android:textColor="#000000"
                 android:textSize="8sp"
+                app:customFont="GenJyuuGothic-Bold.ttf"
                 tools:ignore="SmallSp" />
         </LinearLayout>
 
@@ -243,7 +267,7 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TextView
+            <com.threesing.macau.TextType.CustomTextView
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -251,7 +275,9 @@
                 android:gravity="center"
                 android:singleLine="true"
                 android:text="Chart Code"
+                android:textColor="#000000"
                 android:textSize="8sp"
+                app:customFont="GenJyuuGothic-Bold.ttf"
                 tools:ignore="SmallSp" />
         </LinearLayout>
 
@@ -264,7 +290,7 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TextView
+            <com.threesing.macau.TextType.CustomTextView
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -272,7 +298,9 @@
                 android:gravity="center"
                 android:singleLine="true"
                 android:text="Remarks"
+                android:textColor="#000000"
                 android:textSize="8sp"
+                app:customFont="GenJyuuGothic-Bold.ttf"
                 tools:ignore="SmallSp" />
         </LinearLayout>
 
@@ -285,7 +313,7 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TextView
+            <com.threesing.macau.TextType.CustomTextView
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -294,7 +322,9 @@
                 android:paddingEnd="2dp"
                 android:singleLine="true"
                 android:text="Gain"
+                android:textColor="#000000"
                 android:textSize="8sp"
+                app:customFont="GenJyuuGothic-Bold.ttf"
                 tools:ignore="RtlSymmetry,SmallSp" />
         </LinearLayout>
 
@@ -307,7 +337,7 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TextView
+            <com.threesing.macau.TextType.CustomTextView
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -316,7 +346,9 @@
                 android:paddingEnd="2dp"
                 android:singleLine="true"
                 android:text="Loss"
+                android:textColor="#000000"
                 android:textSize="8sp"
+                app:customFont="GenJyuuGothic-Bold.ttf"
                 tools:ignore="RtlSymmetry,SmallSp" />
         </LinearLayout>
 
@@ -324,12 +356,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
             android:layout_weight="1.05"
             android:background="@drawable/datalist_title"
+            android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TextView
+            <com.threesing.macau.TextType.CustomTextView
                 android:id="@+id/textView8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -338,28 +370,32 @@
                 android:paddingEnd="2dp"
                 android:singleLine="true"
                 android:text="Balance"
+                android:textColor="#000000"
                 android:textSize="8sp"
+                app:customFont="GenJyuuGothic-Bold.ttf"
                 tools:ignore="RtlSymmetry,SmallSp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1.15"
             android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
+            android:layout_weight="1.15"
             android:background="@drawable/datalist_title"
+            android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TextView
+            <com.threesing.macau.TextType.CustomTextView
                 android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Checked"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:singleLine="true"
+                android:text="Checked"
+                android:textColor="#000000"
                 android:textSize="8sp"
+                app:customFont="GenJyuuGothic-Bold.ttf"
                 tools:ignore="SmallSp" />
         </LinearLayout>
 
@@ -476,7 +512,10 @@
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginBottom="10dp"
+        android:background="#FFFFFF"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -489,12 +528,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <ListView
-            android:id="@+id/listView1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:listSelector="@android:color/transparent"
-            android:divider="@null" />
+            <ListView
+                android:id="@+id/listView1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null"
+                android:listSelector="@android:color/transparent" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

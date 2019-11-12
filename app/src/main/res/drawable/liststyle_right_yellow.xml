@@ -4,19 +4,15 @@
     <!-- 邊框颜色值 -->
     <item>
         <shape>
-            <solid android:color="#000000" />
-            <corners
-                android:bottomRightRadius="11dp" />
+            <solid android:color="#9f9f9f" />
         </shape>
     </item>
     <!-- 背景颜色值 -->
     <item
-        android:right="2px"
-        android:bottom="2px">
+        android:right="1dp"
+        android:bottom="0.5dp">
         <shape>
             <solid android:color="@color/colorListviewChose" />
-            <corners
-                android:bottomRightRadius="10dp" />
         </shape>
     </item>
 </layer-list>

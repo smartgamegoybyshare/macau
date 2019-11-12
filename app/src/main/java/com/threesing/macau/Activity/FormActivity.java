@@ -99,7 +99,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
     private PopupWindow popWindow;
     private boolean popWindowView = false, regetalldata = false, language_bool = false, swipe = false;
     private int click = 0;
-    private Typeface face, boldface;
+    private Typeface face;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +123,6 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
         checked = findViewById(R.id.textView9);
 
         face = Typeface.createFromAsset(getAssets(), "fonts/GenJyuuGothic-Normal.ttf");
-        boldface = Typeface.createFromAsset(getAssets(), "fonts/GenJyuuGothic-Bold.ttf");
 
         back.setVisibility(View.GONE);
         Log.e(TAG, "開始加粗");
@@ -464,7 +463,6 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
             if(click != position){
                 click = position;
             }else {
-                click = 0;
                 String select = Value.user_record.get(position);
                 if(position != Value.user_record.size() - 1) {
                     SelectDialog selectDialog = new SelectDialog(FormActivity.this);
@@ -496,10 +494,10 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                     } else {
                         linearLayout1.setBackgroundResource(R.drawable.liststyle_left_yellow);
                         linearLayout2.setBackgroundResource(R.drawable.datalist_total_buttom_yellow);
-                        linearLayout3.setBackgroundResource(R.drawable.datalist_frame_yellow);
-                        linearLayout4.setBackgroundResource(R.drawable.datalist_frame_yellow);
-                        linearLayout5.setBackgroundResource(R.drawable.datalist_frame_yellow);
-                        linearLayout6.setBackgroundResource(R.drawable.datalist_frame_yellow);
+                        linearLayout3.setBackgroundResource(R.drawable.datalist_frame_yellow_bottom);
+                        linearLayout4.setBackgroundResource(R.drawable.datalist_frame_yellow_bottom);
+                        linearLayout5.setBackgroundResource(R.drawable.datalist_frame_yellow_bottom);
+                        linearLayout6.setBackgroundResource(R.drawable.datalist_frame_yellow_bottom);
                         linearLayout7.setBackgroundResource(R.drawable.liststyle_right_yellow);
                     }
                 } else {
@@ -546,13 +544,13 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                                 }
                             } else {
                                 if (select_item % 2 == 0) {
-                                    lineaBackground1.setBackgroundResource(R.drawable.datalist_start_frame);
-                                    lineaBackground2.setBackgroundResource(R.drawable.datalist_frame);
-                                    lineaBackground3.setBackgroundResource(R.drawable.datalist_frame);
-                                    lineaBackground4.setBackgroundResource(R.drawable.datalist_frame);
-                                    lineaBackground5.setBackgroundResource(R.drawable.datalist_frame);
-                                    lineaBackground6.setBackgroundResource(R.drawable.datalist_frame);
-                                    lineaBackground7.setBackgroundResource(R.drawable.datalist_frame);
+                                    lineaBackground1.setBackgroundResource(R.drawable.datalist_start_form_frame);
+                                    lineaBackground2.setBackgroundResource(R.drawable.datalist_form_frame);
+                                    lineaBackground3.setBackgroundResource(R.drawable.datalist_form_frame);
+                                    lineaBackground4.setBackgroundResource(R.drawable.datalist_form_frame);
+                                    lineaBackground5.setBackgroundResource(R.drawable.datalist_form_frame);
+                                    lineaBackground6.setBackgroundResource(R.drawable.datalist_form_frame);
+                                    lineaBackground7.setBackgroundResource(R.drawable.datalist_form_frame);
                                 } else {
                                     lineaBackground1.setBackgroundResource(R.drawable.datalist_start_frame_blue);
                                     lineaBackground2.setBackgroundResource(R.drawable.datalist_frame_blue);
@@ -567,10 +565,10 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                             //if (select_item % 2 == 0) {
                             lineaBackground1.setBackgroundResource(R.drawable.liststyle_left);
                             lineaBackground2.setBackgroundResource(R.drawable.datalist_total_buttom);
-                            lineaBackground3.setBackgroundResource(R.drawable.datalist_frame);
-                            lineaBackground4.setBackgroundResource(R.drawable.datalist_frame);
-                            lineaBackground5.setBackgroundResource(R.drawable.datalist_frame);
-                            lineaBackground6.setBackgroundResource(R.drawable.datalist_frame);
+                            lineaBackground3.setBackgroundResource(R.drawable.datalist_frame_bottom);
+                            lineaBackground4.setBackgroundResource(R.drawable.datalist_frame_bottom);
+                            lineaBackground5.setBackgroundResource(R.drawable.datalist_frame_bottom);
+                            lineaBackground6.setBackgroundResource(R.drawable.datalist_frame_bottom);
                             lineaBackground7.setBackgroundResource(R.drawable.liststyle_right);
                         /*} else {
                             lineaBackground1.setBackgroundResource(R.drawable.liststyle_left_blue);
@@ -628,13 +626,13 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                                 }
                             }else {
                                 if (select_item % 2 == 0) {
-                                    lineaBackground1.setBackgroundResource(R.drawable.datalist_start_frame);
-                                    lineaBackground2.setBackgroundResource(R.drawable.datalist_frame);
-                                    lineaBackground3.setBackgroundResource(R.drawable.datalist_frame);
-                                    lineaBackground4.setBackgroundResource(R.drawable.datalist_frame);
-                                    lineaBackground5.setBackgroundResource(R.drawable.datalist_frame);
-                                    lineaBackground6.setBackgroundResource(R.drawable.datalist_frame);
-                                    lineaBackground7.setBackgroundResource(R.drawable.datalist_frame);
+                                    lineaBackground1.setBackgroundResource(R.drawable.datalist_start_left_frame);
+                                    lineaBackground2.setBackgroundResource(R.drawable.datalist_frame_white);
+                                    lineaBackground3.setBackgroundResource(R.drawable.datalist_frame_white);
+                                    lineaBackground4.setBackgroundResource(R.drawable.datalist_frame_white);
+                                    lineaBackground5.setBackgroundResource(R.drawable.datalist_frame_white);
+                                    lineaBackground6.setBackgroundResource(R.drawable.datalist_frame_white);
+                                    lineaBackground7.setBackgroundResource(R.drawable.datalist_frame_white);
                                 } else {
                                     lineaBackground1.setBackgroundResource(R.drawable.datalist_start_frame_blue);
                                     lineaBackground2.setBackgroundResource(R.drawable.datalist_frame_blue);
@@ -649,10 +647,10 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                             //if(select_item % 2 == 0) {
                             lineaBackground1.setBackgroundResource(R.drawable.liststyle_left);
                             lineaBackground2.setBackgroundResource(R.drawable.datalist_total_buttom);
-                            lineaBackground3.setBackgroundResource(R.drawable.datalist_frame);
-                            lineaBackground4.setBackgroundResource(R.drawable.datalist_frame);
-                            lineaBackground5.setBackgroundResource(R.drawable.datalist_frame);
-                            lineaBackground6.setBackgroundResource(R.drawable.datalist_frame);
+                            lineaBackground3.setBackgroundResource(R.drawable.datalist_frame_white);
+                            lineaBackground4.setBackgroundResource(R.drawable.datalist_frame_white);
+                            lineaBackground5.setBackgroundResource(R.drawable.datalist_frame_white);
+                            lineaBackground6.setBackgroundResource(R.drawable.datalist_frame_white);
                             lineaBackground7.setBackgroundResource(R.drawable.liststyle_right);
                         /*}else {
                             lineaBackground1.setBackgroundResource(R.drawable.liststyle_left_blue);
@@ -665,10 +663,10 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                         }
                         linearLayout1.setBackgroundResource(R.drawable.liststyle_left_yellow);
                         linearLayout2.setBackgroundResource(R.drawable.datalist_total_buttom_yellow);
-                        linearLayout3.setBackgroundResource(R.drawable.datalist_frame_yellow);
-                        linearLayout4.setBackgroundResource(R.drawable.datalist_frame_yellow);
-                        linearLayout5.setBackgroundResource(R.drawable.datalist_frame_yellow);
-                        linearLayout6.setBackgroundResource(R.drawable.datalist_frame_yellow);
+                        linearLayout3.setBackgroundResource(R.drawable.datalist_frame_yellow_bottom);
+                        linearLayout4.setBackgroundResource(R.drawable.datalist_frame_yellow_bottom);
+                        linearLayout5.setBackgroundResource(R.drawable.datalist_frame_yellow_bottom);
+                        linearLayout6.setBackgroundResource(R.drawable.datalist_frame_yellow_bottom);
                         linearLayout7.setBackgroundResource(R.drawable.liststyle_right_yellow);
                     }
                 }
@@ -1126,19 +1124,6 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
     @Override
     public void setLanguage() {
         try {
-            toolbartitle.setTypeface(boldface);
-            back.setTypeface(face);
-            date.setTypeface(boldface);
-            chartcode.setTypeface(boldface);
-            remark.setTypeface(boldface);
-            gain.setTypeface(boldface);
-            loss.setTypeface(boldface);
-            balance.setTypeface(boldface);
-            checked.setTypeface(boldface);
-            checkform.setTypeface(face);
-            accountLink.setTypeface(face);
-            refresh.setTypeface(face);
-            nowtime.setTypeface(face);
             if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
                 toolbartitle.setText("Account Checking");
                 back.setText("back");

@@ -12,7 +12,7 @@
         android:right="1dp"
         android:bottom="1dp">
         <shape>
-            <solid android:color="#EEFBFF" />
+            <solid android:color="#ffffff" />
         </shape>
     </item>
 </layer-list>

@@ -9,9 +9,7 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
+        android:layout_height="14sp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,22 +22,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1.15"
+            android:layout_weight="1.18"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TextView
+            <com.threesing.macau.TextType.CustomTextView
                 android:id="@+id/textView1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:singleLine="false"
                 android:text="Date"
                 android:textColor="#000000"
-                android:textSize="8sp"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText,SmallSp" />
+                android:textSize="7sp"
+                tools:ignore="HardcodedText,SmallSp"
+                app:customFont="GenJyuuGothic-Bold.ttf"/>
         </LinearLayout>
 
         <LinearLayout
@@ -51,18 +49,18 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TextView
+            <com.threesing.macau.TextType.CustomTextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:singleLine="false"
                 android:text="Chart Code"
                 android:textColor="#000000"
-                android:textSize="8sp"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText,SmallSp" />
+                android:textSize="7sp"
+                tools:ignore="HardcodedText,SmallSp"
+                app:customFont="GenJyuuGothic-Bold.ttf"/>
         </LinearLayout>
 
         <LinearLayout
@@ -74,7 +72,7 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TextView
+            <com.threesing.macau.TextType.CustomTextView
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,10 +81,10 @@
                 android:paddingStart="2dp"
                 android:singleLine="false"
                 android:text="Remarks"
-                android:textSize="8sp"
                 android:textColor="#000000"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText,RtlSymmetry,SmallSp" />
+                android:textSize="7sp"
+                tools:ignore="HardcodedText,RtlSymmetry,SmallSp"
+                app:customFont="GenJyuuGothic-Bold.ttf"/>
         </LinearLayout>
 
         <LinearLayout
@@ -98,7 +96,7 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TextView
+            <com.threesing.macau.TextType.CustomTextView
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -107,10 +105,10 @@
                 android:paddingEnd="2dp"
                 android:singleLine="false"
                 android:text="Gain"
-                android:textSize="8sp"
                 android:textColor="#000000"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText,RtlSymmetry,SmallSp" />
+                android:textSize="7sp"
+                tools:ignore="HardcodedText,RtlSymmetry,SmallSp"
+                app:customFont="GenJyuuGothic-Bold.ttf"/>
         </LinearLayout>
 
         <LinearLayout
@@ -122,7 +120,7 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TextView
+            <com.threesing.macau.TextType.CustomTextView
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -131,10 +129,10 @@
                 android:paddingEnd="2dp"
                 android:singleLine="false"
                 android:text="Loss"
-                android:textSize="8sp"
                 android:textColor="#000000"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText,RtlSymmetry,SmallSp" />
+                android:textSize="7sp"
+                tools:ignore="HardcodedText,RtlSymmetry,SmallSp"
+                app:customFont="GenJyuuGothic-Bold.ttf"/>
         </LinearLayout>
 
         <LinearLayout
@@ -146,7 +144,7 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TextView
+            <com.threesing.macau.TextType.CustomTextView
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -155,34 +153,34 @@
                 android:paddingEnd="2dp"
                 android:singleLine="false"
                 android:text="Balance"
-                android:textSize="8sp"
                 android:textColor="#000000"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText,RtlSymmetry,SmallSp" />
+                android:textSize="7sp"
+                tools:ignore="HardcodedText,RtlSymmetry,SmallSp"
+                app:customFont="GenJyuuGothic-Bold.ttf"/>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout7"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="end"
-            android:gravity="end"
             android:layout_weight="1.15"
+            android:gravity="end"
             android:orientation="vertical">
 
             <CheckBox
                 android:id="@+id/checkBox1"
+                style="@style/CustomCheckboxTheme_record"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="#000000"
-                android:gravity="center"
+                android:background="@android:color/transparent"
                 android:checked="false"
                 android:clickable="false"
                 android:focusable="false"
-                android:background="@android:color/transparent"
-                style="@style/CustomCheckboxTheme_record"
-                android:text="" />
+                android:gravity="center"
+                android:text=""
+                android:textColor="#000000" />
         </LinearLayout>
 
     </LinearLayout>

@@ -4,13 +4,13 @@
     <!-- 邊框颜色值 -->
     <item>
         <shape>
-            <solid android:color="#000000" />
+            <solid android:color="#9F9F9F" />
         </shape>
     </item>
     <!-- 背景颜色值 -->
     <item
-        android:right="2px"
-        android:bottom="2px">
+        android:right="1dp"
+        android:bottom="1dp">
         <shape>
             <solid android:color="@color/color_popupmenu_background" />
         </shape>
