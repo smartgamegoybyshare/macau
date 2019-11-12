@@ -24,12 +24,12 @@
     <com.threesing.macau.TextType.CustomTextView
         android:id="@+id/textView"
         android:layout_width="0dp"
-        android:layout_height="44sp"
+        android:layout_height="40sp"
         android:layout_gravity="center"
         android:background="?attr/colorPrimary"
         android:gravity="center"
         android:textColor="@color/colorWhite"
-        android:textSize="19sp"
+        android:textSize="17sp"
         app:customFont="GenJyuuGothic-Bold.ttf"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +41,7 @@
     <com.threesing.macau.TextType.CustomTextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
-        android:layout_height="44sp"
+        android:layout_height="40sp"
         android:layout_gravity="center"
         android:layout_marginStart="15dp"
         android:gravity="center"
@@ -129,7 +129,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -154,7 +154,7 @@
                         android:layout_gravity="end"
                         android:gravity="end"
                         android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -188,7 +188,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -213,7 +213,7 @@
                         android:layout_gravity="end"
                         android:gravity="end"
                         android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -246,7 +246,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -271,7 +271,7 @@
                         android:layout_gravity="end"
                         android:gravity="end"
                         android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -305,7 +305,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -330,7 +330,7 @@
                         android:layout_gravity="end"
                         android:gravity="end"
                         android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -364,7 +364,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -389,7 +389,7 @@
                         android:layout_gravity="end"
                         android:gravity="end"
                         android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -423,7 +423,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -448,7 +448,7 @@
                         android:layout_gravity="end"
                         android:gravity="end"
                         android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -482,7 +482,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -507,7 +507,7 @@
                         android:layout_gravity="end"
                         android:gravity="end"
                         android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -541,7 +541,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -566,7 +566,7 @@
                         android:layout_gravity="end"
                         android:gravity="end"
                         android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -595,13 +595,13 @@
     <com.threesing.macau.TextType.CustomTextView
         android:id="@+id/nowTime"
         android:layout_width="0dp"
-        android:layout_height="15sp"
+        android:layout_height="14sp"
         android:layout_gravity="center"
         android:gravity="center"
         android:singleLine="true"
         android:text=""
         android:textColor="#000000"
-        android:textSize="10sp"
+        android:textSize="9sp"
         app:customFont="GenJyuuGothic-Normal.ttf"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -613,10 +613,10 @@
     <com.threesing.macau.TextType.CustomTextView
         android:id="@+id/copyright"
         android:layout_width="0dp"
-        android:layout_height="15sp"
+        android:layout_height="14sp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textSize="10sp"
+        android:textSize="9sp"
         android:textColor="#000000"
         app:customFont="GenJyuuGothic-Normal.ttf"
         app:layout_constraintBottom_toTopOf="@+id/nowTime"
