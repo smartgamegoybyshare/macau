@@ -345,15 +345,6 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
     @SuppressLint("SetTextI18n")
     @Override
     public void setLanguage() {
-        Typeface face;
-        face = Typeface.createFromAsset(getAssets(), "fonts/GenJyuuGothic-Normal.ttf");
-        editText1.setTypeface(face);
-        editText2.setTypeface(face);
-        editText3.setTypeface(face);
-        checkBox.setTypeface(face);
-        login.setTypeface(face);
-        copyright.setTypeface(face);
-        nowTime.setTypeface(face);
         Log.e(TAG, "setLanguage()");
         if (Value.language_flag == 0) {
             editText1.setHint("Sub Account");
