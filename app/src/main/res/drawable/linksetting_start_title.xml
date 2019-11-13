@@ -4,7 +4,7 @@
     <!-- 邊框颜色值 -->
     <item>
         <shape>
-            <solid android:color="#DDDDD1" />
+            <solid android:color="#000000" />
             <corners
                 android:topLeftRadius="11dp" />
         </shape>

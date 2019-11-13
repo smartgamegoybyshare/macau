@@ -1,8 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#85C2EC" />
-    <stroke
-        android:color="#ffffff" />
-    <corners android:topLeftRadius="10dp"
-        android:topRightRadius="10dp" />
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+<!-- 邊框颜色值 -->
+<item>
+    <shape>
+        <solid android:color="#000000" />
+        <corners android:topLeftRadius="6dp"
+            android:topRightRadius="6dp" />
+    </shape>
+</item>
+<!-- 背景颜色值 -->
+<item
+    android:top="1dp"
+    android:left="1dp"
+    android:right="1dp"
+    android:bottom="2dp">
+    <shape>
+        <solid android:color="#85C2EC" />
+        <corners android:topLeftRadius="5dp"
+            android:topRightRadius="5dp" />
+    </shape>
+</item>
+</layer-list>

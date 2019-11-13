@@ -231,7 +231,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1.5"
-                    android:background="@drawable/memberdata_downleft"
+                    android:background="@drawable/memberdata_downleft_last"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     tools:ignore="NestedWeights,RtlSymmetry">
@@ -255,7 +255,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:background="@drawable/memberdata_downright"
+                    android:background="@drawable/memberdata_downright_last"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     android:paddingEnd="5dp"

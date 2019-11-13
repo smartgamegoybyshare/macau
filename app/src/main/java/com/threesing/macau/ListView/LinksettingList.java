@@ -79,11 +79,17 @@ public class LinksettingList extends BaseAdapter{
             String account = jsonObject.get("link_from_user").toString();
 
             LinearLayout linearLayout1 = view.findViewById(R.id.linearLayout1);
+            LinearLayout linearLayout2 = view.findViewById(R.id.linearLayout2);
             LinearLayout linearLayout3 = view.findViewById(R.id.linearLayout3);
             TextView textView1 = view.findViewById(R.id.textView1);
             TextView textView2 = view.findViewById(R.id.textView2);
             TextView textView3 = view.findViewById(R.id.textView3);
 
+            if(position == userLink.size() - 1){
+                linearLayout1.setBackgroundResource(R.drawable.linksettingstyle_left);
+                linearLayout2.setBackgroundResource(R.drawable.linksettingstyle_mid);
+                linearLayout3.setBackgroundResource(R.drawable.linksettingstyle_right);
+            }
             if(nowcompany.matches(company) && nowaccount.matches(account)){
                 textView2.setBackgroundResource(R.drawable.accountlinkbutton_mine);
             }else {

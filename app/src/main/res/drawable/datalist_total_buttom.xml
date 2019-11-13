@@ -4,12 +4,12 @@
     <!-- 邊框颜色值 -->
     <item>
         <shape>
-            <solid android:color="#9F9F9F" />
+            <solid android:color="#000000" />
         </shape>
     </item>
     <!-- 背景颜色值 -->
     <item
-        android:bottom="0.5dp">
+        android:bottom="1dp">
         <shape>
             <solid android:color="#ffffff" />
         </shape>

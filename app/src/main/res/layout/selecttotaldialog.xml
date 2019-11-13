@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <com.threesing.macau.TextType.CustomTextView
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,13 +30,15 @@
             android:gravity="center"
             android:text="Total"
             android:textSize="16sp"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+            android:textColor="#000000"
+            tools:ignore="HardcodedText"
+            app:customFont="GenJyuuGothic-Normal.ttf"/>
 
         <ListView
             android:id="@+id/listview1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:divider="@null"
             android:listSelector="@android:color/transparent"/>
 
         <!--<Button-->

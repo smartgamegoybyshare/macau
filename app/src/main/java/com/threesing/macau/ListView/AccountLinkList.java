@@ -86,8 +86,13 @@ public class AccountLinkList extends BaseAdapter {
                 textView2.setBackgroundResource(R.drawable.accountlinkbutton_other);
             }
 
-            linearLayout1.setBackgroundResource(R.drawable.datalist_start_frame);
-            linearLayout2.setBackgroundResource(R.drawable.datalist_frame);
+            if(position != user_Link.size() - 1){
+                linearLayout1.setBackgroundResource(R.drawable.datalist_start_frame);
+                linearLayout2.setBackgroundResource(R.drawable.datalist_frame);
+            }else {
+                linearLayout1.setBackgroundResource(R.drawable.linksettingstyle_left);
+                linearLayout2.setBackgroundResource(R.drawable.linksettingstyle_right);
+            }
 
             saveHolder.get(position).buttonText = textView2;
             saveHolder.get(position).buttonText.setOnClickListener(view1 -> getButtonItem.clickItem(view1,

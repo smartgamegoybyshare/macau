@@ -182,6 +182,7 @@ public class UserDataList extends BaseAdapter {
                 jsonObject = new JSONObject(user_record.get(user_record.size() - 1));
                 remarks.setGravity(Gravity.END);
                 remarks.setPadding(0,0,10, 0);
+                remarks.setTextSize(9);
                 if(Value.language_flag == 0){  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
                     remarks.setText("Total");
                 }else if(Value.language_flag == 1){

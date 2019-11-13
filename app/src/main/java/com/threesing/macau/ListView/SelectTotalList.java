@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.threesing.macau.R;
@@ -53,8 +54,15 @@ public class SelectTotalList extends BaseAdapter {
             view = (ViewGroup) inflater.inflate(R.layout.selectdata, null);
         }
 
+        LinearLayout linearLayout = view.findViewById(R.id.linearLayout);
         TextView textView1 = view.findViewById(R.id.textView1);
         TextView textView2 = view.findViewById(R.id.textView2);
+
+        if(position == select_title.size() - 1){
+            linearLayout.setBackgroundResource(R.drawable.selectdata_last_style);
+        }else {
+            linearLayout.setBackgroundResource(R.drawable.selectdata_style);
+        }
 
         textView1.setText(select_title.get(position));
         textView2.setText(select_context.get(position));

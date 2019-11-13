@@ -58,7 +58,6 @@ import com.threesing.macau.Support.SelectDialog;
 import com.threesing.macau.Support.SelectTotalDialog;
 import com.threesing.macau.Support.Value;
 import com.threesing.macau.TextType.CustomTypeFaceSpan;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -731,7 +730,8 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                 modifyPassword();
                 return true;
             } else if (id == R.id.logout) {
-                homePage();
+                back();
+                //homePage();
                 return true;
             }
             // 控件每一个item的点击事件
@@ -880,7 +880,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                 break;
             case KeyEvent.KEYCODE_BACK: {
                 //vibrator.vibrate(100);
-                back();
+                //back();
             }
             break;
             case KeyEvent.KEYCODE_DPAD_CENTER:
