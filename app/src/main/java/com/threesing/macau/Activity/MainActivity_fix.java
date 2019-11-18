@@ -211,7 +211,7 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
                     new AlertDialog.Builder(MainActivity_fix.this)
                             .setTitle("三昇澳門" + thisversion)
                             .setIcon(R.drawable.app_icon_mini)
-                            .setMessage("Check out a new version" + version + "\nupdate now?")
+                            .setMessage("Check out the new version" + version + "\nUpdate now?")
                             .setPositiveButton("Yes", (dialog, which) -> gotoMarket())
                             .setNegativeButton("Cancel", (dialog, which) -> {
                                 // TODO Auto-generated method stub
