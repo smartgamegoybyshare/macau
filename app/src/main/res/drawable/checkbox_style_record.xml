@@ -2,12 +2,12 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:drawable="@drawable/check_record_t"
+        android:drawable="@drawable/ic_check_black_8dp"
         android:state_checked="true"/>
     <item
-        android:drawable="@drawable/check_record_f"
+        android:drawable="@drawable/ic_check_box_outline_blank_black_8dp"
         android:state_checked="false"/>
     <item
-        android:drawable="@drawable/check_record_f"/>
+        android:drawable="@drawable/ic_check_box_outline_blank_black_8dp"/>
 
 </selector>

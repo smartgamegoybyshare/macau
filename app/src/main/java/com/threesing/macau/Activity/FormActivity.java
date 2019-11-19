@@ -370,6 +370,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
         //Intent intent = new Intent(this, LoginMainActivity.class);
         intent.putExtra("company", company);
         intent.putExtra("account", account);
+        Value.record = null;
         startActivity(intent);
         finish();
     }

@@ -127,7 +127,7 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
         if (dataList.size() != 0) {
             editText1.setText(dataList.get(0));
             editText2.setText(dataList.get(1));
-            editText3.setText(dataList.get(2));
+            //editText3.setText(dataList.get(2));
             checkBox.setChecked(true);
         }
 

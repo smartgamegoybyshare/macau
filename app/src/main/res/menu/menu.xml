@@ -10,6 +10,7 @@
             android:title=""/>
     </group>
     <group
+
         android:id="@+id/nav_commnunicate2"
         android:title="">
         <item
