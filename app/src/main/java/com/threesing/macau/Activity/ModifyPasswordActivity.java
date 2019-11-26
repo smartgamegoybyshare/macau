@@ -15,7 +15,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.threesing.macau.Post_Get.ChangePassword.ChangePassword;
 import com.threesing.macau.Post_Get.ChangePassword.ChangePasswordListener;
 import com.threesing.macau.Post_Get.ChangePassword.PostChangePassword;
@@ -23,8 +25,10 @@ import com.threesing.macau.R;
 import com.threesing.macau.Support.InternetImage;
 import com.threesing.macau.Support.Loading;
 import com.threesing.macau.Support.Value;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import pl.droidsonroids.gif.GifImageView;
 
 public class ModifyPasswordActivity extends AppCompatActivity implements ChangePasswordListener {
@@ -324,6 +328,21 @@ public class ModifyPasswordActivity extends AppCompatActivity implements ChangeP
                     toast.show();
                 } else if (Value.language_flag == 2) {
                     Toast toast = Toast.makeText(this, "密码修改失败", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
+            } else if (result.matches("error2")) {
+                loading.dismiss();
+                if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
+                    Toast toast = Toast.makeText(this, "Old password incorrect", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                } else if (Value.language_flag == 1) {
+                    Toast toast = Toast.makeText(this, "舊密碼錯誤", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                } else if (Value.language_flag == 2) {
+                    Toast toast = Toast.makeText(this, "旧密码错误", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 }
