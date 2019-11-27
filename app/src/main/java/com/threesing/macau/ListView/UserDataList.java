@@ -201,13 +201,15 @@ public class UserDataList extends BaseAdapter {
                     gain.setText(gain_value);
                     gain.setTextColor(Color.BLUE);
                 }
-                if (lose_value.contains("-")) {
+                lose.setText(lose_value);
+                lose.setTextColor(Color.RED);
+                /*if (lose_value.contains("-")) {
                     lose.setText(lose_value);
                     lose.setTextColor(Color.RED);
                 } else {
                     lose.setText(lose_value);
                     lose.setTextColor(Color.BLUE);
-                }
+                }*/
                 if (balance_value.contains("-")) {
                     balance.setText(balance_value);
                     balance.setTextColor(Color.RED);
