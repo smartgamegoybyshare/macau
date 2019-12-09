@@ -5,11 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.Log;
@@ -18,6 +21,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
@@ -30,6 +34,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +43,7 @@ import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.threesing.macau.Language.LanguageListener;
 import com.threesing.macau.Language.SetLanguage;
 import com.threesing.macau.ListView.UserDataList;
@@ -54,13 +60,17 @@ import com.threesing.macau.R;
 import com.threesing.macau.SQL.LanguageSQL;
 import com.threesing.macau.Support.InternetImage;
 import com.threesing.macau.Support.Loading;
+import com.threesing.macau.Support.ParaseUrl;
 import com.threesing.macau.Support.SelectDialog;
 import com.threesing.macau.Support.SelectTotalDialog;
 import com.threesing.macau.Support.Value;
 import com.threesing.macau.TextType.CustomTypeFaceSpan;
+import com.threesing.macau.Zoom.ZoomLinearLayout;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -68,6 +78,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.TimeZone;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import pl.droidsonroids.gif.GifImageView;
 
 public class FormActivity extends AppCompatActivity implements UserdataListener, UserRecordListener,
@@ -91,23 +105,36 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
     private int select_item = -1;
     private Bitmap preview_bitmap;
     //private GifImageView gifImageView1;
-    private TextView toolbartitle, nowtime, date, chartcode, remark, gain, loss, balance, checked, back;
+    private ImageView zoomin, zoomout, point_up, point_down, point_left, point_right;
+    private TextView toolbartitle, nowtime, date, chartcode, remark, gain, loss, balance, checked;
     private Button accountLink, checkform, refresh;
+    private LinearLayout zoomLinearLayout;
     private InternetImage internetImage = new InternetImage();
-    private Handler handler = new Handler(), buttonHandler = new Handler(), swipeHandler = new Handler();
+    private Handler handler = new Handler(), buttonHandler = new Handler(), swipeHandler = new Handler(), checkHandler = new Handler();
     private PopupWindow popWindow;
     private boolean popWindowView = false, regetalldata = false, language_bool = false, swipe = false;
     private int click = 0;
     private Typeface face;
+    private ScheduledExecutorService scheduledin, scheduledout, scheduledup, scheduleddown, scheduledleft, scheduledright;
+    private double multi = 1.0;
+    private float nowX, nowY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "FormActivity");
-        setContentView(R.layout.formpage);
+        //setContentView(R.layout.formpage);
+        setContentView(R.layout.formpage2);
 
         toolbartitle = findViewById(R.id.toolbar_title);
-        back = findViewById(R.id.backView1);
+        //back = findViewById(R.id.backView1);
+        //back2 = findViewById(R.id.backView2);
+        zoomin = findViewById(R.id.imageView);
+        zoomout = findViewById(R.id.imageView2);
+        point_up = findViewById(R.id.imageView3);
+        point_down = findViewById(R.id.imageView4);
+        point_right = findViewById(R.id.imageView5);
+        point_left = findViewById(R.id.imageView6);
         swipeRefreshLayout = findViewById(R.id.swiperefresh);
         listView = findViewById(R.id.listView1);
         nowtime = findViewById(R.id.nowTime);   //更新數據時間
@@ -123,8 +150,12 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
 
         face = Typeface.createFromAsset(getAssets(), "fonts/GenJyuuGothic-Normal.ttf");
 
-        back.setVisibility(View.GONE);
-        Log.e(TAG, "開始加粗");
+        //back.setVisibility(View.GONE);
+        point_up.setVisibility(View.GONE);
+        point_down.setVisibility(View.GONE);
+        point_left.setVisibility(View.GONE);
+        point_right.setVisibility(View.GONE);
+
         date.getPaint().setFakeBoldText(true);
         chartcode.getPaint().setFakeBoldText(true);
         remark.getPaint().setFakeBoldText(true);
@@ -132,7 +163,6 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
         loss.getPaint().setFakeBoldText(true);
         balance.getPaint().setFakeBoldText(true);
         checked.getPaint().setFakeBoldText(true);
-        Log.e(TAG, "字體加粗");
 
         refresh = findViewById(R.id.button5);
         if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
@@ -158,13 +188,15 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
         connectUserDataBase.setConnect(company, account, getUserData);
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "ClickableViewAccessibility"})
     private void showpage() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
         try {
+            //ZoomLinearLayout zoomLinearLayout = findViewById(R.id.zoom_linear_layout);
+            zoomLinearLayout = findViewById(R.id.zoomLinearLayout);
             TextView copyright = findViewById(R.id.textView);
             Button listButtondown = findViewById(R.id.button3);
             Button listButtonup = findViewById(R.id.button4);
@@ -190,20 +222,151 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             });*/
+
+            /*zoomLinearLayout.setOnTouchListener((v, event) -> {
+                zoomLinearLayout.init(FormActivity.this);
+                Log.e(TAG, "zoom?");
+                Log.e(TAG, "event = " + event);
+                return false;
+            });*/
+
+            nowX = zoomLinearLayout.getX();
+            nowY = zoomLinearLayout.getY();
+
+            zoomin.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    Log.e(TAG, "event = " + event);
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {  //按下的時候
+                        if (multi < 2) {
+                            multi = multi + 0.05;
+                            zoomLinearLayout.setScaleX((float) multi);
+                            zoomLinearLayout.setScaleY((float) multi);
+                            Log.e(TAG, "multi = " + multi);
+                            if (point_up.getVisibility() == View.GONE) {
+                                point_up.setVisibility(View.VISIBLE);
+                                point_down.setVisibility(View.VISIBLE);
+                                point_left.setVisibility(View.VISIBLE);
+                                point_right.setVisibility(View.VISIBLE);
+                            }
+                        }
+                        continuousin(v.getId());
+                    }
+                    if (event.getAction() == MotionEvent.ACTION_UP) {  //起來的時候
+                        Log.e(TAG, "zoomin");
+                        stopAddOrSubtract();
+                    }
+                    return true;
+                }
+            });
+
+            zoomout.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {  //按下的時候
+                        if (multi > 1) {
+                            multi = multi - 0.05;
+                            zoomLinearLayout.setScaleX((float) multi);
+                            zoomLinearLayout.setScaleY((float) multi);
+                        } else {
+                            point_up.setVisibility(View.GONE);
+                            point_down.setVisibility(View.GONE);
+                            point_left.setVisibility(View.GONE);
+                            point_right.setVisibility(View.GONE);
+                            zoomLinearLayout.setX(nowX);
+                            zoomLinearLayout.setY(nowY);
+                        }
+                        continuousout(v.getId());
+                    }
+                    if (event.getAction() == MotionEvent.ACTION_UP) {  //起來的時候
+                        stopAddOrSubtract();
+                    }
+                    return true;
+                }
+            });
+
+            point_up.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {  //按下的時候
+                        zoomLinearLayout.setY(zoomLinearLayout.getY() + 20);
+                        continuousup(v.getId());
+                    }
+                    if (event.getAction() == MotionEvent.ACTION_UP) {  //起來的時候
+                        stopAddOrSubtract();
+                    }
+                    return true;
+                }
+            });
+
+            point_down.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {  //按下的時候
+                        zoomLinearLayout.setY(zoomLinearLayout.getY() - 20);
+                        continuousdown(v.getId());
+                    }
+                    if (event.getAction() == MotionEvent.ACTION_UP) {  //起來的時候
+                        stopAddOrSubtract();
+                    }
+                    return true;
+                }
+            });
+
+            point_left.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {  //按下的時候
+                        zoomLinearLayout.setX(zoomLinearLayout.getX() + 20);
+                        continuousleft(v.getId());
+                    }
+                    if (event.getAction() == MotionEvent.ACTION_UP) {  //起來的時候
+                        stopAddOrSubtract();
+                    }
+                    return true;
+                }
+            });
+
+            point_right.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {  //按下的時候
+                        zoomLinearLayout.setX(zoomLinearLayout.getX() - 20);
+                        continuousright(v.getId());
+                    }
+                    if (event.getAction() == MotionEvent.ACTION_UP) {  //起來的時候
+                        stopAddOrSubtract();
+                    }
+                    return true;
+                }
+            });
+
             String userdata = Value.get_user_data.get("records").toString();
             JSONArray userdatas = new JSONArray(userdata);
             String getdata = userdatas.get(0).toString();
             JSONObject namedata = new JSONObject(getdata);
             String getname = namedata.get("username").toString();
             username.setText(getname);
-            swipeRefreshLayout.setOnRefreshListener(() -> {
+            swipeRefreshLayout.setOnRefreshListener(() ->
+
+            {
                 swipe = true;
                 regetalldata = true;
+                zoomLinearLayout.setX(nowX);
+                zoomLinearLayout.setY(nowY);
+                zoomLinearLayout.setScaleX((float) 1.0);
+                zoomLinearLayout.setScaleY((float) 1.0);
+                point_up.setVisibility(View.GONE);
+                point_down.setVisibility(View.GONE);
+                point_left.setVisibility(View.GONE);
+                point_right.setVisibility(View.GONE);
                 connectUserDataBase.setConnect(company, account, getUserData);
             });
             swipeRefreshLayout.setColorSchemeResources(R.color.progressColor);
             refresh.setTextColor(Color.WHITE);
-            refresh.setOnClickListener(view -> {
+            refresh.setOnClickListener(view ->
+
+            {
                 if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
                     loading.show("Getting data");
                 } else if (Value.language_flag == 1) {
@@ -215,8 +378,14 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                 connectUserDataBase.setConnect(company, account, getUserData);
             });
             accountLink.setTextColor(Color.WHITE);
-            accountLink.setOnClickListener(View -> accountLink());
-            if (Value.get_record.get("all_checked").toString().matches("n")) {
+            accountLink.setOnClickListener(View ->
+
+                    accountLink());
+            if (Value.get_record.get("all_checked").
+
+                    toString().
+
+                    matches("n")) {
                 checkform.setTextColor(Color.WHITE);
                 checkform.setBackgroundResource(R.drawable.checkall_style);
                 checkform.setOnClickListener(view -> {
@@ -245,7 +414,9 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                 });
             }
             copyright.setText(Value.copyright_text + Value.ver);
-            listButtondown.setOnClickListener(view -> {
+            listButtondown.setOnClickListener(view ->
+
+            {
                 listButtondown.setVisibility(View.GONE);
                 listButtonup.setVisibility(View.GONE);
                 int count = Value.user_record.size();
@@ -259,7 +430,9 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                     listButtonup.setVisibility(View.VISIBLE);
                 }, 1000);
             });
-            listButtonup.setOnClickListener(view -> {
+            listButtonup.setOnClickListener(view ->
+
+            {
                 listButtondown.setVisibility(View.GONE);
                 listButtonup.setVisibility(View.GONE);
                 int count = Value.user_record.size();
@@ -299,9 +472,150 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                                      int visibleItemCount, int totalItemCount) {
                 }
             });
-            back.setOnClickListener(view -> back());
+            //back.setOnClickListener(view -> back());
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    @SuppressLint("HandlerLeak")
+    private Handler scheduleHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            int viewId = msg.what;
+            switch (viewId) {
+                case R.id.imageView:
+                    if (multi < 2) {
+                        multi = multi + 0.05;
+                        zoomLinearLayout.setScaleX((float) multi);
+                        zoomLinearLayout.setScaleY((float) multi);
+                    }
+                    break;
+                case R.id.imageView2:
+                    if (multi > 1) {
+                        multi = multi - 0.05;
+                        zoomLinearLayout.setScaleX((float) multi);
+                        zoomLinearLayout.setScaleY((float) multi);
+                    }
+                    break;
+                case R.id.imageView3:
+                    zoomLinearLayout.setY(zoomLinearLayout.getY() + 20);
+                    break;
+                case R.id.imageView4:
+                    zoomLinearLayout.setY(zoomLinearLayout.getY() - 20);
+                    break;
+                case R.id.imageView5:
+                    zoomLinearLayout.setX(zoomLinearLayout.getX() - 20);
+                    break;
+                case R.id.imageView6:
+                    zoomLinearLayout.setX(zoomLinearLayout.getX() + 20);
+                    break;
+            }
+        }
+    };
+
+    private void continuousin(int viewId) {
+        final int vid = viewId;
+        scheduledin = Executors.newSingleThreadScheduledExecutor();
+        scheduledin.scheduleWithFixedDelay(new Runnable() {
+            @Override
+            public void run() {
+                Message msg = new Message();
+                msg.what = vid;
+                scheduleHandler.sendMessage(msg);
+            }
+        }, 0, 100, TimeUnit.MILLISECONDS);    //每间隔100ms发送Message
+    }
+
+    private void continuousout(int viewId) {
+        final int vid = viewId;
+        scheduledout = Executors.newSingleThreadScheduledExecutor();
+        scheduledout.scheduleWithFixedDelay(new Runnable() {
+            @Override
+            public void run() {
+                Message msg = new Message();
+                msg.what = vid;
+                scheduleHandler.sendMessage(msg);
+            }
+        }, 0, 100, TimeUnit.MILLISECONDS);    //每间隔100ms发送Message
+    }
+
+    private void continuousup(int viewId) {
+        final int vid = viewId;
+        scheduledup = Executors.newSingleThreadScheduledExecutor();
+        scheduledup.scheduleWithFixedDelay(new Runnable() {
+            @Override
+            public void run() {
+                Message msg = new Message();
+                msg.what = vid;
+                scheduleHandler.sendMessage(msg);
+            }
+        }, 0, 100, TimeUnit.MILLISECONDS);    //每间隔100ms发送Message
+    }
+
+    private void continuousdown(int viewId) {
+        final int vid = viewId;
+        scheduleddown = Executors.newSingleThreadScheduledExecutor();
+        scheduleddown.scheduleWithFixedDelay(new Runnable() {
+            @Override
+            public void run() {
+                Message msg = new Message();
+                msg.what = vid;
+                scheduleHandler.sendMessage(msg);
+            }
+        }, 0, 100, TimeUnit.MILLISECONDS);    //每间隔100ms发送Message
+    }
+
+    private void continuousleft(int viewId) {
+        final int vid = viewId;
+        scheduledleft = Executors.newSingleThreadScheduledExecutor();
+        scheduledleft.scheduleWithFixedDelay(new Runnable() {
+            @Override
+            public void run() {
+                Message msg = new Message();
+                msg.what = vid;
+                scheduleHandler.sendMessage(msg);
+            }
+        }, 0, 100, TimeUnit.MILLISECONDS);    //每间隔100ms发送Message
+    }
+
+    private void continuousright(int viewId) {
+        final int vid = viewId;
+        scheduledright = Executors.newSingleThreadScheduledExecutor();
+        scheduledright.scheduleWithFixedDelay(new Runnable() {
+            @Override
+            public void run() {
+                Message msg = new Message();
+                msg.what = vid;
+                scheduleHandler.sendMessage(msg);
+            }
+        }, 0, 100, TimeUnit.MILLISECONDS);    //每间隔100ms发送Message
+    }
+
+    private void stopAddOrSubtract() {
+        if (scheduledin != null) {
+            scheduledin.shutdownNow();
+            scheduledin = null;
+        }
+        if (scheduledout != null) {
+            scheduledout.shutdownNow();
+            scheduledout = null;
+        }
+        if (scheduledup != null) {
+            scheduledup.shutdownNow();
+            scheduledup = null;
+        }
+        if (scheduleddown != null) {
+            scheduleddown.shutdownNow();
+            scheduleddown = null;
+        }
+        if (scheduledleft != null) {
+            scheduledleft.shutdownNow();
+            scheduledleft = null;
+        }
+        if (scheduledright != null) {
+            scheduledright.shutdownNow();
+            scheduledright = null;
         }
     }
 
@@ -365,7 +679,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
         }
     }
 
-    private void back(){
+    private void back() {
         Intent intent = new Intent(this, MainActivity_fix.class);
         //Intent intent = new Intent(this, LoginMainActivity.class);
         intent.putExtra("company", company);
@@ -445,10 +759,10 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
     private AdapterView.OnItemLongClickListener mLongListClickListener = (parent, view, position, id) -> {
         Log.e(TAG, "select = " + Value.user_record.get(position));
         String select = Value.user_record.get(position);
-        if(position != Value.user_record.size() - 1) {
+        if (position != Value.user_record.size() - 1) {
             SelectDialog selectDialog = new SelectDialog(this);
             selectDialog.show(select);
-        }else {
+        } else {
             SelectTotalDialog selectTotalDialog = new SelectTotalDialog(this);
             selectTotalDialog.show(select);
         }
@@ -460,14 +774,14 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-            if(click != position){
+            if (click != position) {
                 click = position;
-            }else {
+            } else {
                 String select = Value.user_record.get(position);
-                if(position != Value.user_record.size() - 1) {
+                if (position != Value.user_record.size() - 1) {
                     SelectDialog selectDialog = new SelectDialog(FormActivity.this);
                     selectDialog.show(select);
-                }else {
+                } else {
                     SelectTotalDialog selectTotalDialog = new SelectTotalDialog(FormActivity.this);
                     selectTotalDialog.show(select);
                 }
@@ -506,8 +820,8 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                     JSONObject jsonObject = new JSONObject(selectrecord);
                     if (position != Value.user_record.size() - 1) {
                         if (select_item != Value.user_record.size() - 1) {
-                            if(jsonObject.get("record_check").toString().matches("1")){
-                                if(jsonObject.get("record_last_check").toString().matches("0")) {
+                            if (jsonObject.get("record_check").toString().matches("1")) {
+                                if (jsonObject.get("record_last_check").toString().matches("0")) {
                                     lineaBackground1.setBackgroundResource(R.drawable.datalist_start_frame_gray);
                                     lineaBackground2.setBackgroundResource(R.drawable.datalist_frame_gray);
                                     lineaBackground3.setBackgroundResource(R.drawable.datalist_frame_gray);
@@ -515,7 +829,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                                     lineaBackground5.setBackgroundResource(R.drawable.datalist_frame_gray);
                                     lineaBackground6.setBackgroundResource(R.drawable.datalist_frame_gray);
                                     lineaBackground7.setBackgroundResource(R.drawable.datalist_frame_gray);
-                                }else if(jsonObject.get("record_last_check").toString().matches("1")){
+                                } else if (jsonObject.get("record_last_check").toString().matches("1")) {
                                     lineaBackground1.setBackgroundResource(R.drawable.datalist_start_frame_yellow);
                                     lineaBackground2.setBackgroundResource(R.drawable.datalist_frame_yellow);
                                     lineaBackground3.setBackgroundResource(R.drawable.datalist_frame_yellow);
@@ -524,8 +838,8 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                                     lineaBackground6.setBackgroundResource(R.drawable.datalist_frame_yellow);
                                     lineaBackground7.setBackgroundResource(R.drawable.datalist_frame_yellow);
                                 }
-                            }else if(jsonObject.get("record_check").toString().matches("2")){
-                                if(jsonObject.get("record_last_check").toString().matches("0")) {
+                            } else if (jsonObject.get("record_check").toString().matches("2")) {
+                                if (jsonObject.get("record_last_check").toString().matches("0")) {
                                     lineaBackground1.setBackgroundResource(R.drawable.datalist_start_frame_red);
                                     lineaBackground2.setBackgroundResource(R.drawable.datalist_frame_red);
                                     lineaBackground3.setBackgroundResource(R.drawable.datalist_frame_red);
@@ -533,7 +847,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                                     lineaBackground5.setBackgroundResource(R.drawable.datalist_frame_red);
                                     lineaBackground6.setBackgroundResource(R.drawable.datalist_frame_red);
                                     lineaBackground7.setBackgroundResource(R.drawable.datalist_frame_red);
-                                }else if(jsonObject.get("record_last_check").toString().matches("1")){
+                                } else if (jsonObject.get("record_last_check").toString().matches("1")) {
                                     lineaBackground1.setBackgroundResource(R.drawable.datalist_start_frame_darkblue);
                                     lineaBackground2.setBackgroundResource(R.drawable.datalist_frame_darkblue);
                                     lineaBackground3.setBackgroundResource(R.drawable.datalist_frame_darkblue);
@@ -588,8 +902,8 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                         linearLayout7.setBackgroundResource(R.drawable.datalist_frame_yellow);
                     } else {
                         if (select_item != Value.user_record.size() - 1) {
-                            if(jsonObject.get("record_check").toString().matches("1")){
-                                if(jsonObject.get("record_last_check").toString().matches("0")) {
+                            if (jsonObject.get("record_check").toString().matches("1")) {
+                                if (jsonObject.get("record_last_check").toString().matches("0")) {
                                     lineaBackground1.setBackgroundResource(R.drawable.datalist_start_frame_gray);
                                     lineaBackground2.setBackgroundResource(R.drawable.datalist_frame_gray);
                                     lineaBackground3.setBackgroundResource(R.drawable.datalist_frame_gray);
@@ -597,7 +911,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                                     lineaBackground5.setBackgroundResource(R.drawable.datalist_frame_gray);
                                     lineaBackground6.setBackgroundResource(R.drawable.datalist_frame_gray);
                                     lineaBackground7.setBackgroundResource(R.drawable.datalist_frame_gray);
-                                }else if(jsonObject.get("record_last_check").toString().matches("1")){
+                                } else if (jsonObject.get("record_last_check").toString().matches("1")) {
                                     lineaBackground1.setBackgroundResource(R.drawable.datalist_start_frame_yellow);
                                     lineaBackground2.setBackgroundResource(R.drawable.datalist_frame_yellow);
                                     lineaBackground3.setBackgroundResource(R.drawable.datalist_frame_yellow);
@@ -606,8 +920,8 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                                     lineaBackground6.setBackgroundResource(R.drawable.datalist_frame_yellow);
                                     lineaBackground7.setBackgroundResource(R.drawable.datalist_frame_yellow);
                                 }
-                            }else if(jsonObject.get("record_check").toString().matches("2")){
-                                if(jsonObject.get("record_last_check").toString().matches("0")) {
+                            } else if (jsonObject.get("record_check").toString().matches("2")) {
+                                if (jsonObject.get("record_last_check").toString().matches("0")) {
                                     lineaBackground1.setBackgroundResource(R.drawable.datalist_start_frame_red);
                                     lineaBackground2.setBackgroundResource(R.drawable.datalist_frame_red);
                                     lineaBackground3.setBackgroundResource(R.drawable.datalist_frame_red);
@@ -615,7 +929,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                                     lineaBackground5.setBackgroundResource(R.drawable.datalist_frame_red);
                                     lineaBackground6.setBackgroundResource(R.drawable.datalist_frame_red);
                                     lineaBackground7.setBackgroundResource(R.drawable.datalist_frame_red);
-                                }else if(jsonObject.get("record_last_check").toString().matches("1")){
+                                } else if (jsonObject.get("record_last_check").toString().matches("1")) {
                                     lineaBackground1.setBackgroundResource(R.drawable.datalist_start_frame_darkblue);
                                     lineaBackground2.setBackgroundResource(R.drawable.datalist_frame_darkblue);
                                     lineaBackground3.setBackgroundResource(R.drawable.datalist_frame_darkblue);
@@ -624,7 +938,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                                     lineaBackground6.setBackgroundResource(R.drawable.datalist_frame_darkblue);
                                     lineaBackground7.setBackgroundResource(R.drawable.datalist_frame_darkblue);
                                 }
-                            }else {
+                            } else {
                                 if (select_item % 2 == 0) {
                                     lineaBackground1.setBackgroundResource(R.drawable.datalist_start_left_frame);
                                     lineaBackground2.setBackgroundResource(R.drawable.datalist_frame_white);
@@ -875,6 +1189,53 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
         });
     }
 
+    private void gotoMarket() {
+        Uri marketUri = Uri.parse("market://details?id=com.threesing.macau");
+        Intent myIntent = new Intent(Intent.ACTION_VIEW, marketUri);
+        myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(myIntent);
+    }
+
+    private Runnable versionCheck = () -> {
+        ParaseUrl paraseUrl = new ParaseUrl();
+        String version = paraseUrl.getDoc();
+        String thisversion = Value.ver;
+        Log.e(TAG, "version = " + version);
+        Log.e(TAG, "thisversion = " + thisversion);
+        if (!version.matches(thisversion)) {
+            checkHandler.post(() -> {
+                if (Value.language_flag == 0) {
+                    new AlertDialog.Builder(FormActivity.this)
+                            .setTitle("三昇澳門" + thisversion)
+                            .setIcon(R.drawable.app_icon_mini)
+                            .setMessage("Check out the new version" + version + "\nUpdate now?")
+                            .setPositiveButton("Yes", (dialog, which) -> gotoMarket())
+                            .setNegativeButton("Cancel", (dialog, which) -> {
+                                // TODO Auto-generated method stub
+                            }).show();
+                } else if (Value.language_flag == 1) {
+                    new AlertDialog.Builder(FormActivity.this)
+                            .setTitle("三昇澳門" + thisversion)
+                            .setIcon(R.drawable.app_icon_mini)
+                            .setMessage("偵測到有新版本" + version + "\n現在要更新嗎?")
+                            .setPositiveButton("確定", (dialog, which) -> gotoMarket())
+                            .setNegativeButton("取消", (dialog, which) -> {
+                                // TODO Auto-generated method stub
+                            }).show();
+                } else if (Value.language_flag == 2) {
+                    new AlertDialog.Builder(FormActivity.this)
+                            .setTitle("三昇澳门" + thisversion)
+                            .setIcon(R.drawable.app_icon_mini)
+                            .setMessage("侦测到有新版本" + version + "\n现在要更新吗?")
+                            .setPositiveButton("确定", (dialog, which) -> gotoMarket())
+                            .setNegativeButton("取消", (dialog, which) -> {
+                                // TODO Auto-generated method stub
+                            }).show();
+                }
+            });
+        }
+    };
+
     public boolean onKeyDown(int key, KeyEvent event) {
         switch (key) {
             case KeyEvent.KEYCODE_SEARCH:
@@ -907,6 +1268,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
     @Override
     protected void onResume() {
         super.onResume();
+        new Thread(versionCheck).start();
         Log.d(TAG, "onResume");
     }
 
@@ -1127,7 +1489,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
         try {
             if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
                 toolbartitle.setText("Account Checking");
-                back.setText("back");
+                //back.setText("back");
                 date.setText("Date");
                 chartcode.setText("Chart Code");
                 remark.setText("Remarks");
@@ -1144,7 +1506,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                 }
             } else if (Value.language_flag == 1) {
                 toolbartitle.setText("客戶看帳");
-                back.setText("返回");
+                //back.setText("返回");
                 date.setText("日期");
                 chartcode.setText("交易");
                 remark.setText("備註");
@@ -1161,7 +1523,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                 }
             } else if (Value.language_flag == 2) {
                 toolbartitle.setText("客户看帐");
-                back.setText("返回");
+                //back.setText("返回");
                 date.setText("日期");
                 chartcode.setText("交易");
                 remark.setText("备注");

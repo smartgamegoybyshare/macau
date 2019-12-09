@@ -1,6 +1,7 @@
 package com.threesing.macau.Activity;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -10,6 +11,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -42,6 +44,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity_fix extends AppCompatActivity implements ConnectListener, LanguageListener {
 
@@ -77,7 +82,6 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
          //隱藏底部HOME工具列
          getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
          **/
-        getConnect.setListener(this);
         setLanguage.setListener(this);
         if (languageSQL.getCount() == 0) {
             languageChose.show(setLanguage, languageSQL);
@@ -107,8 +111,8 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
         copyright = findViewById(R.id.copyright);
         nowTime = findViewById(R.id.nowTime);
 
-        new Thread(versionCheck).start();
-        setLanguage.setListener(this);
+        getConnect.setListener(this);
+        //new Thread(versionCheck).start();
         setLanguage.isSet();
 
         Runnable gettitle = () -> {
@@ -192,7 +196,7 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
     }
 
     private void nextPage() {
-        Intent intent = new Intent(this, FormActivity.class);
+        Intent intent = new Intent(MainActivity_fix.this, FormActivity.class);
         intent.putExtra("company", company);
         intent.putExtra("account", account);
         startActivity(intent);
@@ -320,6 +324,7 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
     @Override
     protected void onResume() {
         super.onResume();
+        new Thread(versionCheck).start();
         Log.d(TAG, "onResume");
     }
 
@@ -340,6 +345,9 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
         super.onDestroy();
         Log.d(TAG, "onDestroy");
         loginSQL.close();
+        languageSQL.close();
+        titleHandler.removeCallbacksAndMessages(true);
+        checkHandler.removeCallbacksAndMessages(true);
     }
 
     @SuppressLint("SetTextI18n")

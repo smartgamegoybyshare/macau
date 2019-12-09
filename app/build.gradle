@@ -38,4 +38,5 @@ dependencies {
     implementation 'com.mcxiaoke.volley:library:1.0.17'
     implementation 'org.java-websocket:Java-WebSocket:1.4.0'
     implementation 'org.jsoup:jsoup:1.11.3'
+    implementation 'com.github.GeniusLiu:GestureViewBinder:v1.0.0'
 }

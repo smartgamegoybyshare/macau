@@ -19,8 +19,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Thread.sleep;
+
 public class UserDataList extends BaseAdapter {
 
+    private String TAG = "UserDataList";
     private List<String> user_record;
     private List<View> saveView;
 
@@ -30,7 +33,8 @@ public class UserDataList extends BaseAdapter {
         LayoutInflater inflater = LayoutInflater.from(context);
         saveView = new ArrayList<>();
         saveView.clear();
-        for(int i = 0; i < user_record.size(); i++){
+        for (int i = 0; i < user_record.size(); i++) {
+            Log.e(TAG, "要死啦~~" + i);
             View view = inflater.inflate(R.layout.userdata, null);
             saveView.add(view);
         }
@@ -56,6 +60,7 @@ public class UserDataList extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup viewGroup) {
 
         View view;
+
         view = saveView.get(position);
 
         TextView date = view.findViewById(R.id.textView1);
@@ -284,6 +289,11 @@ public class UserDataList extends BaseAdapter {
                 e.printStackTrace();
             }
         }*/
+        try {
+            sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return view;
     }
 }

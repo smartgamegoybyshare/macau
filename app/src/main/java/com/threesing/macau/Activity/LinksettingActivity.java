@@ -34,6 +34,7 @@ import com.threesing.macau.Post_Get.LinkForm.LinkFormListener;
 import com.threesing.macau.R;
 import com.threesing.macau.Support.InternetImage;
 import com.threesing.macau.Support.Loading;
+import com.threesing.macau.Support.ParaseUrl;
 import com.threesing.macau.Support.Value;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,7 +50,7 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
     private String company, account, act;
     private Bitmap preview_bitmap;
     //private GifImageView gifImageView1;
-    private Handler handler = new Handler();
+    private Handler handler = new Handler(), checkHandler = new Handler();
     private Link link = new Link(this);
     private Loading loading = new Loading(this);
     private GetLink getLink = new GetLink();
@@ -286,6 +287,53 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
         }
     }
 
+    private void gotoMarket() {
+        Uri marketUri = Uri.parse("market://details?id=com.threesing.macau");
+        Intent myIntent = new Intent(Intent.ACTION_VIEW, marketUri);
+        myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(myIntent);
+    }
+
+    private Runnable versionCheck = () -> {
+        ParaseUrl paraseUrl = new ParaseUrl();
+        String version = paraseUrl.getDoc();
+        String thisversion = Value.ver;
+        Log.e(TAG, "version = " + version);
+        Log.e(TAG, "thisversion = " + thisversion);
+        if (!version.matches(thisversion)) {
+            checkHandler.post(() -> {
+                if (Value.language_flag == 0) {
+                    new AlertDialog.Builder(LinksettingActivity.this)
+                            .setTitle("三昇澳門" + thisversion)
+                            .setIcon(R.drawable.app_icon_mini)
+                            .setMessage("Check out the new version" + version + "\nUpdate now?")
+                            .setPositiveButton("Yes", (dialog, which) -> gotoMarket())
+                            .setNegativeButton("Cancel", (dialog, which) -> {
+                                // TODO Auto-generated method stub
+                            }).show();
+                } else if (Value.language_flag == 1) {
+                    new AlertDialog.Builder(LinksettingActivity.this)
+                            .setTitle("三昇澳門" + thisversion)
+                            .setIcon(R.drawable.app_icon_mini)
+                            .setMessage("偵測到有新版本" + version + "\n現在要更新嗎?")
+                            .setPositiveButton("確定", (dialog, which) -> gotoMarket())
+                            .setNegativeButton("取消", (dialog, which) -> {
+                                // TODO Auto-generated method stub
+                            }).show();
+                } else if (Value.language_flag == 2) {
+                    new AlertDialog.Builder(LinksettingActivity.this)
+                            .setTitle("三昇澳门" + thisversion)
+                            .setIcon(R.drawable.app_icon_mini)
+                            .setMessage("侦测到有新版本" + version + "\n现在要更新吗?")
+                            .setPositiveButton("确定", (dialog, which) -> gotoMarket())
+                            .setNegativeButton("取消", (dialog, which) -> {
+                                // TODO Auto-generated method stub
+                            }).show();
+                }
+            });
+        }
+    };
+
     public boolean onKeyDown(int key, KeyEvent event) {
         switch (key) {
             case KeyEvent.KEYCODE_SEARCH:
@@ -317,6 +365,7 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
     @Override
     protected void onResume() {
         super.onResume();
+        new Thread(versionCheck).start();
         Log.d(TAG, "onResume");
     }
 
