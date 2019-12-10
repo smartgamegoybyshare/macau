@@ -294,6 +294,66 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
         startActivity(myIntent);
     }
 
+    //APK版 偵測版本更新
+    private Runnable APKversionCheck = new Runnable() {
+        @Override
+        public void run() {
+            ParaseUrl paraseUrl = new ParaseUrl();
+            String version = paraseUrl.getDoc();
+            String thisversion = Value.ver;
+            Log.e(TAG, "version = " + version);
+            Log.e(TAG, "thisversion = " + thisversion);
+            if (!version.matches(thisversion)) {
+                checkHandler.post(() -> {
+                    if (Value.language_flag == 0) {
+                        new AlertDialog.Builder(LinksettingActivity.this)
+                                .setTitle("三昇澳門" + thisversion)
+                                .setIcon(R.drawable.app_icon_mini)
+                                .setMessage("Check out the new version" + version + "\nUpdate now?")
+                                .setPositiveButton("Yes", (dialog, which) -> {
+                                    String url = "https://3singmacau.com/";
+                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                                    intent.setData(Uri.parse(url));
+                                    startActivity(intent);
+                                })
+                                .setNegativeButton("Cancel", (dialog, which) -> {
+                                    // TODO Auto-generated method stub
+                                }).show();
+                    } else if (Value.language_flag == 1) {
+                        new AlertDialog.Builder(LinksettingActivity.this)
+                                .setTitle("三昇澳門" + thisversion)
+                                .setIcon(R.drawable.app_icon_mini)
+                                .setMessage("偵測到有新版本" + version + "\n現在要更新嗎?")
+                                .setPositiveButton("確定", (dialog, which) -> {
+                                    String url = "https://3singmacau.com/";
+                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                                    intent.setData(Uri.parse(url));
+                                    startActivity(intent);
+                                })
+                                .setNegativeButton("取消", (dialog, which) -> {
+                                    // TODO Auto-generated method stub
+                                }).show();
+                    } else if (Value.language_flag == 2) {
+                        new AlertDialog.Builder(LinksettingActivity.this)
+                                .setTitle("三昇澳门" + thisversion)
+                                .setIcon(R.drawable.app_icon_mini)
+                                .setMessage("侦测到有新版本" + version + "\n现在要更新吗?")
+                                .setPositiveButton("确定", (dialog, which) -> {
+                                    String url = "https://3singmacau.com/";
+                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                                    intent.setData(Uri.parse(url));
+                                    startActivity(intent);
+                                })
+                                .setNegativeButton("取消", (dialog, which) -> {
+                                    // TODO Auto-generated method stub
+                                }).show();
+                    }
+                });
+            }
+        }
+    };
+
+    //google play商店
     private Runnable versionCheck = () -> {
         ParaseUrl paraseUrl = new ParaseUrl();
         String version = paraseUrl.getDoc();
@@ -365,7 +425,8 @@ public class LinksettingActivity extends AppCompatActivity implements LinkListen
     @Override
     protected void onResume() {
         super.onResume();
-        new Thread(versionCheck).start();
+        new Thread(APKversionCheck).start();    //APK版本偵測
+        //new Thread(versionCheck).start();   //google play商店版本偵測
         Log.d(TAG, "onResume");
     }
 

@@ -124,17 +124,17 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
         super.onCreate(savedInstanceState);
         Log.d(TAG, "FormActivity");
         //setContentView(R.layout.formpage);
-        setContentView(R.layout.formpage2);
+        setContentView(R.layout.formpage);
 
         toolbartitle = findViewById(R.id.toolbar_title);
         //back = findViewById(R.id.backView1);
         //back2 = findViewById(R.id.backView2);
-        zoomin = findViewById(R.id.imageView);
+        /*zoomin = findViewById(R.id.imageView);
         zoomout = findViewById(R.id.imageView2);
         point_up = findViewById(R.id.imageView3);
         point_down = findViewById(R.id.imageView4);
         point_right = findViewById(R.id.imageView5);
-        point_left = findViewById(R.id.imageView6);
+        point_left = findViewById(R.id.imageView6);*/
         swipeRefreshLayout = findViewById(R.id.swiperefresh);
         listView = findViewById(R.id.listView1);
         nowtime = findViewById(R.id.nowTime);   //更新數據時間
@@ -151,10 +151,10 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
         face = Typeface.createFromAsset(getAssets(), "fonts/GenJyuuGothic-Normal.ttf");
 
         //back.setVisibility(View.GONE);
-        point_up.setVisibility(View.GONE);
+        /*point_up.setVisibility(View.GONE);
         point_down.setVisibility(View.GONE);
         point_left.setVisibility(View.GONE);
-        point_right.setVisibility(View.GONE);
+        point_right.setVisibility(View.GONE);*/
 
         date.getPaint().setFakeBoldText(true);
         chartcode.getPaint().setFakeBoldText(true);
@@ -196,7 +196,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
 
         try {
             //ZoomLinearLayout zoomLinearLayout = findViewById(R.id.zoom_linear_layout);
-            zoomLinearLayout = findViewById(R.id.zoomLinearLayout);
+            //zoomLinearLayout = findViewById(R.id.zoomLinearLayout);
             TextView copyright = findViewById(R.id.textView);
             Button listButtondown = findViewById(R.id.button3);
             Button listButtonup = findViewById(R.id.button4);
@@ -230,7 +230,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                 return false;
             });*/
 
-            nowX = zoomLinearLayout.getX();
+            /*nowX = zoomLinearLayout.getX();
             nowY = zoomLinearLayout.getY();
 
             zoomin.setOnTouchListener(new View.OnTouchListener() {
@@ -339,7 +339,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                     }
                     return true;
                 }
-            });
+            });*/
 
             String userdata = Value.get_user_data.get("records").toString();
             JSONArray userdatas = new JSONArray(userdata);
@@ -352,14 +352,14 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
             {
                 swipe = true;
                 regetalldata = true;
-                zoomLinearLayout.setX(nowX);
+                /*zoomLinearLayout.setX(nowX);
                 zoomLinearLayout.setY(nowY);
                 zoomLinearLayout.setScaleX((float) 1.0);
                 zoomLinearLayout.setScaleY((float) 1.0);
                 point_up.setVisibility(View.GONE);
                 point_down.setVisibility(View.GONE);
                 point_left.setVisibility(View.GONE);
-                point_right.setVisibility(View.GONE);
+                point_right.setVisibility(View.GONE);*/
                 connectUserDataBase.setConnect(company, account, getUserData);
             });
             swipeRefreshLayout.setColorSchemeResources(R.color.progressColor);
@@ -478,7 +478,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
         }
     }
 
-    @SuppressLint("HandlerLeak")
+    /*@SuppressLint("HandlerLeak")
     private Handler scheduleHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -617,7 +617,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
             scheduledright.shutdownNow();
             scheduledright = null;
         }
-    }
+    }*/
 
     private String getDateTime() {
         Date date = new Date();
