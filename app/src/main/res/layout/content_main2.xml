@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Activity.FormActivity">
+
+    <!--全頁背景色-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E7EFF8"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </LinearLayout>
+
+    <com.threesing.macau.TextType.CustomButtonText
+        android:id="@+id/button1"
+        android:layout_width="0dp"
+        android:layout_height="30sp"
+        android:layout_gravity="center"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/combine_style"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:customFont="GenJyuuGothic-Normal.ttf"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintWidth_percent="0.315" />
+
+    <com.threesing.macau.TextType.CustomButtonText
+        android:id="@+id/button2"
+        android:layout_width="0dp"
+        android:layout_height="30sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/checkall_style"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:customFont="GenJyuuGothic-Normal.ttf"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button5"
+        app:layout_constraintStart_toEndOf="@+id/button1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintWidth_percent="0.315" />
+
+    <!--<Button-->
+    <!--android:id="@+id/button3"-->
+    <!--android:layout_width="30dp"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:layout_marginStart="15dp"-->
+    <!--android:layout_marginBottom="20dp"-->
+    <!--android:alpha="0.6"-->
+    <!--android:background="@drawable/btn_down"-->
+    <!--android:elevation="2dp"-->
+    <!--app:layout_constraintBottom_toTopOf="@+id/linear_gif"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintHorizontal_bias="0.0"-->
+    <!--app:layout_constraintStart_toStartOf="parent" />-->
+
+    <!--<Button-->
+    <!--android:id="@+id/button4"-->
+    <!--android:layout_width="30dp"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:layout_marginStart="15dp"-->
+    <!--android:layout_marginBottom="70dp"-->
+    <!--android:alpha="0.6"-->
+    <!--android:background="@drawable/btn_up"-->
+    <!--android:elevation="2dp"-->
+    <!--app:layout_constraintBottom_toTopOf="@+id/linear_gif"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintHorizontal_bias="0.0"-->
+    <!--app:layout_constraintStart_toStartOf="parent" />-->
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="50dp"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/point_up" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="20dp"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/point_down" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="20dp"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintVertical_bias="0.65"
+        app:srcCompat="@drawable/point_right" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="20dp"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintVertical_bias="0.65"
+        app:srcCompat="@drawable/point_left" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="20dp"
+        android:alpha="0.6"
+        android:background="@drawable/btn_down"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="60dp"
+        android:alpha="0.6"
+        android:background="@drawable/btn_up"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.threesing.macau.TextType.CustomButtonText
+        android:id="@+id/button5"
+        android:layout_width="0dp"
+        android:layout_height="30sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="5dp"
+        android:background="@drawable/refresh_style"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:customFont="GenJyuuGothic-Normal.ttf"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintWidth_percent="0.315" />
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/linear_gif"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:gravity="center"-->
+    <!--android:orientation="vertical"-->
+    <!--app:layout_constraintBottom_toTopOf="@+id/textView"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintHeight_percent="0.1">-->
+
+    <!--<pl.droidsonroids.gif.GifImageView-->
+    <!--android:id="@+id/imageView1"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:adjustViewBounds="true" />-->
+
+    <!--</LinearLayout>-->
+
+    <com.threesing.macau.TextType.CustomTextView
+        android:id="@+id/nowTime"
+        android:layout_width="0dp"
+        android:layout_height="12dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text=""
+        android:textColor="#000000"
+        android:textSize="8sp"
+        app:customFont="GenJyuuGothic-Normal.ttf"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="SmallSp" />
+
+    <com.threesing.macau.TextType.CustomTextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="12dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="8sp"
+        app:customFont="GenJyuuGothic-Normal.ttf"
+        app:layout_constraintBottom_toTopOf="@+id/nowTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="SmallSp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button1"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:id="@+id/zoomLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--<com.threesing.macau.Zoom.ZoomLinearLayout-->
+            <!--android:id="@+id/zoom_linear_layout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="vertical">-->
+
+            <com.threesing.macau.TextType.CustomTextView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="24sp"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/text_style"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                app:customFont="GenJyuuGothic-Normal.ttf" />
+
+            <!--<TextView-->
+            <!--android:id="@+id/textView2"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="6dp"-->
+            <!--android:layout_marginEnd="6dp"-->
+            <!--android:background="#000000"-->
+            <!--android:elevation="2dp"-->
+            <!--android:paddingEnd="2dp"-->
+            <!--android:textColor="@color/colorWhite"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintHorizontal_bias="1.0"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/button1" />-->
+
+            <LinearLayout
+                android:id="@+id/linearLayout_title"
+                android:layout_width="match_parent"
+                android:layout_height="24sp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.18"
+                    android:background="@drawable/datalist_start_title"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <com.threesing.macau.TextType.CustomTextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="Date"
+                        android:textColor="#000000"
+                        android:textSize="8sp"
+                        app:customFont="GenJyuuGothic-Bold.ttf"
+                        tools:ignore="SmallSp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.1"
+                    android:background="@drawable/datalist_title"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <com.threesing.macau.TextType.CustomTextView
+                        android:id="@+id/textView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="Chart Code"
+                        android:textColor="#000000"
+                        android:textSize="8sp"
+                        app:customFont="GenJyuuGothic-Bold.ttf"
+                        tools:ignore="SmallSp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.1"
+                    android:background="@drawable/datalist_title"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <com.threesing.macau.TextType.CustomTextView
+                        android:id="@+id/textView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="Remarks"
+                        android:textColor="#000000"
+                        android:textSize="8sp"
+                        app:customFont="GenJyuuGothic-Bold.ttf"
+                        tools:ignore="SmallSp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.05"
+                    android:background="@drawable/datalist_title"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <com.threesing.macau.TextType.CustomTextView
+                        android:id="@+id/textView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:paddingEnd="2dp"
+                        android:singleLine="true"
+                        android:text="Gain"
+                        android:textColor="#000000"
+                        android:textSize="8sp"
+                        app:customFont="GenJyuuGothic-Bold.ttf"
+                        tools:ignore="RtlSymmetry,SmallSp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.05"
+                    android:background="@drawable/datalist_title"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <com.threesing.macau.TextType.CustomTextView
+                        android:id="@+id/textView7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:paddingEnd="2dp"
+                        android:singleLine="true"
+                        android:text="Loss"
+                        android:textColor="#000000"
+                        android:textSize="8sp"
+                        app:customFont="GenJyuuGothic-Bold.ttf"
+                        tools:ignore="RtlSymmetry,SmallSp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.05"
+                    android:background="@drawable/datalist_title"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <com.threesing.macau.TextType.CustomTextView
+                        android:id="@+id/textView8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:paddingEnd="2dp"
+                        android:singleLine="true"
+                        android:text="Balance"
+                        android:textColor="#000000"
+                        android:textSize="8sp"
+                        app:customFont="GenJyuuGothic-Bold.ttf"
+                        tools:ignore="RtlSymmetry,SmallSp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.15"
+                    android:background="@drawable/datalist_title"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <com.threesing.macau.TextType.CustomTextView
+                        android:id="@+id/textView9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="Checked"
+                        android:textColor="#000000"
+                        android:textSize="8sp"
+                        app:customFont="GenJyuuGothic-Bold.ttf"
+                        tools:ignore="SmallSp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--<TextView-->
+            <!--android:id="@+id/textView3"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_marginStart="6dp"-->
+            <!--android:gravity="center"-->
+            <!--android:singleLine="true"-->
+            <!--android:textSize="10sp"-->
+            <!--android:text="Date"-->
+            <!--android:background="@drawable/datalist_start_title"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintHorizontal_bias="0.0"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/textView1"-->
+            <!--app:layout_constraintWidth_percent="0.1"-->
+            <!--tools:ignore="SmallSp" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/textView4"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:gravity="center"-->
+            <!--android:singleLine="true"-->
+            <!--android:textSize="10sp"-->
+            <!--android:text="Chart Code"-->
+            <!--android:background="@drawable/datalist_title"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintHorizontal_bias="0.0"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/textView3"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/textView1"-->
+            <!--app:layout_constraintWidth_percent="0.15"-->
+            <!--tools:ignore="SmallSp" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/textView5"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:gravity="center"-->
+            <!--android:singleLine="true"-->
+            <!--android:textSize="10sp"-->
+            <!--android:text="Remarks"-->
+            <!--android:background="@drawable/datalist_title"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintHorizontal_bias="0.0"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/textView4"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/textView1"-->
+            <!--app:layout_constraintWidth_percent="0.15"-->
+            <!--tools:ignore="SmallSp" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/textView6"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="end"-->
+            <!--android:gravity="end"-->
+            <!--android:paddingEnd="2dp"-->
+            <!--android:singleLine="true"-->
+            <!--android:textSize="10sp"-->
+            <!--android:text="Gain"-->
+            <!--android:background="@drawable/datalist_title"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintHorizontal_bias="0.0"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/textView5"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/textView1"-->
+            <!--app:layout_constraintWidth_percent="0.184"-->
+            <!--tools:ignore="RtlSymmetry,SmallSp" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/textView7"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="end"-->
+            <!--android:background="@drawable/datalist_title"-->
+            <!--android:gravity="end"-->
+            <!--android:paddingEnd="2dp"-->
+            <!--android:singleLine="true"-->
+            <!--android:text="Lose"-->
+            <!--android:textSize="10sp"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/textView8"-->
+            <!--app:layout_constraintHorizontal_bias="0.0"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/textView6"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/textView1"-->
+            <!--tools:ignore="RtlSymmetry,SmallSp" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/textView8"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="end"-->
+            <!--android:layout_marginEnd="6dp"-->
+            <!--android:background="@drawable/datalist_title"-->
+            <!--android:gravity="end"-->
+            <!--android:paddingEnd="2dp"-->
+            <!--android:singleLine="true"-->
+            <!--android:text="Balance"-->
+            <!--android:textSize="10sp"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintHorizontal_bias="1.0"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/textView2"-->
+            <!--app:layout_constraintWidth_percent="0.2"-->
+            <!--tools:ignore="RtlSymmetry,SmallSp" />-->
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="10dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical">
+
+                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                    android:id="@+id/swiperefresh"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ListView
+                        android:id="@+id/listView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:divider="@null"
+                        android:listSelector="@android:color/transparent" />
+
+                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            </LinearLayout>
+
+            <!--</com.threesing.macau.Zoom.ZoomLinearLayout>-->
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
