@@ -30,26 +30,20 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import com.threesing.macau.Language.LanguageListener;
 import com.threesing.macau.Language.SetLanguage;
 import com.threesing.macau.R;
 import com.threesing.macau.Support.DownloadCompleteReceiver;
 import com.threesing.macau.Support.InternetImage;
 import com.threesing.macau.Support.Loading;
+import com.threesing.macau.Support.TimeZone;
 import com.threesing.macau.Support.Value;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
-
 import pl.droidsonroids.gif.GifImageView;
 
 public class WebviewActivity extends AppCompatActivity implements LanguageListener {
@@ -67,6 +61,7 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
     private InternetImage internetImage = new InternetImage();
     private Handler handler = new Handler(), refreshHandler = new Handler();
     private Loading loading = new Loading(this);
+    private TimeZone timeZone = new TimeZone();
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private ProgressBar progressBar;
 
@@ -148,7 +143,7 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
             new Thread(refreshUrl).start();
         });
         swipeRefreshLayout.setColorSchemeResources(R.color.progressColor);
-        Value.updateTime = getDateTime();
+        Value.updateTime = timeZone.getDateTime();
         setLanguage.setListener(this);
         setLanguage.isSet();
 
@@ -335,14 +330,6 @@ public class WebviewActivity extends AppCompatActivity implements LanguageListen
         } else {
             downloadManager(url);
         }
-    }
-
-    private String getDateTime() {
-        Date date = new Date();
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        dateTime.setTimeZone(TimeZone.getTimeZone("America/New_York")); //美東時區
-        return dateTime.format(date);
     }
 
     private void homePage() {

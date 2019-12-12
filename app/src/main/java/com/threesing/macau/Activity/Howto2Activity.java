@@ -16,11 +16,9 @@ import com.threesing.macau.Language.LanguageListener;
 import com.threesing.macau.Language.SetLanguage;
 import com.threesing.macau.R;
 import com.threesing.macau.Support.InternetImage;
+import com.threesing.macau.Support.TimeZone;
 import com.threesing.macau.Support.Value;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
@@ -34,6 +32,7 @@ public class Howto2Activity extends AppCompatActivity implements LanguageListene
     private String company, account;
     private Handler handler = new Handler();
     private InternetImage internetImage = new InternetImage();
+    private TimeZone timeZone = new TimeZone();
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -91,7 +90,7 @@ public class Howto2Activity extends AppCompatActivity implements LanguageListene
         }
 
         back.setOnClickListener(view -> homePage());
-        Value.updateTime = getDateTime();
+        Value.updateTime = timeZone.getDateTime();
         setLanguage.setListener(this);
         setLanguage.isSet();
     }
@@ -102,14 +101,6 @@ public class Howto2Activity extends AppCompatActivity implements LanguageListene
         account = intent.getStringExtra("account");
         Log.e(TAG, "company = " + company);
         Log.e(TAG, "account = " + account);
-    }
-
-    private String getDateTime() {
-        Date date = new Date();
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        dateTime.setTimeZone(TimeZone.getTimeZone("America/New_York")); //美東時區
-        return dateTime.format(date);
     }
 
     private void homePage(){

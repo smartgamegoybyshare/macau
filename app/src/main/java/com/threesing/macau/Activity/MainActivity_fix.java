@@ -36,17 +36,14 @@ import com.threesing.macau.SQL.LoginSQL;
 import com.threesing.macau.Support.InternetImage;
 import com.threesing.macau.Support.Loading;
 import com.threesing.macau.Support.ParaseUrl;
+import com.threesing.macau.Support.TimeZone;
 import com.threesing.macau.Support.Value;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity_fix extends AppCompatActivity implements ConnectListener, LanguageListener {
 
@@ -67,6 +64,7 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
     private LanguageChose languageChose = new LanguageChose(this);
     private InternetImage internetImage = new InternetImage();
     private Loading loading = new Loading(this);
+    private TimeZone timeZone = new TimeZone();
     private boolean error = false;
 
     @Override
@@ -89,7 +87,7 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
             Value.language_flag = languageSQL.getflag();
         }
         try {
-            Value.updateTime = getDateTime();
+            Value.updateTime = timeZone.getDateTime();
             String thisversion = getVersionName(this);
             Log.e(TAG, "thisversion = " + thisversion);
             Value.ver = thisversion;
@@ -316,14 +314,6 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
         // getPackageName()是你当前类的包名，0代表是获取版本信息
         PackageInfo packInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
         return packInfo.versionName;
-    }
-
-    private String getDateTime() {
-        Date date = new Date();
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        dateTime.setTimeZone(TimeZone.getTimeZone("America/New_York")); //美東時區
-        return dateTime.format(date);
     }
 
     public boolean onKeyDown(int key, KeyEvent event) {

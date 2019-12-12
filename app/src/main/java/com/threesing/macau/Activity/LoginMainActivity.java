@@ -40,6 +40,7 @@ import com.threesing.macau.R;
 import com.threesing.macau.SQL.LastLoginSQL;
 import com.threesing.macau.Support.InternetImage;
 import com.threesing.macau.Support.MarqueeTextView;
+import com.threesing.macau.Support.TimeZone;
 import com.threesing.macau.Support.Value;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,7 +49,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 public class LoginMainActivity extends AppCompatActivity implements LanguageListener,
         PostListener, UserdataListener {
@@ -72,6 +72,7 @@ public class LoginMainActivity extends AppCompatActivity implements LanguageList
     private ConnectUserDataBase connectUserDataBase = new ConnectUserDataBase(this);
     private GetUserData getUserData = new GetUserData();
     private LastLoginSQL lastLoginSQL = new LastLoginSQL(this);
+    private TimeZone timeZone = new TimeZone();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +128,7 @@ public class LoginMainActivity extends AppCompatActivity implements LanguageList
         ImageView linkicon = findViewById(R.id.imageButton2);
         ImageView modifyicon = findViewById(R.id.imageButton3);
         ImageView formicon = findViewById(R.id.imageButton4);
-        Value.updateTime = getDateTime();
+        Value.updateTime = timeZone.getDateTime();
         getUserData.setListener(this);
         getPost.setListener(this);
         setLanguage.setListener(this);
@@ -178,8 +179,7 @@ public class LoginMainActivity extends AppCompatActivity implements LanguageList
             goWebview(textView8, url);
         });
 
-        Log.e(TAG, "getDateTime() = " + getDateTime());
-        Log.e(TAG, "recordTime() = " + recordTime());
+        Log.e(TAG, "getDateTime() = " + timeZone.getDateTime());
     }
 
     private void listView() {
@@ -255,14 +255,6 @@ public class LoginMainActivity extends AppCompatActivity implements LanguageList
             viewPager.setCurrentItem(i);
             viewpageHandler.removeCallbacksAndMessages(null);
         }, 4000);
-    }
-
-    private String getDateTime() {
-        Date date = new Date();
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        dateTime.setTimeZone(TimeZone.getTimeZone("America/New_York")); //美東時區
-        return dateTime.format(date);
     }
 
     private String recordTime(){

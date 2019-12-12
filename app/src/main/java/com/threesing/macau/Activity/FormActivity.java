@@ -34,7 +34,6 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +42,6 @@ import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import com.threesing.macau.Language.LanguageListener;
 import com.threesing.macau.Language.SetLanguage;
 import com.threesing.macau.ListView.UserDataList;
@@ -64,24 +62,18 @@ import com.threesing.macau.Support.ParaseUrl;
 import com.threesing.macau.Support.SelectDialog;
 import com.threesing.macau.Support.SelectTotalDialog;
 import com.threesing.macau.Support.Value;
+import com.threesing.macau.Support.TimeZone;
 import com.threesing.macau.TextType.CustomTypeFaceSpan;
 import com.threesing.macau.Zoom.ZoomLinearLayout;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.lang.reflect.Field;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.TimeZone;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 import pl.droidsonroids.gif.GifImageView;
 
 public class FormActivity extends AppCompatActivity implements UserdataListener, UserRecordListener,
@@ -115,6 +107,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
     private boolean popWindowView = false, regetalldata = false, language_bool = false, swipe = false;
     private int click = 0;
     private Typeface face;
+    private TimeZone timeZone = new TimeZone();
     private ScheduledExecutorService scheduledin, scheduledout, scheduledup, scheduleddown, scheduledleft, scheduledright;
     private double multi = 1.0;
     private float nowX, nowY;
@@ -619,14 +612,6 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
         }
     }*/
 
-    private String getDateTime() {
-        Date date = new Date();
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        dateTime.setTimeZone(TimeZone.getTimeZone("America/New_York")); //美東時區
-        return dateTime.format(date);
-    }
-
     private void homePage() {
         if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
             new AlertDialog.Builder(FormActivity.this)
@@ -742,7 +727,7 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
                 Value.user_record = user_record;
                 Value.mUserDataList = new UserDataList(FormActivity.this, user_record);
                 Log.e(TAG, "執行緒");
-                Value.updateTime = getDateTime();
+                Value.updateTime = timeZone.getDateTime();
                 loading.dismiss();
                 handler.post(() -> {
                     listView.setAdapter(Value.mUserDataList);
@@ -1196,6 +1181,66 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
         startActivity(myIntent);
     }
 
+    //APK版 偵測版本更新
+    private Runnable APKversionCheck = new Runnable() {
+        @Override
+        public void run() {
+            ParaseUrl paraseUrl = new ParaseUrl();
+            String version = paraseUrl.getDoc();
+            String thisversion = Value.ver;
+            Log.e(TAG, "version = " + version);
+            Log.e(TAG, "thisversion = " + thisversion);
+            if (!version.matches(thisversion)) {
+                checkHandler.post(() -> {
+                    if (Value.language_flag == 0) {
+                        new AlertDialog.Builder(FormActivity.this)
+                                .setTitle("三昇澳門" + thisversion)
+                                .setIcon(R.drawable.app_icon_mini)
+                                .setMessage("Check out the new version" + version + "\nUpdate now?")
+                                .setPositiveButton("Yes", (dialog, which) -> {
+                                    String url = "https://3singmacau.com/";
+                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                                    intent.setData(Uri.parse(url));
+                                    startActivity(intent);
+                                })
+                                .setNegativeButton("Cancel", (dialog, which) -> {
+                                    // TODO Auto-generated method stub
+                                }).show();
+                    } else if (Value.language_flag == 1) {
+                        new AlertDialog.Builder(FormActivity.this)
+                                .setTitle("三昇澳門" + thisversion)
+                                .setIcon(R.drawable.app_icon_mini)
+                                .setMessage("偵測到有新版本" + version + "\n現在要更新嗎?")
+                                .setPositiveButton("確定", (dialog, which) -> {
+                                    String url = "https://3singmacau.com/";
+                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                                    intent.setData(Uri.parse(url));
+                                    startActivity(intent);
+                                })
+                                .setNegativeButton("取消", (dialog, which) -> {
+                                    // TODO Auto-generated method stub
+                                }).show();
+                    } else if (Value.language_flag == 2) {
+                        new AlertDialog.Builder(FormActivity.this)
+                                .setTitle("三昇澳门" + thisversion)
+                                .setIcon(R.drawable.app_icon_mini)
+                                .setMessage("侦测到有新版本" + version + "\n现在要更新吗?")
+                                .setPositiveButton("确定", (dialog, which) -> {
+                                    String url = "https://3singmacau.com/";
+                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                                    intent.setData(Uri.parse(url));
+                                    startActivity(intent);
+                                })
+                                .setNegativeButton("取消", (dialog, which) -> {
+                                    // TODO Auto-generated method stub
+                                }).show();
+                    }
+                });
+            }
+        }
+    };
+
+    //google play商店
     private Runnable versionCheck = () -> {
         ParaseUrl paraseUrl = new ParaseUrl();
         String version = paraseUrl.getDoc();
@@ -1268,7 +1313,8 @@ public class FormActivity extends AppCompatActivity implements UserdataListener,
     @Override
     protected void onResume() {
         super.onResume();
-        new Thread(versionCheck).start();
+        new Thread(APKversionCheck).start();    //APK版本偵測
+        //new Thread(versionCheck).start();   //google play商店版本偵測
         Log.d(TAG, "onResume");
     }
 

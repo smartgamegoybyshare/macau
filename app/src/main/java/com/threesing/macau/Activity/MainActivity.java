@@ -18,11 +18,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
-
 import com.threesing.macau.Language.LanguageChose;
 import com.threesing.macau.Language.LanguageListener;
 import com.threesing.macau.Language.SetLanguage;
@@ -44,11 +42,10 @@ import com.threesing.macau.Support.Loading;
 import com.threesing.macau.Support.LoginDialog;
 import com.threesing.macau.Support.MarqueeTextView;
 import com.threesing.macau.Support.ParaseUrl;
+import com.threesing.macau.Support.TimeZone;
 import com.threesing.macau.Support.Value;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -56,11 +53,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity implements ConnectListener, LanguageListener {
 
@@ -85,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements ConnectListener, 
     private Handler titleHandler = new Handler(), announceHandler = new Handler();
     private LoginDialog loginDialog = new LoginDialog(this);
     private Loading loading = new Loading(this);
+    private TimeZone timeZone = new TimeZone();
     private boolean error = false;
 
     @Override
@@ -108,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements ConnectListener, 
             Value.language_flag = languageSQL.getflag();
         }
         try {
-            Value.updateTime = getDateTime();
+            Value.updateTime = timeZone.getDateTime();
             String thisversion = getVersionName(this);
             Log.e(TAG, "thisversion = " + thisversion);
             Value.ver = thisversion;
@@ -304,14 +299,6 @@ public class MainActivity extends AppCompatActivity implements ConnectListener, 
         // getPackageName()是你当前类的包名，0代表是获取版本信息
         PackageInfo packInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
         return packInfo.versionName;
-    }
-
-    private String getDateTime() {
-        Date date = new Date();
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        dateTime.setTimeZone(TimeZone.getTimeZone("America/New_York")); //美東時區
-        return dateTime.format(date);
     }
 
     private Runnable announce = new Runnable() {
