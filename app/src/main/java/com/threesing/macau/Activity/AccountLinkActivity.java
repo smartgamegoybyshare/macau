@@ -284,8 +284,8 @@ public class AccountLinkActivity extends AppCompatActivity implements CheckLinkL
     @Override
     protected void onResume() {
         super.onResume();
-        new Thread(APKversionCheck).start();    //APK版本偵測
-        //new Thread(versionCheck).start();   //google play商店版本偵測
+        //new Thread(APKversionCheck).start();    //APK版本偵測
+        new Thread(versionCheck).start();   //google play商店版本偵測
         Log.d(TAG, "onResume");
     }
 

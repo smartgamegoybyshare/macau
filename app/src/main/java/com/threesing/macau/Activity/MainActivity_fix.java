@@ -1,17 +1,18 @@
 package com.threesing.macau.Activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.ActivityManager;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -22,11 +23,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import com.threesing.macau.Language.LanguageChose;
 import com.threesing.macau.Language.LanguageListener;
 import com.threesing.macau.Language.SetLanguage;
+import com.threesing.macau.MacauService.MacauService;
 import com.threesing.macau.Post_Get.Login.ConnectListener;
 import com.threesing.macau.Post_Get.Login.Connected;
 import com.threesing.macau.Post_Get.Login.GetConnect;
@@ -38,12 +44,17 @@ import com.threesing.macau.Support.Loading;
 import com.threesing.macau.Support.ParaseUrl;
 import com.threesing.macau.Support.TimeZone;
 import com.threesing.macau.Support.Value;
+
+import org.eclipse.paho.android.service.MqttAndroidClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
+
+import static java.lang.Thread.sleep;
 
 public class MainActivity_fix extends AppCompatActivity implements ConnectListener, LanguageListener {
 
@@ -65,7 +76,15 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
     private InternetImage internetImage = new InternetImage();
     private Loading loading = new Loading(this);
     private TimeZone timeZone = new TimeZone();
-    private boolean error = false;
+    private boolean error = false, loginflag = false;
+    private final static int READ_PHONE_STATE_CODE = 1;
+    private NotificationManager notifManager;
+    private MqttConnectOptions connectOptions;
+    private String broker = "tcp://210.244.56.216:1883";
+    private String clientId = "test";   //唯一字串，可任一取名
+    private MemoryPersistence persistence;
+    private MqttAndroidClient androidClient;
+    private String username = "mqtt", userpassword = "123qwe.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +100,7 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
          getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
          **/
         setLanguage.setListener(this);
+
         if (languageSQL.getCount() == 0) {
             languageChose.show(setLanguage, languageSQL);
         } else {
@@ -152,6 +172,7 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 }
+                loginflag = false;
             } else if (account.matches("")) {
                 if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
                     Toast toast = Toast.makeText(this, "User is empty", Toast.LENGTH_SHORT);
@@ -166,6 +187,7 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 }
+                loginflag = false;
             } else if (password.matches("")) {
                 if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
                     Toast toast = Toast.makeText(this, "Password is empty", Toast.LENGTH_SHORT);
@@ -180,15 +202,19 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 }
+                loginflag = false;
             } else {
-                if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
-                    loading.show("Logining...");
-                } else if (Value.language_flag == 1) {
-                    loading.show("登入中...");
-                } else if (Value.language_flag == 2) {
-                    loading.show("登陆中...");
+                if(!loginflag) {
+                    loginflag = true;
+                    if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs
+                        loading.show("Logining...");
+                    } else if (Value.language_flag == 1) {
+                        loading.show("登入中...");
+                    } else if (Value.language_flag == 2) {
+                        loading.show("登陆中...");
+                    }
+                    connected.setConnect(company, account, password, getConnect, checkBox);
                 }
-                connected.setConnect(company, account, password, getConnect, checkBox);
             }
         });
     }
@@ -316,6 +342,33 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
         return packInfo.versionName;
     }
 
+    private void getphoneId(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    Activity#requestPermissions
+                // here to request the missing permissions, and then overriding
+                // public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //  int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for Activity#requestPermissions for more details.
+                //未取得權限，向使用者要求允許權限
+                ActivityCompat.requestPermissions(this,
+                        new String[] {
+                                Manifest.permission.READ_PHONE_STATE
+                        }, 1);
+            }else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    this.startForegroundService(new Intent(this, MacauService.class));
+                } else {
+                    this.startService(new Intent(this, MacauService.class));
+                }
+            }
+        }else {
+            this.startService(new Intent(this, MacauService.class));
+        }
+    }
+
     public boolean onKeyDown(int key, KeyEvent event) {
         switch (key) {
             case KeyEvent.KEYCODE_SEARCH:
@@ -359,46 +412,80 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
         return false;
     }
 
+    @SuppressLint("HardwareIds")
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(TAG, "onStart");
+        Log.e(TAG, "onStart");
+        getphoneId();
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.d(TAG, "onRestart");
+        Log.e(TAG, "onRestart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        new Thread(APKversionCheck).start();    //APK版本偵測
-        //new Thread(versionCheck).start();   //google play商店版本偵測
-        Log.d(TAG, "onResume");
+        //new Thread(APKversionCheck).start();    //APK版本偵測
+        new Thread(versionCheck).start();   //google play商店版本偵測
+        Log.e(TAG, "onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(TAG, "onPause");
+        Log.e(TAG, "onPause");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop");
+        Log.e(TAG, "onStop");
+        Intent service = new Intent(this, MacauService.class);
+        stopService(service);
+        try {
+            sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy");
+        Log.e(TAG, "onDestroy");
+        //this.unbindService(conn);
         loginSQL.close();
         languageSQL.close();
         titleHandler.removeCallbacksAndMessages(true);
         checkHandler.removeCallbacksAndMessages(true);
+    }
+
+    @SuppressLint({"HardwareIds", "MissingPermission"})
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case READ_PHONE_STATE_CODE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // 申请同意
+                    TelephonyManager TelephonyMgr = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+                    assert TelephonyMgr != null;
+                    Value.clientId = TelephonyMgr.getDeviceId();
+                    Log.e(TAG, "Value.clientId = " + Value.clientId);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        this.startForegroundService(new Intent(this, MacauService.class));
+                    } else {
+                        this.startService(new Intent(this, MacauService.class));
+                    }
+                } else {
+                    finish();
+                }
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -457,6 +544,7 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
                 Value.login_in = true;
                 nextPage();
             } else if (result.matches("error1")) {
+                loginflag = false;
                 if(!error) {
                     error = true;
                     int flag = Value.api_flag;
@@ -487,6 +575,7 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
                     connected.setConnect(company, account, password, getConnect, checkBox);
                 }
             } else if (result.matches("error3")) {
+                loginflag = false;
                 if(Value.api_flag == Value.api_count - 1) {
                     loading.dismiss();
                     Value.api_flag = 0;
@@ -513,6 +602,7 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
                     connected.setConnect(company, account, password, getConnect, checkBox);
                 }
             } else if (result.matches("error4")) {
+                loginflag = false;
                 loading.dismiss();
                 Value.api_flag = 0;
                 if (Value.language_flag == 0) {  //flag = 0 => Eng, flag = 1 => Cht, flag = 2 => Chs

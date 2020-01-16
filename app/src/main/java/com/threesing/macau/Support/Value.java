@@ -21,4 +21,5 @@ public class Value {
     public static String ver;
     public static String updatestring = "All Data Are Based On Our System | Update Time : ";
     public static String copyright_text = "Copyright © 2019. All rights reserved." + " ver ";
+    public static String clientId;  //手機唯一識別碼
 }
