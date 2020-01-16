@@ -328,12 +328,12 @@
                 tools:ignore="RtlSymmetry,SmallSp" />
         </LinearLayout>
 
-        <!--imageview use android:layout_weight="1.05" -->
+        <!--imageview use android:layout_weight="1.02" -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1.02"
+            android:layout_weight="1.06"
             android:background="@drawable/datalist_title"
             android:gravity="center_vertical"
             android:orientation="vertical">
@@ -353,12 +353,12 @@
                 tools:ignore="RtlSymmetry,SmallSp" />
         </LinearLayout>
 
-        <!--imageview use android:layout_weight="1.05" -->
+        <!--imageview use android:layout_weight="1.02" -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1.02"
+            android:layout_weight="1.06"
             android:background="@drawable/datalist_title"
             android:gravity="center_vertical"
             android:orientation="vertical">
@@ -378,12 +378,12 @@
                 tools:ignore="RtlSymmetry,SmallSp" />
         </LinearLayout>
 
-        <!--imageview use android:layout_weight="1.15" -->
+        <!--imageview use android:layout_weight="1.21" -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1.21"
+            android:layout_weight="1.13"
             android:background="@drawable/datalist_title"
             android:gravity="center_vertical"
             android:orientation="vertical">

@@ -78,13 +78,6 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
     private TimeZone timeZone = new TimeZone();
     private boolean error = false, loginflag = false;
     private final static int READ_PHONE_STATE_CODE = 1;
-    private NotificationManager notifManager;
-    private MqttConnectOptions connectOptions;
-    private String broker = "tcp://210.244.56.216:1883";
-    private String clientId = "test";   //唯一字串，可任一取名
-    private MemoryPersistence persistence;
-    private MqttAndroidClient androidClient;
-    private String username = "mqtt", userpassword = "123qwe.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -417,7 +410,7 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
     protected void onStart() {
         super.onStart();
         Log.e(TAG, "onStart");
-        getphoneId();
+        //getphoneId();
     }
 
     @Override
@@ -429,8 +422,8 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
     @Override
     protected void onResume() {
         super.onResume();
-        //new Thread(APKversionCheck).start();    //APK版本偵測
-        new Thread(versionCheck).start();   //google play商店版本偵測
+        new Thread(APKversionCheck).start();    //APK版本偵測
+        //new Thread(versionCheck).start();   //google play商店版本偵測
         Log.e(TAG, "onResume");
     }
 
@@ -444,13 +437,13 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
     protected void onStop() {
         super.onStop();
         Log.e(TAG, "onStop");
-        Intent service = new Intent(this, MacauService.class);
+        /*Intent service = new Intent(this, MacauService.class);
         stopService(service);
         try {
             sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @Override
@@ -464,7 +457,7 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
         checkHandler.removeCallbacksAndMessages(true);
     }
 
-    @SuppressLint({"HardwareIds", "MissingPermission"})
+    /*@SuppressLint({"HardwareIds", "MissingPermission"})
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -486,7 +479,7 @@ public class MainActivity_fix extends AppCompatActivity implements ConnectListen
                 }
             }
         }
-    }
+    }*/
 
     @SuppressLint("SetTextI18n")
     @Override
